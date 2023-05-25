@@ -2,11 +2,13 @@
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
 	import Piechart from '../components/Piechart.svelte';
+	import Login from '../components/Login.svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import { Container, Button } from 'sveltestrap';
 	import { browser } from '$app/environment';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { isLoggedIn } from '../../stores/stores';
 	let pip = '';
 	let searchTerm = '';
 	let filtered_debts = [];
@@ -42,6 +44,8 @@
 	let newId = '';
 	let newBalance = 0;
 	let overLoad = false;
+	let username = '';
+	let password = '';
 	/**
 	 * @param {string} identity
 	 */
@@ -97,6 +101,8 @@
 
 {#if loading === true}
 	<Spinner />
+{:else if $isLoggedIn === false}
+	<Login {username} {password} />
 {:else}
 	<body>
 		<div class="flex justify-evenly">

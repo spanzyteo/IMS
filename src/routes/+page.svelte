@@ -1,27 +1,24 @@
-<script>
+<script lang="ts">
 	import Spinner from './components/Spinner.svelte';
 	import { onMount } from 'svelte';
 	import Sidebar from './components/Sidebar.svelte';
+	import Login from './components/Login.svelte';
 	import { Button, Input } from 'sveltestrap';
 	import { isLoggedIn } from '../stores/stores';
+
 	let loading = true;
 	let ac = 'home';
+	export let data;
 	onMount(() => {
 		// simulate a delay of 1.5 seconds
+		$isLoggedIn = data.loggedIn;
 		setTimeout(() => {
 			loading = false;
 		}, 500);
 	});
 	let username = '';
 	let password = '';
-	async function login() {
-		if (username.toLocaleLowerCase() === 'admin' && password === 'Admin') {
-			$isLoggedIn = true;
-		} else {
-			alert('Incorrect Login Credentials');
-			$isLoggedIn = false;
-		}
-	}
+
 	async function logout() {
 		$isLoggedIn = false;
 	}
@@ -33,26 +30,7 @@
 
 <body>
 	{#if $isLoggedIn === false}
-		<body>
-			<div class="spinner-container">
-				<form>
-					<div
-						class="w-[500px] text-center h-[500px] p-[5rem] rounded-3xl shadow-slate-700 shadow-lg bg-gradient-to-b from-[royalblue] to-[green]"
-					>
-						<h3 class="text-3xl font-extrabold p-3">Log In</h3>
-						<Input type="text" bind:value={username} placeholder="User Name" class=" border" /><br
-						/><br />
-						<Input
-							type="password"
-							bind:value={password}
-							placeholder="Password"
-							class=" border-l-indigo-600"
-						/><br /><br />
-						<Button color="success" on:click={login}>Log In</Button>
-					</div>
-				</form>
-			</div>
-		</body>
+		<Login {username} {password} />
 	{:else if loading === true}
 		<Spinner />
 	{:else}
@@ -128,11 +106,5 @@
 		#fixed {
 			display: none;
 		}
-	}
-	.spinner-container {
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
 	}
 </style>

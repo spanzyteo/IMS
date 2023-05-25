@@ -52,7 +52,7 @@
 				return acc + item.quantity * item.price;
 			}, 0);
 			details.total = total;
-			console.log(details.total);
+			console.log('Total: ', details.total);
 			details.balance = Number(total) - details.paid;
 			if (details.balance <= 0) {
 				details.balance = 0;
@@ -103,7 +103,7 @@
 		fd.append('invoice', JSON.stringify(details));
 		let data = await fetch('?/saveSimple', { method: 'POST', body: fd });
 		alert(`${data.message}`);
-		console.log(data);
+		// console.log(data);
 		// console.log(`New Data: ${data}`);
 	}
 </script>
@@ -134,121 +134,121 @@
 				<div class="invoice w-full">
 					<h1 class="font-extrabold text-2xl">Los Angis Global Resources</h1>
 					<p style="margin-bottom: 2rem;" class="add">47 Bedwell Street</p>
-					<form on:submit|preventDefault>
-						<table style="border: 2px solid;" class="items-center self-center px-0 w-fit m-0">
-							<thead>
-								<tr>
-									<th style="border-right: 2px solid;"
-										><div class="flex justify-evenly">
-											<div class="flex">
-												<p class="flex-wrap mr-4">Customer Name:</p>
-												<b
-													><input
-														type="text"
-														name="name"
-														class="w-fit"
-														bind:value={details.customer_name}
-													/></b
-												>
-											</div>
-										</div>
-									</th>
-								</tr>
-								<tr>
-									<th style="border-right: 2px solid;"
-										><div class="flex">
-											<div class="flex justify-evenly">
-												<p class="flex-wrap">ID:&nbsp;&nbsp;&nbsp;</p>
-												<b>{details.id}</b>
-												<input type="hidden" name="id" bind:value={details.id} />
-											</div>
-										</div>
-									</th>
-								</tr>
-								<tr>
-									<th style="border-right: 2px solid;" class="font-normal">
-										Date: {date}
-										<input name="date" type="hidden" bind:value={date} />
-									</th>
-								</tr>
-								<tr style="border: 2px solid;">
-									<th style="border-right: 2px solid;">Description</th>
-									<th style="border-right: 2px solid;">Quantity</th>
-									<th style="border-right: 2px solid;">Price (NGN)</th>
-									<th style="border-right: 2px solid;">Amount (NGN)</th>
-									<th style="border-right: 2px solid;">Remove Item</th>
-									<th>Balance (NGN)</th>
-									{#if displayed === true}<th><Icon name="trash" /></th>{/if}
-								</tr>
-							</thead>
-							<tbody>
-								{#each details.items as item, index}
-									<tr>
-										<td style="border-right: 2px solid; border-left: 2px solid;"
-											><input
-												type="text"
-												class="w-full"
-												name="items[name][]"
-												bind:value={item.name}
-												style="border: none;"
-											/></td
-										>
-										<td style="border-right: 2px solid"
-											><input
-												type="number"
-												style="border: none"
-												class="w-full"
-												name="items[quantity][]"
-												bind:value={item.quantity}
-												on:input={updateTotal}
-											/></td
-										>
-										<td style="border-right: 2px solid"
-											><input
-												type="number"
-												style="border: none"
-												class="w-full"
-												name="items[price][]"
-												bind:value={item.price}
-												on:input={updateTotal}
-											/></td
-										>
-										<td style="border-right: 2px solid;">{item.quantity * item.price}</td>
-										{#if displayed === true}<td>
-												<Button
-													color="danger"
+
+					<table style="border: 2px solid;" class="items-center self-center px-0 w-fit m-0">
+						<thead>
+							<tr>
+								<th style="border-right: 2px solid;"
+									><div class="flex justify-evenly">
+										<div class="flex">
+											<p class="flex-wrap mr-4">Customer Name:</p>
+											<b
+												><input
+													type="text"
+													name="name"
 													class="w-fit"
-													on:click={() => {
-														removeItem(index);
-													}}>Del</Button
-												>
-											</td>{/if}
-									</tr>
-								{/each}
-								<tr class="mt-[10rem]">
-									<td colspan="3" style="text-align: right;">Total:</td>
-									<input type="text" hidden name="total" value={total} />
-									<td>&#8358;{total}</td>
-									<td class="flex">
-										Paid: &#8358;<input
-											class="w-fit h-fit"
+													bind:value={details.customer_name}
+												/></b
+											>
+										</div>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th style="border-right: 2px solid;"
+									><div class="flex">
+										<div class="flex justify-evenly">
+											<p class="flex-wrap">ID:&nbsp;&nbsp;&nbsp;</p>
+											<b>{details.id}</b>
+											<input type="hidden" name="id" bind:value={details.id} />
+										</div>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th style="border-right: 2px solid;" class="font-normal">
+									Date: {date}
+									<input name="date" type="hidden" bind:value={date} />
+								</th>
+							</tr>
+							<tr style="border: 2px solid;">
+								<th style="border-right: 2px solid;">Description</th>
+								<th style="border-right: 2px solid;">Quantity</th>
+								<th style="border-right: 2px solid;">Price (NGN)</th>
+								<th style="border-right: 2px solid;">Amount (NGN)</th>
+								<th style="border-right: 2px solid;">Remove Item</th>
+								<th>Balance (NGN)</th>
+								{#if displayed === true}<th><Icon name="trash" /></th>{/if}
+							</tr>
+						</thead>
+						<tbody>
+							{#each details.items as item, index}
+								<tr>
+									<td style="border-right: 2px solid; border-left: 2px solid;"
+										><input
+											type="text"
+											class="w-full"
+											name="items[name][]"
+											bind:value={item.name}
+											style="border: none;"
+										/></td
+									>
+									<td style="border-right: 2px solid"
+										><input
 											type="number"
-											name="paid"
-											style="border-right: 2px solid;"
-											bind:value={details.paid}
+											style="border: none"
+											class="w-full"
+											name="items[quantity][]"
+											bind:value={item.quantity}
 											on:input={updateTotal}
 										/></td
 									>
-									<td>Bal: &#8358; {details.balance} </td>
-									<input type="number" hidden value={details.balance} name="bal" />
+									<td style="border-right: 2px solid"
+										><input
+											type="number"
+											style="border: none"
+											class="w-full"
+											name="items[price][]"
+											bind:value={item.price}
+											on:input={updateTotal}
+										/></td
+									>
+									<td style="border-right: 2px solid;">{item.quantity * item.price}</td>
+									{#if displayed === true}<td>
+											<Button
+												color="danger"
+												class="w-fit"
+												on:click={() => {
+													removeItem(index);
+												}}>Del</Button
+											>
+										</td>{/if}
 								</tr>
-							</tbody>
-						</table>
-						<div class="mt-8 mb-8">
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<button class="btn btn-success" on:click={saveandredirect}>Save</button>
-						</div>
-					</form>
+							{/each}
+							<tr class="mt-[10rem]">
+								<td colspan="3" style="text-align: right;">Total:</td>
+								<input type="text" hidden name="total" value={total} />
+								<td>&#8358;{total}</td>
+								<td class="flex">
+									Paid: &#8358;<input
+										class="w-fit h-fit"
+										type="number"
+										name="paid"
+										style="border-right: 2px solid;"
+										bind:value={details.paid}
+										on:input={updateTotal}
+									/></td
+								>
+								<td>Bal: &#8358; {details.balance} </td>
+								<input type="number" hidden value={details.balance} name="bal" />
+							</tr>
+						</tbody>
+					</table>
+					<div class="mt-8 mb-8">
+						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<button class="btn btn-success" on:click={saveandredirect}>Save</button>
+					</div>
+
 					{#if displayed === true}
 						<Button color="success" outline on:click={addItem}>Add Item</Button>
 						<Button color="danger" on:click={cancel}>Cancel</Button>

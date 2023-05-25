@@ -1,7 +1,7 @@
 import fs from 'fs';
 export async function PUT({ request }) {
 	const res = await request.json();
-	console.log(res);
+	res);
 	const newId = res.newId;
 	let newBalance;
 	let newPaid;

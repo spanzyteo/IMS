@@ -1,10 +1,14 @@
 <script>
+	import { isLoggedIn } from '../../../stores/stores';
 	import Invoice from '../../components/Invoice.svelte';
+	import Login from '../../components/Login.svelte';
 	import Spinner from '../../components/Spinner.svelte';
 	import { onMount } from 'svelte';
 	import { Icon } from 'sveltestrap';
 	export let data;
 	let invoiceDetails = data.invoice;
+	let username = '';
+	let password = '';
 	let loading = true;
 	onMount(() => {
 		// simulate a delay of 1.5 seconds
@@ -25,6 +29,8 @@
 	<body class="h-full bg-white">
 		{#if loading === true}
 			<Spinner />
+		{:else if $isLoggedIn === false}
+			<Login {username} {password} />
 		{:else}
 			<Invoice details={invoiceDetails} />
 		{/if}

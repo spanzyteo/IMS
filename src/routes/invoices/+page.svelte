@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { isLoggedIn } from '../../stores/stores';
+	import Login from '../components/Login.svelte';
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
 	import { onMount } from 'svelte';
@@ -9,6 +11,8 @@
 	let searchterm = '';
 	let filtered_invoices = invoices;
 	let loading = true;
+	let username = '';
+	let password = '';
 	let d = new Date();
 	let date = d.toDateString();
 	console.log(date);
@@ -31,6 +35,8 @@
 	<body>
 		{#if loading === true}
 			<Spinner />
+		{:else if $isLoggedIn === false}
+			<Login {username} {password} />
 		{:else}
 			<div class="flex">
 				<div>

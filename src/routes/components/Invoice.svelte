@@ -21,7 +21,7 @@
 	 */
 	let updateTotal = () => {
 		invdet = { details };
-		console.log(invdet);
+		// console.log(invdet);
 		if (invdet) {
 			let invoiceDetails = invdet.details.items;
 			total = invoiceDetails.reduce((acc, item) => {

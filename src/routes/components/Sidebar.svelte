@@ -83,6 +83,7 @@
 		height: 100vh;
 		width: 70px;
 		overflow: hidden;
+		transition: 0.5s;
 	}
 	.sidebar:hover {
 		width: 300px;

@@ -2,16 +2,16 @@
 	import { onMount } from 'svelte';
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
+	import { isLoggedIn } from '../../stores/stores';
+	import Login from '../components/Login.svelte';
 	let myVariable = 5;
 	let loading = true;
 	let searchTerm = '';
+	let username = '';
+	let password = '';
 	export let data;
 	let inventory = data.data;
-	if (myVariable <= 0) {
-		console.log('myVariable is less than or equal to 0');
-	} else {
-		console.log('myVariable is greater than 0');
-	}
+
 	let ac = 'inventory';
 	onMount(() => {
 		// simulate a delay of 1.5 seconds
@@ -40,6 +40,8 @@
 
 {#if loading === true}
 	<Spinner />
+{:else if $isLoggedIn === false}
+	<Login {username} {password} />
 {:else}
 	<div class="flex">
 		<Sidebar active_component={ac} />
