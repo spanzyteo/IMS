@@ -93,7 +93,6 @@ export const auth = lucia({
 });
 
 export type Auth = typeof auth;
-let validator;
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
 	return await resolve(event);
