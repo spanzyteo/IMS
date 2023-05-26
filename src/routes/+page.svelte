@@ -5,13 +5,18 @@
 	import Login from './components/Login.svelte';
 	import { Button, Input } from 'sveltestrap';
 	import { isLoggedIn } from '../stores/stores';
+	import { page } from '$app/stores';
+	import { ensureLogin } from '$lib/authorise';
 
 	let loading = true;
 	let ac = 'home';
-	export let data;
+
 	onMount(() => {
-		// simulate a delay of 1.5 seconds
-		$isLoggedIn = data.loggedIn;
+		ensureLogin($page.data);
+		if ($page.data.length > 0) {
+			$isLoggedIn = true;
+		}
+
 		setTimeout(() => {
 			loading = false;
 		}, 500);
@@ -29,9 +34,7 @@
 </svelte:head>
 
 <body>
-	{#if $isLoggedIn === false}
-		<Login {username} {password} />
-	{:else if loading === true}
+	{#if loading === true}
 		<Spinner />
 	{:else}
 		<div class="flex overflow-hidden justify-between">

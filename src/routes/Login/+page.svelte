@@ -1,7 +1,9 @@
 <script>
+	import { onMount } from 'svelte';
 	import { Input, Button } from 'sveltestrap';
 	// import { isLoggedIn } from '../../stores/stores';
 	// import { goto } from '$app/navigation';
+
 	let details = {
 		email: '',
 		password: ''
@@ -10,9 +12,10 @@
 	async function login(e) {
 		e.preventDefault();
 		fd.append('user', JSON.stringify(details));
+		console.log(details);
 		let data = await fetch('?/login', { method: 'POST', body: fd });
 		// alert(`${data.message}`);
-		console.log(data);
+		// console.log(data);
 		// console.log(`New Data: ${data}`);
 	}
 </script>

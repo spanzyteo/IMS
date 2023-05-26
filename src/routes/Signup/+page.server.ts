@@ -1,11 +1,12 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '../../hooks.server';
+import bcrypt from 'bcrypt';
 // import type { RequestEvent } from '../$types';
 
 export const actions = {
 	signup: async ({ request, locals }) => {
 		const data = await request.formData();
-
+		const saltRounds = 10;
 		const { email, password, name } = JSON.parse(data.get('user') as any);
 		console.log('Email: ', email, '\n', 'User Name: ', name);
 
@@ -26,10 +27,11 @@ export const actions = {
 				},
 				attributes: {
 					email,
-					password,
+					password: bcrypt.hashSync(password, saltRounds),
 					name
 				}
 			});
+			console.log(password);
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 			if (session.userId) {

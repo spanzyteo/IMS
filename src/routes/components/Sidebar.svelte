@@ -9,10 +9,7 @@
 	></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </svelte:head>
-<div
-	class="sidebar h-[100vh] font-poppins"
-	style="background-image: linear-gradient(royalblue, green);"
->
+<div class="sidebar h-[100vh] font-poppins bg-slate-600">
 	<a href="/"><img src="/logo.jpg" alt="Logo" class="w-auto h-auto" /></a>
 	<ul class="mx-auto mt-20">
 		<a href="/"
