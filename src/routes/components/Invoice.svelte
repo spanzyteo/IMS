@@ -7,7 +7,7 @@
 	onMount(() => {
 		displayed = true;
 		updateTotal();
-		console.log(details);
+		// console.log(details);
 	});
 	let displayed = true;
 	let visual;

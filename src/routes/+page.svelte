@@ -13,7 +13,7 @@
 
 	onMount(() => {
 		ensureLogin($page.data);
-		if ($page.data.length > 0) {
+		if ($page.data.session.userId) {
 			$isLoggedIn = true;
 		}
 
@@ -48,7 +48,7 @@
 							<div class="py-6">
 								<a href="/">
 									<img
-										src="/home.png"
+										src="/Icons/home-outline.svg"
 										alt="logo"
 										class="w-[200px] border-slate-500 border-2 p-3 rounded-2xl hover:bg-sky-500"
 									/>
@@ -60,7 +60,7 @@
 							<div class="py-6">
 								<a href="/Banking">
 									<img
-										src="/bank.png"
+										src="/Icons/cash.svg"
 										alt="logo"
 										class="w-[200px] h-full p-3 border-slate-500 border-2 rounded-2xl hover:bg-sky-500"
 									/>
@@ -74,7 +74,7 @@
 							<div class="py-6">
 								<a href="/invoices">
 									<img
-										src="/invoice.png"
+										src="/Icons/clipboard-outline.svg"
 										alt="logo"
 										class="w-[200px] border-slate-500 border-2 text-center p-3 hover:bg-sky-500 rounded-2xl"
 									/>
@@ -86,7 +86,7 @@
 							<div class="py-6">
 								<a href="/">
 									<img
-										src="/inventory.png"
+										src="/Icons/receipt-outline.svg"
 										alt="logo"
 										class="w-[200px] p-3 text-center border-slate-500 border-2 rounded-2xl hover:bg-sky-500"
 									/>

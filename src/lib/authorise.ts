@@ -1,8 +1,6 @@
 import { redirect, fail } from '@sveltejs/kit';
-import { isLoggedIn } from '../stores/stores';
 
-export async function ensureLogin(page) {
-	console.log(page.session);
+export async function ensureLogin(page: { session: any }) {
 	try {
 		if (!page.session) {
 			// console.log(page.session);

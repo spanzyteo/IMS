@@ -4,11 +4,13 @@
 	import Piechart from '../components/Piechart.svelte';
 	import Login from '../components/Login.svelte';
 	import { onMount, onDestroy } from 'svelte';
+	import { page } from '$app/stores';
 	import { Container, Button } from 'sveltestrap';
 	import { browser } from '$app/environment';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../../stores/stores';
+	import { ensureLogin } from '$lib/authorise';
 	let pip = '';
 	let searchTerm = '';
 	let filtered_debts = [];
@@ -25,7 +27,7 @@
 	let ac = 'bills';
 
 	async function chartData() {
-		for (var i = 0; i < cashFlow.length; i++) {
+		for (let i = 0; i < cashFlow.length; i++) {
 			totalPaid += parseInt(cashFlow[i].paid);
 			total += parseInt(cashFlow[i].total);
 			balance += parseInt(cashFlow[i].balance);
@@ -36,6 +38,13 @@
 	}
 	chartData();
 	onMount(() => {
+		// @ts-ignore
+		ensureLogin($page.data);
+		if ($page.data.session.userId) {
+			$isLoggedIn = true;
+		} else {
+			goto('/Login');
+		}
 		// simulate a delay of 1.5 seconds
 		setTimeout(() => {
 			loading = false;
@@ -59,6 +68,7 @@
 				method: 'PUT',
 				body: JSON.stringify({
 					newId: newId,
+					// @ts-ignore
 					newBalance: parseFloat(newBalance)
 				}),
 				headers: {
@@ -101,8 +111,6 @@
 
 {#if loading === true}
 	<Spinner />
-{:else if $isLoggedIn === false}
-	<Login {username} {password} />
 {:else}
 	<body>
 		<div class="flex justify-evenly">

@@ -2,8 +2,8 @@ import { readFileSync } from 'fs';
 export async function GET() {
 	try {
 		let data = readFileSync(`./src/lib/invoices.json`, 'utf-8');
-		let res = JSON.parse(JSON.stringify(data));
-		return new Response(res);
+		let res = JSON.parse(data);
+		return new Response(JSON.stringify(res));
 	} catch (error) {
 		// If an error occurred, return an error response
 		return {

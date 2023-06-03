@@ -1,18 +1,16 @@
-import { redirect } from '@sveltejs/kit';
 import type { Handle } from '@sveltejs/kit';
 import lucia from 'lucia-auth';
 import { sveltekit } from 'lucia-auth/middleware';
 import adapter from '@lucia-auth/adapter-mongoose';
 import mongoose from 'mongoose';
 import { dev } from '$app/environment';
-import { isLoggedIn } from './stores/stores';
 import * as dotenv from 'dotenv';
 dotenv.config();
 async function connectToDB() {
 	await mongoose
-		.connect(`${process.env.MONGO_URI}`)
-		.then((res) => console.log('Connected To Database.'))
-		.catch((e) => {
+		.connect(`${process.env.MONGO_URI_OFFLINE}`)
+		.then(() => console.log('Connected To Database.'))
+		.catch(() => {
 			console.log(`Connection to Database Failed.`);
 		});
 }

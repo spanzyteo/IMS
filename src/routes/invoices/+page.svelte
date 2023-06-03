@@ -5,6 +5,8 @@
 	import Spinner from '../components/Spinner.svelte';
 	import { onMount } from 'svelte';
 	import { Button, Icon } from 'sveltestrap';
+	import { ensureLogin } from '$lib/authorise';
+	import { page } from '$app/stores';
 	let ac = 'invoices';
 	export let data;
 	let invoices = data.invoice;
@@ -20,6 +22,12 @@
 		invoice.customer_name?.toLocaleLowerCase().includes(searchterm.toLocaleLowerCase())
 	);
 	onMount(() => {
+		ensureLogin($page.data);
+		if ($page.data.session.userId) {
+			$isLoggedIn = true;
+		} else {
+			$isLoggedIn = false;
+		}
 		// simulate a delay of 1.5 seconds
 		setTimeout(() => {
 			loading = false;

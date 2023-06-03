@@ -9,7 +9,11 @@ export async function load({ fetch, locals }: any) {
 		return {
 			session,
 			user,
-			response: response
+			response
+		};
+	} else {
+		return {
+			response
 		};
 	}
 }

@@ -32,7 +32,7 @@
 					id="active"
 					class="mt-[2rem] font-bold hover:text-white cursor-pointer"
 				>
-					<span class="icon"><ion-icon name="bar-chart-outline" /></span>
+					<span class="icon"><ion-icon name="cash-outline" /></span>
 					<span class="text">Banking</span>
 				</li>
 			{:else}
