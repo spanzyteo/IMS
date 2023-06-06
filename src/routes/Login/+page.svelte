@@ -1,8 +1,9 @@
 <script>
-	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { ensureLogin } from '$lib/authorise';
 	import { Input, Button } from 'sveltestrap';
+	import { deserialize } from '$app/forms';
 	// import { isLoggedIn } from '../../stores/stores';
-	// import { goto } from '$app/navigation';
 
 	let details = {
 		email: '',
@@ -14,9 +15,17 @@
 		fd.append('user', JSON.stringify(details));
 		console.log(details);
 		let data = await fetch('?/login', { method: 'POST', body: fd });
-		// alert(`${data.message}`);
-		// console.log(data);
-		// console.log(`New Data: ${data}`);
+		let res = await data.text();
+		let fullres = deserialize(res);
+		if (fullres.data.success) {
+			alert('Login Successful, Redirecting...');
+			await goto(`${fullres.data.url}`);
+		}
+		// if (data.ok) {
+		// 	ensureLogin($page.data);
+		// 	alert(`Logged In`);
+		// 	await goto('/');
+		// }
 	}
 </script>
 

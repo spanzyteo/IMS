@@ -18,18 +18,22 @@ export const actions: Actions = {
 		const { email, password } = JSON.parse(data.get('user') as any);
 		// check for empty values
 		if (typeof email !== 'string' || typeof password !== 'string') return fail(400);
-		try {
-			const key = await auth.useKey('email', email, password);
-			const session = await auth.createSession(key.userId);
-			// console.log('Key: ', key, 'Session: ', session);
-			locals.auth.setSession(session);
-			if (key.userId && session.userId) {
-				console.log(key.userId, session.userId);
-				throw redirect(302, '/');
-			}
-		} catch {
-			// invalid username/password
-			return fail(400);
+		const key = await auth.useKey('email', email, password);
+		const session = await auth.createSession(key.userId);
+		// console.log('Key: ', key, 'Session: ', session);
+		locals.auth.setSession(session);
+		if (key.userId) {
+			console.log('User ID: ', key.userId);
+			return {
+				url: '/',
+				status: 200,
+				success: true
+			};
+		} else {
+			return {
+				status: 502,
+				url: '/Login'
+			};
 		}
 	}
 };

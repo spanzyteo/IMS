@@ -9,10 +9,14 @@
 	import invoices from '$lib/invoices.json';
 	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
-
+	import { ensureLogin } from '$lib/authorise';
+	import { page } from '$app/stores';
+	let userId = $page.data.user.userId;
 	//@ts-ignore
 	// export let form;
 	onMount(() => {
+		ensureLogin($page.data);
+		console.log($page.data.user);
 		displayed = true;
 		// @ts-ignore
 		updateTotal();
@@ -39,6 +43,7 @@
 	// @ts-ignore
 	let details = {
 		customer_name: '',
+		userId,
 		id: `${newId}`,
 		date: `${date}`,
 		items: [{ name: 'Item', quantity: 0, price: 0 }],
@@ -123,7 +128,7 @@
 						<a href="/" class="p-3 hover:text-gray-300"><li>Home</li></a>
 						<a href="/Banking" class="p-3 hover:text-gray-300"><li>Banking</li></a>
 						<a href="/invoices" class="p-3 hover:text-gray-300"><li>Invoices</li></a>
-						<a href="/" class="p-3 hover:text-gray-300"><li>Inventory</li></a>
+						<a href="/Inventory" class="p-3 hover:text-gray-300"><li>Inventory</li></a>
 					</ul>
 				</nav>
 				<br /><br />

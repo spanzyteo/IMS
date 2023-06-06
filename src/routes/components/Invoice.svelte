@@ -49,7 +49,7 @@
 				<a href="/" class="p-3 hover:text-gray-300"><li>Home</li></a>
 				<a href="/Banking" class="p-3 hover:text-gray-300"><li>Banking</li></a>
 				<a href="/invoices" class="p-3 hover:text-gray-300"><li>Invoices</li></a>
-				<a href="/" class="p-3 hover:text-gray-300"><li>Inventory</li></a>
+				<a href="/Inventory" class="p-3 hover:text-gray-300"><li>Inventory</li></a>
 			</ul>
 		</nav>
 	{/if}

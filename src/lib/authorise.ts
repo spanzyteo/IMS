@@ -2,11 +2,11 @@ import { redirect, fail } from '@sveltejs/kit';
 
 export async function ensureLogin(page: { session: any }) {
 	try {
-		if (!page.session) {
-			// console.log(page.session);
-			throw redirect(302, '/Login');
+		if (page.session.userId) {
+			console.log('User Is Logged In');
 		} else {
-			console.log('User is Logged in');
+			console.log('User is Logged Out');
+			throw redirect(302, '/Login');
 		}
 	} catch {
 		return fail(500);

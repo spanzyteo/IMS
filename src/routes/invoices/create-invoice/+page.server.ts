@@ -5,6 +5,7 @@ import type { PageServerLoad } from './$types.js';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
+
 	if (session && user) {
 		return {
 			session,
@@ -62,10 +63,10 @@ export const actions = {
 	saveSimple: async ({ request }) => {
 		try {
 			const data = await request.formData();
-			const { id, customer_name, date, balance, paid, total, items } = JSON.parse(
+			const { id, customer_name, date, balance, paid, total, items, userId } = JSON.parse(
 				data.get('invoice') as any
 			);
-
+			console.log(userId);
 			const invoice = {
 				lastUpdatedAt: new Date().toLocaleString(),
 				customer_name,
@@ -77,7 +78,7 @@ export const actions = {
 				total: parseFloat(total)
 			};
 			let inv = [...invoices, invoice];
-			await fs.writeFile('./src/lib/invoices.json', JSON.stringify(inv), 'utf-8', (err) => {
+			await fs.writeFile(`./src/lib/${userId}.json`, JSON.stringify(inv), 'utf-8', (err) => {
 				if (err) {
 					console.error(err);
 					throw redirect(307, `/invoices/${id}`);

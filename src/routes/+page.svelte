@@ -6,7 +6,9 @@
 	import { Button, Input } from 'sveltestrap';
 	import { isLoggedIn } from '../stores/stores';
 	import { page } from '$app/stores';
+	import { deserialize } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
+	import { goto } from '$app/navigation';
 
 	let loading = true;
 	let ac = 'home';
@@ -24,8 +26,12 @@
 	let username = '';
 	let password = '';
 
-	async function logout() {
-		$isLoggedIn = false;
+	let fi = new FormData();
+	async function logout(e) {
+		e.preventDefault();
+		let data = await fetch('?/logout', { method: 'POST', body: fi });
+		deserialize(await data.text());
+		// window.location.reload();
 	}
 </script>
 
@@ -60,7 +66,7 @@
 							<div class="py-6">
 								<a href="/Banking">
 									<img
-										src="/Icons/cash.svg"
+										src="/Icons/cash-outline.svg"
 										alt="logo"
 										class="w-[200px] h-full p-3 border-slate-500 border-2 rounded-2xl hover:bg-sky-500"
 									/>
@@ -84,7 +90,7 @@
 						</li>
 						<li>
 							<div class="py-6">
-								<a href="/">
+								<a href="/Inventory">
 									<img
 										src="/Icons/receipt-outline.svg"
 										alt="logo"

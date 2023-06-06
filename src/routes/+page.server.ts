@@ -17,3 +17,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/Login');
 	}
 };
+
+export const actions: Actions = {
+	logout: async ({ locals }) => {
+		const { session } = await locals.auth.validateUser();
+		if (!session) return fail(401);
+		await auth.invalidateSession(session.sessionId); // invalidate session
+		locals.auth.setSession(null); // remove cookie
+		if (session === null) {
+			throw redirect(302, '/Login');
+		}
+	}
+};

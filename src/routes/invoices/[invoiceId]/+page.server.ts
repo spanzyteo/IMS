@@ -1,6 +1,6 @@
 import { redirect, type RequestEvent } from '@sveltejs/kit';
-import invoices from '$lib/invoices.json';
-import { readFileSync, writeFileSync } from 'fs';
+
+import { readFileSync } from 'fs';
 
 export interface Category {
 	id?: string;
@@ -15,6 +15,8 @@ export async function load({
 }: RequestEvent): Promise<{ invoice: Category | null }> {
 	const { user, session } = await locals.auth.validateUser();
 	const invoiceId = params.invoiceId as string; // get the invoice id from the URL parameter
+	const id = readFileSync(`./src/lib/${user.userId}.json`, 'utf-8');
+	const invoices = JSON.parse(id);
 	const invoice = invoices.find((inv: Category) => inv.id === invoiceId); // find the invoice in the JSON file by id
 	if (user && session) {
 		return {

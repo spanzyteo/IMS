@@ -119,13 +119,17 @@
 			</div>
 			<div class="mx-auto w-full">
 				<div class="text-center mx-auto">
-					<h1 class="pt-3 px-12 mb-6 ml-[10rem] font-bold text-3xl text-center">Banking</h1>
+					<h1 class="pt-3 px-12 mb-6 ml-[10rem] font-comforta font-bold text-3xl text-center">
+						Banking
+					</h1>
 				</div>
 				<div class="text-center mx-auto">
 					<Piechart total={Number(total)} paid={Number(totalPaid)} bal={Number(balance)} />
 				</div>
-				<section class="mt-[10rem] w-full mx-auto px-auto font-bold text-lg text-left h-fit">
-					<div class="pt-3 px-12 mb-6 ml-[10rem] font-bold text-lg text-center">
+				<section
+					class="mt-[10rem] font-comforta w-full mx-auto px-auto font-bold text-lg text-left h-fit"
+				>
+					<div class="pt-3 px-12 mb-6 font-comforta ml-[10rem] font-bold text-lg text-center">
 						<p>Total Amount: &nbsp; {total.toLocaleString()}</p>
 						<p>Debts/Balance: &nbsp; {balance.toLocaleString()}</p>
 						<p>Total Amount Paid: &nbsp; {totalPaid.toLocaleString()}</p>
