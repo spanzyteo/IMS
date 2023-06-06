@@ -29,8 +29,6 @@
 	<body class="h-full bg-white">
 		{#if loading === true}
 			<Spinner />
-		{:else if $isLoggedIn === false}
-			<Login {username} {password} />
 		{:else}
 			<Invoice details={invoiceDetails} />
 		{/if}

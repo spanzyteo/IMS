@@ -43,8 +43,6 @@
 	<body>
 		{#if loading === true}
 			<Spinner />
-		{:else if $isLoggedIn === false}
-			<Login {username} {password} />
 		{:else}
 			<div class="flex">
 				<div>

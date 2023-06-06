@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from 'fs';
 
 export async function load({ fetch, params, locals }: RequestEvent) {
 	const { user, session } = await locals.auth.validateUser();
-	let inv;
+	let inv = '';
 	let invoices = [];
 	try {
 		inv = readFileSync(`./src/lib/${user.userId}.json`, 'utf-8');
@@ -26,7 +26,7 @@ export async function load({ fetch, params, locals }: RequestEvent) {
 		}
 	} catch (e) {
 		if (e.code === 'ENOENT') {
-			inv = writeFileSync(`./src/lib/${user.userId}.json`, '[]');
+			inv = writeFileSync(`./src/lib/${user.userId}.json`, '');
 			if (user && session) {
 				// console.log(user, session);
 				return {

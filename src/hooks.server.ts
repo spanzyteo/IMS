@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 async function connectToDB() {
 	await mongoose
-		.connect(`${process.env.MONGO_URI_OFFLINE}`)
+		.connect(`${process.env.MONGO_URI_ONLINE}`)
 		.then(() => console.log('Connected To Database.'))
 		.catch(() => {
 			console.log(`Connection to Database Failed.`);

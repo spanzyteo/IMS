@@ -17,79 +17,52 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions = {
-	save: async ({ request }) => {
-		try {
-			const data = await request.formData();
-			const customer_name = data.get('name');
-			const id = data.get('id');
-			const date = data.get('date');
-			const balance = data.get('bal');
-			const paid = data.get('paid');
-			const total = data.get('total');
-			const itemName = data.getAll('items[name][]');
-			const itemQuan = data.getAll('items[quantity][]');
-			const itemPrice = data.getAll('items[price][]');
-			const items = itemName.map((name, index) => ({
-				name,
-				quantity: parseFloat(itemQuan[index]),
-				price: parseFloat(itemPrice[index])
-			}));
-			const invoice = {
-				lastUpdatedAt: new Date().toLocaleString(),
-				customer_name,
-				id,
-				date,
-				items,
-				balance: parseFloat(balance),
-				paid: parseFloat(paid),
-				total: parseFloat(total)
-			};
-			let inv = [...invoices, invoice];
-			await fs.writeFile('./src/lib/invoices.json', JSON.stringify(inv), 'utf-8', (err) => {
-				if (err) {
-					console.error(err);
-					return { success: false };
-				}
-				console.log('Invoice saved successfully');
-				return { success: true };
-			});
-			return { success: true, message: 'Invoice Saved Successfully', url: `/invoices/${id}` };
-		} catch (error) {
-			console.error(error);
-			return { success: false, message: 'Invoice Not saved' };
-		}
-	},
-
 	saveSimple: async ({ request }) => {
+		const data = await request.formData();
+		const { id, customer_name, date, balance, paid, total, items, userId } = JSON.parse(
+			data.get('invoice') as any
+		);
+		let message = '';
+		let url = '';
+		const invoice = {
+			lastUpdatedAt: new Date().toLocaleString(),
+			customer_name,
+			id,
+			date,
+			items,
+			balance: parseFloat(balance),
+			paid: parseFloat(paid),
+			total: parseFloat(total)
+		};
+		let preInv;
+		let filePath = `./src/lib/${userId}.json`;
 		try {
-			const data = await request.formData();
-			const { id, customer_name, date, balance, paid, total, items, userId } = JSON.parse(
-				data.get('invoice') as any
-			);
-			console.log(userId);
-			const invoice = {
-				lastUpdatedAt: new Date().toLocaleString(),
-				customer_name,
-				id,
-				date,
-				items,
-				balance: parseFloat(balance),
-				paid: parseFloat(paid),
-				total: parseFloat(total)
-			};
-			let inv = [...invoices, invoice];
-			await fs.writeFile(`./src/lib/${userId}.json`, JSON.stringify(inv), 'utf-8', (err) => {
-				if (err) {
-					console.error(err);
-					throw redirect(307, `/invoices/${id}`);
-					return { success: false };
+			if (fs.existsSync(filePath)) {
+				const fileContent = fs.readFileSync(filePath, 'utf-8');
+				if (fileContent.trim() === '') {
+					preInv = [];
+				} else {
+					preInv = JSON.parse(fileContent);
 				}
-				console.log('Invoice saved successfully');
-				return { success: true, message: 'Invoice saved successfully' };
-			});
+			} else {
+				preInv = [];
+			}
+			console.log(preInv);
+			let inv = [...preInv, invoice];
+			fs.writeFileSync(`./src/lib/${userId}.json`, JSON.stringify(inv), 'utf-8');
+			console.log('Invoice saved successfully');
+			message = 'Invoice Saved Successfully';
+			url = `/invoices/${id}`;
+			return {
+				success: true,
+				message,
+				url
+			};
 		} catch (error) {
-			console.error(error);
-			return { success: false, message: 'Invoice Not saved' };
+			console.log('Error: ', error);
+			message = 'Invoice Not Saved';
+			preInv = [];
+			return { message };
 		}
 	}
 };

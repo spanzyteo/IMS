@@ -80,7 +80,7 @@
 							<div class="py-6">
 								<a href="/invoices">
 									<img
-										src="/Icons/clipboard-outline.svg"
+										src="/Icons/receipt-outline.svg"
 										alt="logo"
 										class="w-[200px] border-slate-500 border-2 text-center p-3 hover:bg-sky-500 rounded-2xl"
 									/>
@@ -92,7 +92,7 @@
 							<div class="py-6">
 								<a href="/Inventory">
 									<img
-										src="/Icons/receipt-outline.svg"
+										src="/Icons/clipboard-outline.svg"
 										alt="logo"
 										class="w-[200px] p-3 text-center border-slate-500 border-2 rounded-2xl hover:bg-sky-500"
 									/>

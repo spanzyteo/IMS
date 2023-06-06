@@ -8,7 +8,7 @@
 	import Spinner from '../../components/Spinner.svelte';
 	import invoices from '$lib/invoices.json';
 	import { goto } from '$app/navigation';
-	import { enhance } from '$app/forms';
+	import { deserialize, enhance } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
 	let userId = $page.data.user.userId;
@@ -107,7 +107,14 @@
 	async function saveandredirect() {
 		fd.append('invoice', JSON.stringify(details));
 		let data = await fetch('?/saveSimple', { method: 'POST', body: fd });
-		alert(`${data.message}`);
+		let res = deserialize(await data.text());
+		console.log(res);
+		if (res.type === 'success') {
+			alert(`${res.data.message}`);
+			await goto(`${res.data.url}`);
+		} else {
+			alert(`${res.data.message}`);
+		}
 		// console.log(data);
 		// console.log(`New Data: ${data}`);
 	}
