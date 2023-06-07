@@ -13,7 +13,6 @@
 	async function login(e) {
 		e.preventDefault();
 		fd.append('user', JSON.stringify(details));
-		console.log(details);
 		let data = await fetch('?/login', { method: 'POST', body: fd });
 		let res = await data.text();
 		let fullres = deserialize(res);
@@ -29,6 +28,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 <body>
 	<div class="login-container">
 		<form>

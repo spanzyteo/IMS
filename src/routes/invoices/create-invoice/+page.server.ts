@@ -47,7 +47,7 @@ export const actions = {
 			} else {
 				preInv = [];
 			}
-			console.log(preInv);
+
 			let inv = [...preInv, invoice];
 			fs.writeFileSync(`./src/lib/${userId}.json`, JSON.stringify(inv), 'utf-8');
 			console.log('Invoice saved successfully');
