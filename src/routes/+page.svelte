@@ -30,7 +30,13 @@
 	async function logout(e) {
 		e.preventDefault();
 		let data = await fetch('?/logout', { method: 'POST', body: fi });
-		deserialize(await data.text());
+		let res = deserialize(await data.text());
+		console.log(res);
+		if (res.type === 'success') {
+			ensureLogin(null);
+			alert('Logout Successfull');
+			await goto(`/Login`);
+		}
 		// window.location.reload();
 	}
 </script>

@@ -18,11 +18,18 @@
 	let d = new Date();
 	let date = d.toDateString();
 	console.log(date);
-	$: filtered_invoices = invoices.filter((invoice) =>
-		invoice.customer_name?.toLocaleLowerCase().includes(searchterm.toLocaleLowerCase())
-	);
+	$: {
+		if (searchterm) {
+			filtered_invoices = invoices.filter((invoice) =>
+				invoice.customer_name?.toLocaleLowerCase().includes(searchterm.toLocaleLowerCase())
+			);
+		} else {
+			filtered_invoices = invoices;
+		}
+	}
 	onMount(() => {
 		ensureLogin($page.data);
+
 		if ($page.data.session.userId) {
 			$isLoggedIn = true;
 		} else {
