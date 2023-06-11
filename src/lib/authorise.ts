@@ -1,8 +1,8 @@
 import { redirect, fail } from '@sveltejs/kit';
 
-export async function ensureLogin(page: { session: any }) {
+export async function ensureLogin(page) {
 	try {
-		if (page.session.userId) {
+		if (page != null) {
 			console.log('User Is Logged In');
 		} else {
 			console.log('User is Logged Out');

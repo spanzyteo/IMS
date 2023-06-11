@@ -25,7 +25,10 @@ export const actions: Actions = {
 		await auth.invalidateSession(session.sessionId); // invalidate session
 		locals.auth.setSession(null); // remove cookie
 		if (session === null) {
-			throw redirect(302, '/Login');
+			return {
+				success: true,
+				url: '/Login'
+			};
 		}
 	}
 };

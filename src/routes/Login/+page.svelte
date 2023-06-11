@@ -14,7 +14,6 @@
 	async function login(e) {
 		e.preventDefault();
 		fd.append('user', JSON.stringify(details));
-		console.log(details);
 		let data = await fetch('?/login', { method: 'POST', body: fd });
 		let res = await data.text();
 		let fullres = deserialize(res);
@@ -30,8 +29,8 @@
 	}
 </script>
 
-<body class="page">
-	<div class="login-container w-2/4">
+<body>
+	<div class="login-container">
 		<form>
 			<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
 				<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>

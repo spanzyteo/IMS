@@ -108,7 +108,6 @@
 		fd.append('invoice', JSON.stringify(details));
 		let data = await fetch('?/saveSimple', { method: 'POST', body: fd });
 		let res = deserialize(await data.text());
-		console.log(res);
 		if (res.type === 'success') {
 			alert(`${res.data.message}`);
 			await goto(`${res.data.url}`);
