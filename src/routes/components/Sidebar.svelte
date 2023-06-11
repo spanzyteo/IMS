@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="js">
 	export let active_component = '';
 </script>
 
@@ -9,19 +9,70 @@
 	></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </svelte:head>
-<div class="sidebar h-[100vh] font-poppins bg-slate-600">
-	<a href="/"><img src="/logo.jpg" alt="Logo" class="w-auto h-auto" /></a>
-	<ul class="mx-auto mt-20">
+
+<!-- New sidebar starts here -->
+<!-- <div class="sidebar">
+	<div class="top">
+		<div class="logo">
+			<ion-icon name="logo-angular" />
+			<span>Los Angis</span>
+		</div>
+		<ion-icon name="apps" id="btn" />
+	</div>
+	<div class="user">
+		<img src="" alt="profile" />
+		<div>
+			<p class="bold">John Doe</p>
+			<p>Admin</p>
+		</div>
+	</div>
+	<ul>
+		<li>
+			<a href="/">
+				<ion-icon name="grid" />
+				<span class="nav-item">Dashboard</span>
+			</a>
+			<span class="tooltip">Dashboard</span>
+		</li>
+		<li>
+			<a href="/">
+				<ion-icon name="grid" />
+				<span class="nav-item">Banking</span>
+			</a>
+			<span class="tooltip">Banking</span>
+		</li>
+		<li>
+			<a href="/">
+				<ion-icon name="grid" />
+				<span class="nav-item">Inventory</span>
+			</a>
+			<span class="tooltip">Inventory</span>
+		</li>
+		<li>
+			<a href="/">
+				<ion-icon name="grid" />
+				<span class="nav-item">Invoices</span>
+			</a>
+			<span class="tooltip">Invoices</span>
+		</li>
+	</ul>
+</div> -->
+
+<!-- New sidebar ends here -->
+
+<div class="sidebar h-[100vh] bg-black">
+	<a href="/"><img src="/logo.jpg" alt="Logo" /></a>
+	<ul class="mx-auto mt-10">
 		<a href="/"
 			>{#if active_component === 'home'}<li
 					id="active"
-					class="pt-[1rem] font-bold hover:text-white cursor-pointer"
+					class="pt-[1rem] font-bold hover:text-[#57F287] cursor-pointer"
 				>
 					<span class="icon"><ion-icon name="home-outline" /></span>
 					<span class="text">Home</span>
 				</li>
 			{:else}
-				<li class="mt-[2rem] font-bold hover:text-white cursor-pointer">
+				<li class="mt-[2rem] font-bold hover:text-[#57F287] cursor-pointer">
 					<span class="icon"><ion-icon name="home-outline" /></span>
 					<span class="text">Home</span>
 				</li>
@@ -73,19 +124,19 @@
 
 <style>
 	#active {
-		color: white;
+		color: #57f287;
 	}
 	.sidebar {
 		position: fixed;
 		height: 100vh;
-		width: 70px;
+		width: 250px;
 		overflow: hidden;
 		transition: 0.5s;
 	}
-	.sidebar:hover {
+	/* .sidebar:hover {
 		width: 300px;
 		transition: 0.5s ease-in-out;
-	}
+	} */
 	.sidebar ul {
 		position: relative;
 		height: 100vh;
