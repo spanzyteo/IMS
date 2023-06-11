@@ -2,3 +2,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button {
+	color: #57f287;
+	background-color: transparent;
+	border-radius: 0.3em;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	transition: 0.5s;
+	font-size: 17px;
+	border: 1px solid #57f287;
+	font-family: inherit;
+	color: #57f287;
+	z-index: 1;
+}
+
+.button::before,
+.button::after {
+	content: '';
+	display: block;
+	width: 50px;
+	height: 50px;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	border-radius: 50%;
+	z-index: -1;
+	background-color: #57f287;
+	transition: 1s ease;
+}
+
+.button::before {
+	top: -1em;
+	left: -1em;
+}
+
+.button::after {
+	left: calc(100% + 1em);
+	top: calc(100% + 1em);
+}
+
+.button:hover::before,
+.button:hover::after {
+	height: 410px;
+	width: 410px;
+}
+
+.button:hover {
+	color: rgb(10, 25, 30);
+}
+
+.button:active {
+	filter: brightness(0.8);
+}
+
+.form__group {
+	position: relative;
+	padding: 20px 0 0;
+	width: 100%;
+}
+
+.form__field {
+	font-family: inherit;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #ffffff;
+	outline: 0;
+	font-size: 17px;
+	color: #fff;
+	padding: 7px 0;
+	background: transparent;
+	transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+	color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+	font-size: 17px;
+	cursor: text;
+	top: 20px;
+}
+
+.form__label {
+	position: absolute;
+	top: 0;
+	display: block;
+	transition: 0.2s;
+	font-size: 17px;
+	color: #fff;
+	pointer-events: none;
+}
+
+.form__field:focus {
+	padding-bottom: 6px;
+	/* font-weight: 700; */
+	border-width: 3px;
+	border-image: linear-gradient(to right, #57f287, #57f287);
+	border-image-slice: 1;
+}
+
+.form__field:focus ~ .form__label {
+	position: absolute;
+	top: 0;
+	display: block;
+	transition: 0.2s;
+	font-size: 17px;
+	color: #57f287;
+	/* font-weight: 700; */
+}
+
+/* reset input */
+.form__field:required,
+.form__field:invalid {
+	box-shadow: none;
+}
