@@ -18,13 +18,14 @@
 		let data = await fetch('?/signup', { method: 'POST', body: fd });
 		let res = deserialize(await data.text());
 		ensureLogin($page.data);
-		if (res.data.success) {
-			console.log(res.data.message);
-			alert(res.data.message);
-			await goto(`${res.data.url}`);
-		} else {
-			alert(res.data.message);
-		}
+		console.log($page.data);
+		// if (res.data.success) {
+		// 	console.log(res.data.message);
+		// 	alert(res.data.message);
+		// 	await goto(`${res.data.url}`);
+		// } else {
+		// 	alert(res.data.message);
+		// }
 		// console.log(`New Data: ${data}`);
 	}
 </script>
