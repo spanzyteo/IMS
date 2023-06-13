@@ -4,6 +4,8 @@
 	import Spinner from '../components/Spinner.svelte';
 	import { isLoggedIn } from '../../stores/stores';
 	import Login from '../components/Login.svelte';
+	import { ensureLogin } from '$lib/authorise';
+	import { page } from '$app/stores';
 	let myVariable = 5;
 	let loading = true;
 	let searchTerm = '';
@@ -14,6 +16,7 @@
 
 	let ac = 'inventory';
 	onMount(() => {
+		ensureLogin($page.data);
 		// simulate a delay of 1.5 seconds
 		setTimeout(() => {
 			loading = false;
@@ -40,13 +43,11 @@
 
 {#if loading === true}
 	<Spinner />
-{:else if $isLoggedIn === false}
-	<Login {username} {password} />
 {:else}
 	<div class="flex">
 		<Sidebar active_component={ac} />
 		<div class="mx-auto">
-			<section style="background-color: white;" class="h-fit fixed p-0 w-[1000px]">
+			<section style="background-color: transparent;" class="h-fit p-0 w-[1000px]">
 				<h3 class="text-3xl ml-auto font-extrabold text-center p-2">
 					Inventory <br />
 					<br />

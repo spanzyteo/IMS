@@ -1,12 +1,32 @@
 import inventory from '$lib/inventory.json';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { redirect } from '@sveltejs/kit';
 
-export async function load({ fetch }) {
-	let url = '/api/read-inventory-data';
-	let res = await fetch(url);
-	let response = await res.json();
-	return {
-		data: response
-	};
+export async function load({ fetch, locals }) {
+	const { user, session } = await locals.auth.validateUser();
+	let url = `./src/lib/${user.userId}-inventory.json`;
+	let res;
+	let response;
+	if (user && existsSync(url)) {
+		res = readFileSync(url, 'utf-8');
+		response = JSON.parse(res);
+		if (res.trim() === '') {
+			response = [];
+		} else {
+			response = JSON.parse(res);
+		}
+	} else {
+		response = [];
+	}
+	if (user && session && response != []) {
+		return {
+			user,
+			session,
+			data: response
+		};
+	} else {
+		throw redirect(302, '/Login');
+	}
 }
 
 export const actions = {

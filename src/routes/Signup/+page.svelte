@@ -83,7 +83,10 @@
 			</div>
 			<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}>
 				Create Account</button
-			>
+			><br /><br />
+			<p class="font-bold text-xl text-black">
+				Already have an account? <a href="/Login" class="text-blue-400">Login</a>
+			</p>
 		</div>
 	</div>
 </body>

@@ -79,6 +79,10 @@
 						class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold"
 						on:click={login}>Log In</button
 					>
+					<br /><br />
+					<p class="font-bold text-xl text-black">
+						Don't have an account? <a href="/Signup" class="text-blue-400">Signup</a>
+					</p>
 				</div>
 			</form>
 		</div>

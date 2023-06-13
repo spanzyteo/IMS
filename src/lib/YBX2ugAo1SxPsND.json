@@ -1,34 +1,18 @@
 [
     {
-        "lastUpdatedAt": "6/8/2023, 5:32:55 PM",
-        "customer_name": "Cecilia",
-        "id": "08e02140",
-        "date": "Thu Jun 08 2023",
+        "lastUpdatedAt": "6/12/2023, 6:56:58 PM",
+        "customer_name": "Dandy",
+        "id": "09c2f495",
+        "date": "Mon Jun 12 2023",
         "items": [
             {
                 "name": "Item",
-                "quantity": 2,
-                "price": 2000
-            }
-        ],
-        "balance": 2000,
-        "paid": 2000,
-        "total": 4000
-    },
-    {
-        "lastUpdatedAt": "6/9/2023, 8:11:23 AM",
-        "customer_name": "Dandy 20",
-        "id": "337f8f31",
-        "date": "Fri Jun 09 2023",
-        "items": [
-            {
-                "name": "Lipton",
                 "quantity": 20,
-                "price": 600
+                "price": 500
             }
         ],
-        "balance": 2000,
-        "paid": 10000,
-        "total": 12000
+        "balance": 5000,
+        "paid": 5000,
+        "total": 10000
     }
 ]
