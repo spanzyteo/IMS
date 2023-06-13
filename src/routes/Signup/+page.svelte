@@ -2,8 +2,11 @@
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../../stores/stores';
 	import mail from '../../assests/mail.svg';
+	import { page } from '$app/stores';
 	import lock from '../../assests/lock.svg';
 	import user from '../../assests/user.svg';
+	import { deserialize } from '$app/forms';
+	import { ensureLogin } from '$lib/authorise';
 	let details = {
 		name: '',
 		email: '',
@@ -13,12 +16,15 @@
 	async function login() {
 		fd.append('user', JSON.stringify(details));
 		let data = await fetch('?/signup', { method: 'POST', body: fd });
-		if (data.ok) {
-			$isLoggedIn = true;
-			await goto('/');
-		} else {
-			alert('Registration Failed');
-		}
+		let res = deserialize(await data.text());
+		ensureLogin($page.data);
+		// if (res.data.success) {
+		// 	console.log(res.data.message);
+		// 	alert(res.data.message);
+		// 	await goto(`${res.data.url}`);
+		// } else {
+		// 	alert(res.data.message);
+		// }
 		// console.log(`New Data: ${data}`);
 	}
 </script>

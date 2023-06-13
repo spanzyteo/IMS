@@ -35,10 +35,15 @@ export const actions = {
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 			if (session.userId) {
-				// console.log(session.userId);
-				throw redirect(302, '/');
+				return {
+					session,
+					success: true,
+					url: '/',
+					message: 'Registration Successful. Redirecting...'
+				};
 			} else {
 				return {
+					success: false,
 					message: 'Registration Failed'
 				};
 			}
