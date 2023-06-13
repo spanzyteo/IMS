@@ -44,7 +44,7 @@
 </script>
 
 <svelte:head>
-	<title>Los Angis - Invoices</title>
+	<title>Invoices</title>
 </svelte:head>
 
 <html lang="en">

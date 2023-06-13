@@ -106,7 +106,7 @@
 </script>
 
 <svelte:head>
-	<title>Los Angis - Banking</title>
+	<title>Banking</title>
 </svelte:head>
 
 {#if loading === true}

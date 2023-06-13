@@ -30,6 +30,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Signup</title>
+</svelte:head>
 <body class="paage">
 	<div class="login-container w-2/4">
 		<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
