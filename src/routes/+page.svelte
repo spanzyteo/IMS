@@ -53,7 +53,10 @@
 			<div id="fixed">
 				<Sidebar active_component={ac} />
 			</div>
-			<div class="mx-auto md:ml-[300px] lg:ml-[300px] 2xl:ml-[300px] text-center">
+			<div
+				class="mx-auto bg-no-repeat bg-center h-screen md:ml-[300px] lg:ml-[300px] 2xl:ml-[300px] text-center"
+				style="background-image: url(../../assests/bg.png)"
+			>
 				<div class="text-center mt-[10rem] mx-auto w-full md:ml-[10rem] lg:ml-[10rem]">
 					<ul class="flex">
 						<li class="px-12">
@@ -121,5 +124,13 @@
 		#fixed {
 			display: none;
 		}
+	}
+	body {
+		background-image: url('../assests/bg.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		height: 100%;
+		width: 100%;
 	}
 </style>

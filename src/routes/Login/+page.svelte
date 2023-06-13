@@ -2,14 +2,19 @@
 	import { goto } from '$app/navigation';
 	import { ensureLogin } from '$lib/authorise';
 	import { deserialize } from '$app/forms';
+	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
 	import mail from '../../assests/mail.svg';
 	import lock from '../../assests/lock.svg';
+	import { onMount } from 'svelte';
 
 	let details = {
 		email: '',
 		password: ''
 	};
+	onMount(() => {
+		ensureLogin($page.data);
+	});
 	let fd = new FormData();
 	async function login(e) {
 		e.preventDefault();
@@ -29,60 +34,66 @@
 	}
 </script>
 
-<body>
-	<div class="login-container">
-		<form>
-			<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
-				<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
-				<div class="form__group field mb-3">
-					<input
-						type="email"
-						name="email"
-						bind:value={details.email}
-						class="form__field"
-						placeholder="Enter Email Address"
-					/>
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+<body class="page">
+	<div class="login-container w-2/4">
+		<div class="login-container">
+			<form>
+				<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
+					<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
+					<div class="form__group field mb-3">
+						<input
+							type="email"
+							name="email"
+							bind:value={details.email}
+							class="form__field"
+							placeholder="Enter Email Address"
+						/>
 
-					<label for="email" class="form__label"
-						><img
-							src={mail}
-							alt="email-icon"
-							width="30"
-							class="text-[#57F287] float-left mr-2 icon"
-						/>{''} Enter Email Address
-					</label>
-				</div>
-				<div class="form__group field">
-					<input
-						type="password"
-						name="password"
-						bind:value={details.password}
-						class="form__field"
-						placeholder="Enter Password"
-					/>
-					<label for="password" class="form__label">
-						<img src={lock} alt="passkey" width="30" class="float-left mr-2 icon" />
-						{''}
-						Enter Password</label
+						<label for="email" class="form__label"
+							><img
+								src={mail}
+								alt="email-icon"
+								width="30"
+								class="text-[#57F287] float-left mr-2 icon"
+							/>{''} Enter Email Address
+						</label>
+					</div>
+					<div class="form__group field">
+						<input
+							type="password"
+							name="password"
+							bind:value={details.password}
+							class="form__field"
+							placeholder="Enter Password"
+						/>
+						<label for="password" class="form__label">
+							<img src={lock} alt="passkey" width="30" class="float-left mr-2 icon" />
+							{''}
+							Enter Password</label
+						>
+					</div>
+					<button
+						class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold"
+						on:click={login}>Log In</button
 					>
 				</div>
-				<button class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}
-					>Log In</button
-				>
-			</div>
-		</form>
-	</div>
-</body>
+			</form>
+		</div>
+	</div></body
+>
 
 <style>
-	.page {
+	body {
 		height: 100vh;
 		background-image: url('../../assests/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
 	}
-	.login-container {
+	form {
 		position: fixed;
 		top: 50%;
 		left: 50%;
