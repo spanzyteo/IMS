@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { ensureLogin } from '$lib/authorise';
-	import { deserialize } from '$app/forms';
+	import { deserialize, enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
 	import { onMount } from 'svelte';
@@ -28,7 +28,7 @@
 <body class="page">
 	<div class="login-container w-2/4">
 		<div class="login-container">
-			<form action="?/login" method="post">
+			<form action="?/login" method="post" use:enhance>
 				<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
 					<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
 					<div class="form__group field mb-3">
@@ -63,9 +63,7 @@
 							Enter Password</label
 						>
 					</div>
-					<button
-						class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold"
-						on:click={login}>Log In</button
+					<button class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold">Log In</button
 					>
 					<br /><br />
 					<p class="font-bold text-xl text-black">
