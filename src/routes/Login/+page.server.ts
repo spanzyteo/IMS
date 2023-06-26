@@ -15,7 +15,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions: Actions = {
 	login: async ({ request, locals }) => {
 		const data = await request.formData();
-		const { email, password } = JSON.parse(data.get('user') as any);
+		const email = data.get('email');
+		const password = data.get('password');
+
 		// check for empty values
 		if (typeof email !== 'string' || typeof password !== 'string') return fail(400);
 		const key = await auth.useKey('email', email, password);

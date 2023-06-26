@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
 	import { onMount } from 'svelte';
-
+	export let form;
 	let details = {
 		email: '',
 		password: ''
@@ -13,22 +13,12 @@
 	onMount(() => {
 		ensureLogin($page.data);
 	});
-	let fd = new FormData();
-	async function login(e) {
-		e.preventDefault();
-		fd.append('user', JSON.stringify(details));
-		let data = await fetch('?/login', { method: 'POST', body: fd });
-		let res = await data.text();
-		let fullres = deserialize(res);
-		if (fullres.data.success) {
-			alert('Login Successful, Redirecting...');
-			await goto(`${fullres.data.url}`);
+
+	$: {
+		if (form?.success) {
+			alert('Login Successful');
+			goto('/');
 		}
-		// if (data.ok) {
-		// 	ensureLogin($page.data);
-		// 	alert(`Logged In`);
-		// 	await goto('/');
-		// }
 	}
 </script>
 
@@ -38,7 +28,7 @@
 <body class="page">
 	<div class="login-container w-2/4">
 		<div class="login-container">
-			<form>
+			<form action="?/login" method="post">
 				<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
 					<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
 					<div class="form__group field mb-3">
