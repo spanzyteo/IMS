@@ -5,6 +5,8 @@ import adapter from '@lucia-auth/adapter-mongoose';
 import mongoose from 'mongoose';
 import { dev } from '$app/environment';
 import * as dotenv from 'dotenv';
+import dotenv-vault-core from 'dotenv-vault-core';
+dotenv-vault-core.config()
 dotenv.config();
 async function connectToDB() {
 	await mongoose
