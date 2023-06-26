@@ -3,7 +3,9 @@
 	import { onMount } from 'svelte';
 	import { Button, Container, Icon } from 'sveltestrap';
 	let invdet;
+	export let name;
 	export let details;
+	export let address;
 	onMount(() => {
 		displayed = true;
 		updateTotal();
@@ -11,7 +13,6 @@
 	});
 	let displayed = true;
 	let visual;
-	let name = 'Mr. Joshua';
 	/**
 	 * @type {any}
 	 */
@@ -61,8 +62,10 @@
 				<div class="flex mb-14">
 					<img src="/logo.jpg" alt="logo" width="200px" height="200px" />
 					<div class="p-[3rem]">
-						<h1 class="font-extrabold text-2xl">Los Angis Global Resources</h1>
-						<p style="margin-bottom: 2rem;" class="add">47 Bedwell Street</p>
+						<h1 class="font-extrabold text-2xl">{name}</h1>
+						{#if address}
+							<p style="margin-bottom: 2rem;" class="add">47 Bedwell Street</p>
+						{/if}
 					</div>
 				</div>
 				<table style="border: 2px solid;" class="items-center self-center px-0 w-fit m-0">

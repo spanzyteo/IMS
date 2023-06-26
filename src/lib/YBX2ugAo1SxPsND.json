@@ -1,18 +1,1 @@
-[
-    {
-        "lastUpdatedAt": "6/12/2023, 6:56:58 PM",
-        "customer_name": "Dandy",
-        "id": "09c2f495",
-        "date": "Mon Jun 12 2023",
-        "items": [
-            {
-                "name": "Item",
-                "quantity": 20,
-                "price": 500
-            }
-        ],
-        "balance": 5000,
-        "paid": 5000,
-        "total": 10000
-    }
-]
+[{"lastUpdatedAt":"6/12/2023, 6:56:58 PM","customer_name":"Dandy","id":"09c2f495","date":"Mon Jun 12 2023","items":[{"name":"Item","quantity":20,"price":500}],"balance":5000,"paid":5000,"total":10000},{"lastUpdatedAt":"6/14/2023, 5:25:45 PM","customer_name":"Israel","id":"f5a8703a","date":"Wed Jun 14 2023","items":[{"name":"Lipton Tea","quantity":20,"price":550},{"name":"Baygon Inse.","quantity":10,"price":700}],"balance":8000,"paid":10000,"total":18000},{"lastUpdatedAt":"6/19/2023, 10:54:44 PM","customer_name":"Dandy","id":"99a5fe4c","date":"Mon Jun 19 2023","items":[{"name":"Item","quantity":300,"price":40}],"balance":2000,"paid":10000,"total":12000}]

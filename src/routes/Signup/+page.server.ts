@@ -7,14 +7,18 @@ export const actions = {
 	signup: async ({ request, locals }) => {
 		const data = await request.formData();
 		const saltRounds = 10;
-		const { email, password, name } = JSON.parse(data.get('user') as any);
-		console.log('Email: ', email, '\n', 'User Name: ', name);
+		const { email, password, name, business } = JSON.parse(data.get('user') as any);
 
 		// const username = form.get('username');
 		// const password = form.get('password');
 
 		// // check for empty values
-		if (typeof email !== 'string' || typeof password !== 'string' || typeof name !== 'string') {
+		if (
+			typeof email !== 'string' ||
+			typeof password !== 'string' ||
+			typeof business !== 'string' ||
+			typeof name !== 'string'
+		) {
 			return fail(400);
 		}
 
@@ -28,10 +32,11 @@ export const actions = {
 				attributes: {
 					email,
 					password: bcrypt.hashSync(password, saltRounds),
-					name
+					name,
+					business_name: business
 				}
 			});
-			console.log(password);
+			// console.log(password);
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
 			if (session.userId) {
@@ -48,7 +53,6 @@ export const actions = {
 				};
 			}
 		} catch {
-			// username taken
 			return fail(400);
 		}
 	}

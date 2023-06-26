@@ -3,6 +3,7 @@
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
 	import { isLoggedIn } from '../../stores/stores';
+	import { Button } from 'sveltestrap';
 	import Login from '../components/Login.svelte';
 	import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
@@ -39,6 +40,11 @@
 
 <svelte:head>
 	<title>Inventory</title>
+	<meta
+		name="description"
+		content="Best Inventory Management System For Small And Large Scale Businesses Worldwide"
+	/>
+	<meta name="keywords" content="Inventory" />
 </svelte:head>
 
 {#if loading === true}
@@ -46,23 +52,19 @@
 {:else}
 	<div class="flex">
 		<Sidebar active_component={ac} />
-		<div class="mx-auto">
-			<section style="background-color: transparent;" class="h-fit p-0 w-[1000px]">
-				<h3 class="text-3xl ml-auto font-extrabold text-center p-2">
-					Inventory <br />
-					<br />
-					<input
-						type="text"
-						bind:value={searchTerm}
-						placeholder="Search..."
-						class="w-[500px] rounded-full text-center border-[2px] text-2xl border-slate-500 bg-white"
-					/>
-				</h3>
+		<div class="mx-auto px-auto text-center">
+			<nav class="m-auto mb-6 max-w-screen-lg text-center bg-white">
+				<h3 class="text-3xl ml-auto font-extrabold text-center p-2">Inventory</h3>
+				<input
+					type="text"
+					bind:value={searchTerm}
+					placeholder="Search..."
+					class="w-[500px] rounded-lg mb-6 text-center border-[2px] text-2xl border-slate-500 bg-white"
+				/>
+			</nav>
 
-				<br />
-			</section>
-			<div class="mt-[11rem] text-center ml-[5rem]">
-				<table>
+			<div class="text-center m-auto p-auto">
+				<table class="mx-auto">
 					<thead style="border-top: 2px solid black;">
 						<tr>
 							<th>Name</th>
@@ -88,6 +90,9 @@
 				</table>
 			</div>
 			<div />
+			<div class="bg-black w-full">
+				<Button color="success" outline class="mx-auto bottom-4 fixed font-bold">Add Item</Button>
+			</div>
 		</div>
 	</div>
 {/if}

@@ -2,25 +2,24 @@
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
 	import Piechart from '../components/Piechart.svelte';
-	import Login from '../components/Login.svelte';
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { Container, Button } from 'sveltestrap';
-	import { browser } from '$app/environment';
-	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../../stores/stores';
 	import { ensureLogin } from '$lib/authorise';
+	export let data;
 	let pip = '';
 	let searchTerm = '';
 	let filtered_debts = [];
 	let shown = false;
 	let bal;
-	export let data;
+	let newId = '';
+	let newBalance = 0;
+	let overLoad = false;
+	let username = '';
+	let password = '';
 	let cashFlow = data.response;
-
 	let totalPaid = 0;
-
 	let total = 0;
 	let balance = 0;
 	let loading = true;
@@ -36,7 +35,9 @@
 			}
 		}
 	}
+
 	chartData();
+
 	onMount(() => {
 		// @ts-ignore
 		ensureLogin($page.data);
@@ -50,11 +51,7 @@
 			loading = false;
 		}, 500);
 	});
-	let newId = '';
-	let newBalance = 0;
-	let overLoad = false;
-	let username = '';
-	let password = '';
+
 	/**
 	 * @param {string} identity
 	 */
@@ -130,7 +127,7 @@
 					class="mt-[10rem] font-comforta w-full mx-auto px-auto font-bold text-lg text-left h-fit"
 				>
 					<div class="pt-3 px-12 mb-6 font-comforta ml-[10rem] font-bold text-lg text-center">
-						<p>Total Amount: &nbsp; {total.toLocaleString()}</p>
+						<p>Aggregate: &nbsp; {total.toLocaleString()}</p>
 						<p>Debts/Balance: &nbsp; {balance.toLocaleString()}</p>
 						<p>Total Amount Paid: &nbsp; {totalPaid.toLocaleString()}</p>
 					</div>

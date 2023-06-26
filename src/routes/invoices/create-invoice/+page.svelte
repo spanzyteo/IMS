@@ -16,7 +16,7 @@
 	// export let form;
 	onMount(() => {
 		ensureLogin($page.data);
-		console.log($page.data.user);
+		// console.log($page.data.user);
 		displayed = true;
 		// @ts-ignore
 		updateTotal();

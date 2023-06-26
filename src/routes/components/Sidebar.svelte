@@ -63,7 +63,7 @@
 <div class="sidebar h-[100vh] bg-black">
 	<a href="/"><img src="/logo.jpg" alt="Logo" /></a>
 	<ul class="mx-auto mt-10">
-		<a href="/"
+		<a href="/" class="text-gray-700"
 			>{#if active_component === 'home'}<li
 					id="active"
 					class="pt-[1rem] font-bold hover:text-[#57F287] cursor-pointer"
@@ -78,7 +78,7 @@
 				</li>
 			{/if}</a
 		>
-		<a href="/Banking"
+		<a href="/Banking" class="text-gray-700"
 			>{#if active_component === 'bills'}<li
 					id="active"
 					class="mt-[2rem] font-bold hover:text-white cursor-pointer"
@@ -93,7 +93,7 @@
 				</li>
 			{/if}</a
 		>
-		<a href="/Inventory">
+		<a href="/Inventory" class="text-gray-700">
 			{#if active_component === 'inventory'}
 				<li id="active" class="mt-[2rem] font-bold hover:text-white cursor-pointer">
 					<span class="icon"><ion-icon name="clipboard-outline" /></span>
@@ -106,7 +106,7 @@
 				</li>
 			{/if}</a
 		>
-		<a href="/invoices">
+		<a href="/invoices" class="text-gray-700">
 			{#if active_component === 'invoices'}
 				<li id="active" class="mt-[2rem] font-bold hover:text-white cursor-pointer">
 					<span class="icon"><ion-icon name="receipt-outline" /></span>

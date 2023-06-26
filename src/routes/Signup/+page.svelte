@@ -1,30 +1,34 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../../stores/stores';
-	import mail from '../../assests/mail.svg';
+
 	import { page } from '$app/stores';
-	import lock from '../../assests/lock.svg';
-	import user from '../../assests/user.svg';
+
 	import { deserialize } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
 	let details = {
 		name: '',
 		email: '',
-		password: ''
+		password: '',
+		business: ''
 	};
+	let c_password = '';
 	let fd = new FormData();
 	async function login() {
-		fd.append('user', JSON.stringify(details));
-		let data = await fetch('?/signup', { method: 'POST', body: fd });
-		let res = deserialize(await data.text());
-		ensureLogin(res.data);
-
-		if (res.data.message === 'Registration Successful. Redirecting...') {
-			console.log(res.data.message);
-			alert(res.data.message);
-			await goto(`${res.data.url}`);
+		if (c_password.match(details.password)) {
+			fd.append('user', JSON.stringify(details));
+			let data = await fetch('?/signup', { method: 'POST', body: fd });
+			let res = deserialize(await data.text());
+			ensureLogin(res.data);
+			if (res.data.message === 'Registration Successful. Redirecting...') {
+				console.log(res.data.message);
+				alert(res.data.message);
+				await goto(`${res.data.url}`);
+			} else {
+				alert(res.data.message);
+			}
 		} else {
-			alert(res.data.message);
+			alert('Passwords do not match');
 		}
 		// console.log(`New Data: ${data}`);
 	}
@@ -44,10 +48,11 @@
 					bind:value={details.name}
 					class="form__field"
 					placeholder="Enter Username"
+					required
 				/>
 				<label for="text" class="form__label">
 					<img
-						src={user}
+						src="./assets/user.svg"
 						alt="email-icon"
 						width="30"
 						class="text-[#57F287] float-left mr-2 icon"
@@ -57,15 +62,35 @@
 			</div>
 			<div class="form__group field mb-3">
 				<input
+					type="text"
+					name="business_name"
+					bind:value={details.business}
+					class="form__field"
+					placeholder="business_name"
+					required
+				/>
+				<label for="password" class="form__label">
+					<img
+						src="./assets/user.svg"
+						alt="email-icon"
+						width="30"
+						class="text-[#57F287] float-left mr-2 icon"
+					/>{''}
+					Business Name</label
+				>
+			</div>
+			<div class="form__group field mb-3">
+				<input
 					type="email"
 					name="email"
 					bind:value={details.email}
 					class="form__field"
 					placeholder="Enter Email Address"
+					required
 				/>
 				<label for="email" class="form__label">
 					<img
-						src={mail}
+						src="./assets/mail.svg"
 						alt="email-icon"
 						width="30"
 						class="text-[#57F287] float-left mr-2 icon"
@@ -80,10 +105,11 @@
 					bind:value={details.password}
 					class="form__field"
 					placeholder="Create password"
+					required
 				/>
 				<label for="password" class="form__label">
 					<img
-						src={lock}
+						src="./assets/lock.svg"
 						alt="email-icon"
 						width="30"
 						class="text-[#57F287] float-left mr-2 icon"
@@ -91,6 +117,26 @@
 					Create Password</label
 				>
 			</div>
+			<div class="form__group field mb-3">
+				<input
+					type="password"
+					name="c_password"
+					bind:value={c_password}
+					class="form__field"
+					placeholder="Create password"
+					required
+				/>
+				<label for="c_password" class="form__label">
+					<img
+						src="./assets/lock.svg"
+						alt="email-icon"
+						width="30"
+						class="text-[#57F287] float-left mr-2 icon"
+					/>{''}
+					Confirm Password</label
+				>
+			</div>
+
 			<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}>
 				Create Account</button
 			><br /><br />
@@ -104,7 +150,7 @@
 <style>
 	.paage {
 		height: 100vh;
-		background-image: url('../../assests/bg.png');
+		background-image: url('../../assets/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;

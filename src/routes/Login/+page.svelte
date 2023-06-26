@@ -4,8 +4,6 @@
 	import { deserialize } from '$app/forms';
 	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
-	import mail from '../../assests/mail.svg';
-	import lock from '../../assests/lock.svg';
 	import { onMount } from 'svelte';
 
 	let details = {
@@ -54,7 +52,7 @@
 
 						<label for="email" class="form__label"
 							><img
-								src={mail}
+								src="./assets/mail.svg"
 								alt="email-icon"
 								width="30"
 								class="text-[#57F287] float-left mr-2 icon"
@@ -70,7 +68,7 @@
 							placeholder="Enter Password"
 						/>
 						<label for="password" class="form__label">
-							<img src={lock} alt="passkey" width="30" class="float-left mr-2 icon" />
+							<img src="./assets/lock.svg" alt="passkey" width="30" class="float-left mr-2 icon" />
 							{''}
 							Enter Password</label
 						>
@@ -92,7 +90,7 @@
 <style>
 	body {
 		height: 100vh;
-		background-image: url('../../assests/bg.png');
+		background-image: url('../../assets/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;

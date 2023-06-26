@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 async function connectToDB() {
 	await mongoose
-		.connect(`${process.env.MONGO_URI_ONLINE}`)
+		.connect(`${process.env.MONGO_URI_OFFLINE}`)
 		.then(() => console.log('Connected To Database.'))
 		.catch(() => {
 			console.log(`Connection to Database Failed.`);
@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
 		name: String,
 		password: String,
 		email: String,
+		business_name: String,
 		_id: {
 			type: String
 		}
@@ -85,7 +86,8 @@ export const auth = lucia({
 		return {
 			userId: userData.id,
 			username: userData.name,
-			email: userData.email
+			email: userData.email,
+			business_name: userData.business_name
 		};
 	}
 });

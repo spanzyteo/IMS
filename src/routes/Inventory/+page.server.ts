@@ -4,6 +4,7 @@ import { redirect } from '@sveltejs/kit';
 
 export async function load({ fetch, locals }) {
 	const { user, session } = await locals.auth.validateUser();
+	console.log(user.userId);
 	let url = `./src/lib/${user.userId}-inventory.json`;
 	let res;
 	let response;

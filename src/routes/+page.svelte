@@ -31,7 +31,7 @@
 		e.preventDefault();
 		let data = await fetch('?/logout', { method: 'POST', body: fi });
 		let res = deserialize(await data.text());
-		console.log(res);
+		// console.log(res);
 		if (res.type === 'success') {
 			ensureLogin(null);
 			alert('Logout Successfull');
@@ -43,6 +43,12 @@
 
 <svelte:head>
 	<title>Los Angis - Home</title>
+	<meta
+		name="description"
+		content="Best Inventory Management System For Small And Large Scale Businesses Worldwide"
+	/>
+	<meta name="keywords" content="Inventory Management System Home Page" />
+	<meta name="author" content="E-Hub Digital Services" />
 </svelte:head>
 
 <body>
@@ -53,10 +59,7 @@
 			<div id="fixed">
 				<Sidebar active_component={ac} />
 			</div>
-			<div
-				class="mx-auto bg-no-repeat bg-center h-screen md:ml-[300px] lg:ml-[300px] 2xl:ml-[300px] text-center"
-				style="background-image: url(../../assests/bg.png)"
-			>
+			<div class=" mx-auto bg-no-repeat bg-center h-screen items-center">
 				<div class="text-center mt-[10rem] mx-auto w-full md:ml-[10rem] lg:ml-[10rem]">
 					<ul class="flex">
 						<li class="px-12">
@@ -125,12 +128,12 @@
 			display: none;
 		}
 	}
-	body {
-		background-image: url('../assests/bg.png');
+	/* body {
+		background-image: url('../assets/bg.png');
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
 		height: 100%;
 		width: 100%;
-	}
+	} */
 </style>
