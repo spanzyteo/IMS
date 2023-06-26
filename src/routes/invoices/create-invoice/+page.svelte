@@ -9,13 +9,13 @@
 	import invoices from '$lib/invoices.json';
 	import { goto } from '$app/navigation';
 	import { deserialize, enhance } from '$app/forms';
-	import { ensureLogin } from '$lib/authorise';
+	// import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
 	let userId = $page.data.user.userId;
 	//@ts-ignore
 	// export let form;
 	onMount(() => {
-		ensureLogin($page.data);
+		// ensureLogin($page.data);
 		// console.log($page.data.user);
 		displayed = true;
 		// @ts-ignore
