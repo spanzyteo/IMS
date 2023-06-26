@@ -28,7 +28,7 @@
 <body class="page">
 	<div class="login-container w-2/4">
 		<div class="login-container">
-			<form action="?/login" method="post" use:enhance>
+			<form action="?/login" method="post">
 				<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
 					<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
 					<div class="form__group field mb-3">
