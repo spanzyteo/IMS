@@ -3,18 +3,18 @@ import { redirect } from '@sveltejs/kit';
 import fs from 'fs';
 import type { PageServerLoad } from './$types.js';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	const { user, session } = await locals.auth.validateUser();
+// export const load: PageServerLoad = async ({ locals }) => {
+// 	const { user, session } = await locals.auth.validateUser();
 
-	if (session && user) {
-		return {
-			session,
-			user
-		};
-	} else {
-		throw redirect(302, '/Login');
-	}
-};
+// 	if (session && user) {
+// 		return {
+// 			session,
+// 			user
+// 		};
+// 	} else {
+// 		throw redirect(302, '/Login');
+// 	}
+// };
 
 export const actions = {
 	saveSimple: async ({ request }) => {
