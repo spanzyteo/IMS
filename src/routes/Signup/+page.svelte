@@ -1,17 +1,24 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../../stores/stores';
-
 	import { page } from '$app/stores';
-
 	import { deserialize } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
+	import { onMount } from 'svelte';
 	let details = {
 		name: '',
 		email: '',
 		password: '',
 		business: ''
 	};
+
+	onMount(async () => {
+		if ($page.data.message) {
+			let mes = $page.data.message;
+			alert(mes);
+			await goto($page.data.url);
+		}
+	});
 	let c_password = '';
 	let fd = new FormData();
 	async function login() {

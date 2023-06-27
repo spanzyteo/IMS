@@ -3,6 +3,22 @@ import { auth } from '../../hooks.server';
 import bcrypt from 'bcrypt';
 // import type { RequestEvent } from '../$types';
 
+export const load = async ({ locals }) => {
+	const { user, session }: any = await locals.auth.validateUser();
+
+	if (user.userId) {
+		let message =
+			'User Already Logged In. If you want to create a new account, kinly logout of this current account. Redirecting to home...';
+		console.log(message);
+		return {
+			message,
+			url: '/'
+		};
+	} else {
+		return;
+	}
+};
+
 export const actions = {
 	signup: async ({ request, locals }) => {
 		const data = await request.formData();
