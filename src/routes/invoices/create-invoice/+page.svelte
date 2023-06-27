@@ -11,7 +11,7 @@
 	import { deserialize, enhance } from '$app/forms';
 	// import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
-	let userId = 'jdo3894fn30';
+	let userId = page.data.userId;
 	//@ts-ignore
 	// export let form;
 	onMount(() => {

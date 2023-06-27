@@ -5,7 +5,7 @@
 	"main": "./electron/index.js",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build --output public",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
@@ -38,6 +38,7 @@
 		"@lucia-auth/adapter-mongoose": "^2.0.0",
 		"@sveltejs/adapter-node": "^1.2.4",
 		"@sveltejs/adapter-static": "^2.0.2",
+		"@sveltejs/adapter-vercel": "^3.0.1",
 		"@types/chart.js": "^2.9.37",
 		"bcrypt": "^5.1.0",
 		"bootstrap": "^5.2.3",

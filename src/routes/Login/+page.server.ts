@@ -24,18 +24,17 @@ export const actions: Actions = {
 		const session = await auth.createSession(key.userId);
 		// console.log('Key: ', key, 'Session: ', session);
 		locals.auth.setSession(session);
-		if (key.userId) {
-			console.log('User ID: ', key.userId);
-			return {
-				url: '/',
-				status: 200,
-				success: true
-			};
-		} else {
-			return {
-				status: 502,
-				url: '/Login'
-			};
+		try {
+			if (key.userId) {
+				console.log('User ID: ', key.userId);
+				return {
+					url: '/',
+					status: 200,
+					success: true
+				};
+			}
+		} catch (e) {
+			console.log(e.LuciaError);
 		}
 	}
 };
