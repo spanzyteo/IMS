@@ -1,21 +1,28 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '../../hooks.server';
+import { LuciaError } from 'lucia-auth';
+
 import bcrypt from 'bcrypt';
 // import type { RequestEvent } from '../$types';
 
 export const load = async ({ locals }) => {
 	const { user, session }: any = await locals.auth.validateUser();
 
-	if (user.userId) {
-		let message =
-			'User Already Logged In. If you want to create a new account, kinly logout of this current account. Redirecting to home...';
-		console.log(message);
-		return {
-			message,
-			url: '/'
-		};
+	if (user) {
+		if (user.userId) {
+			let message =
+				'User Already Logged In. If you want to create a new account, kindly logout of this current account. Redirecting to home...';
+			console.log(message);
+			return {
+				message,
+				url: '/'
+			};
+		}
 	} else {
-		return;
+		console.log('No User Logged In');
+		return {
+			message: 'No User Logged In'
+		};
 	}
 };
 
@@ -68,8 +75,14 @@ export const actions = {
 					message: 'Registration Failed'
 				};
 			}
-		} catch {
-			return fail(400);
+		} catch (e) {
+			if (e instanceof LuciaError) {
+				console.log(e.message);
+				return {
+					message: `User with name: ${name} and email: ${email} Already exists.`,
+					status: 400
+				};
+			}
 		}
 	}
 };

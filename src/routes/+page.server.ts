@@ -3,8 +3,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '../hooks.server';
 import type { PageServerLoad } from './$types';
 import { isLoggedIn } from '../stores/stores';
-
 import { ensureLogin } from '$lib/authorise';
+
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
 	// console.log(user, session);
@@ -29,6 +29,8 @@ export const actions: Actions = {
 				success: true,
 				url: '/Login'
 			};
+		} else {
+			return fail(400, { message: 'An Error Occured !.' });
 		}
 	}
 };

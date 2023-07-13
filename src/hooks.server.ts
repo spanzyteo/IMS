@@ -7,12 +7,21 @@ import { dev } from '$app/environment';
 import * as dotenv from 'dotenv';
 dotenv.config();
 async function connectToDB() {
-	await mongoose
-		.connect(`${process.env.MONGO_URL}`)
-		.then(() => console.log('Connected To Database.'))
-		.catch(() => {
-			console.log(`Connection to Database Failed.`);
-		});
+	if (dev) {
+		await mongoose
+			.connect(`${process.env.MONGO_URL}`)
+			.then(() => console.log('Connected To Database.'))
+			.catch((e) => {
+				console.log(`Connection to Database Failed: ${e}`);
+			});
+	} else {
+		await mongoose
+			.connect(`${process.env.DOTENV_KEY}`)
+			.then(() => console.log('Connected To Database.'))
+			.catch((e) => {
+				console.log(`Connection to Database Failed: ${e}`);
+			});
+	}
 }
 connectToDB();
 

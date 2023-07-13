@@ -5,20 +5,27 @@
 	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
 	import { onMount } from 'svelte';
-	export let form;
+
 	let details = {
 		email: '',
 		password: ''
 	};
-	onMount(() => {
-		ensureLogin($page.data);
-	});
 
-	$: {
-		if (form?.success) {
-			alert('Login Successful');
-			goto('/');
+	let fi = new FormData();
+	//Login Function
+	async function login(e) {
+		e.preventDefault();
+		fi.append('info', JSON.stringify(details));
+		let data = await fetch('?/login', { method: 'POST', body: fi });
+		let res = deserialize(await data.text());
+		ensureLogin(res.data.success);
+		if (res.data.success) {
+			alert('Login Sucessfull');
+			await goto(res.data.url);
+		} else {
+			alert(`${res.data.message}`);
 		}
+		// window.location.reload();
 	}
 </script>
 
@@ -28,11 +35,12 @@
 <body class="page">
 	<div class="login-container w-2/4">
 		<div class="login-container">
-			<form action="?/login" method="post">
+			<form on:submit={login}>
 				<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
 					<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
 					<div class="form__group field mb-3">
 						<input
+							required
 							type="email"
 							name="email"
 							bind:value={details.email}
@@ -51,6 +59,7 @@
 					</div>
 					<div class="form__group field">
 						<input
+							required
 							type="password"
 							name="password"
 							bind:value={details.password}
@@ -78,7 +87,7 @@
 <style>
 	body {
 		height: 100vh;
-		background-image: url('../../assets/bg.png');
+		background-image: url('../../../assets/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;

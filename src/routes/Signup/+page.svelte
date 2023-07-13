@@ -13,7 +13,7 @@
 	};
 
 	onMount(async () => {
-		if ($page.data.message) {
+		if ($page.data.message != 'No User Logged In') {
 			let mes = $page.data.message;
 			alert(mes);
 			await goto($page.data.url);
@@ -26,6 +26,7 @@
 			fd.append('user', JSON.stringify(details));
 			let data = await fetch('?/signup', { method: 'POST', body: fd });
 			let res = deserialize(await data.text());
+			console.log(res);
 			ensureLogin(res.data);
 			if (res.data.message === 'Registration Successful. Redirecting...') {
 				console.log(res.data.message);
@@ -157,7 +158,7 @@
 <style>
 	.paage {
 		height: 100vh;
-		background-image: url('../../assets/bg.png');
+		background-image: url('../../../assets/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
