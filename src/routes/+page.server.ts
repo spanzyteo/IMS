@@ -22,15 +22,16 @@ export const actions: Actions = {
 	logout: async ({ locals }) => {
 		const { session } = await locals.auth.validateUser();
 		if (!session) return fail(401);
-		await auth.invalidateSession(session.sessionId); // invalidate session
-		locals.auth.setSession(null); // remove cookie
-		if (session === null) {
+		try {
+			await auth.invalidateSession(session.sessionId); // invalidate session
+			locals.auth.setSession(null); // remove cookie
 			return {
 				success: true,
 				url: '/Login'
 			};
-		} else {
-			return fail(400, { message: 'An Error Occured !.' });
+		} catch (e) {
+			console.log(e);
+			return fail(400, { message: 'An Error Occured !.', success: false });
 		}
 	}
 };

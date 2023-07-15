@@ -54,7 +54,7 @@ export const actions = {
 				},
 				attributes: {
 					email,
-					password: bcrypt.hashSync(password, saltRounds),
+					password,
 					name,
 					business_name: business
 				}

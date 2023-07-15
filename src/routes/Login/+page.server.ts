@@ -38,7 +38,7 @@ export const actions: Actions = {
 			}
 		}
 		if (key?.userId) {
-			console.log('User ID: ', key.userId);
+			// console.log('User ID: ', key.userId);
 			return {
 				url: '/',
 				status: 200,

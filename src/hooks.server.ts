@@ -10,16 +10,16 @@ async function connectToDB() {
 	if (dev) {
 		await mongoose
 			.connect(`${process.env.MONGO_URL}`)
-			.then(() => console.log('Connected To Database.'))
+			.then(() => console.log('Connected To Local Database.'))
 			.catch((e) => {
-				console.log(`Connection to Database Failed: ${e}`);
+				console.log(`Connection to Local Database Failed: ${e}`);
 			});
 	} else {
 		await mongoose
 			.connect(`${process.env.DOTENV_KEY}`)
-			.then(() => console.log('Connected To Database.'))
+			.then(() => console.log('Connected To Online Database.'))
 			.catch((e) => {
-				console.log(`Connection to Database Failed: ${e}`);
+				console.log(`Connection to Online Database Failed: ${e}`);
 			});
 	}
 }

@@ -32,7 +32,7 @@
 		let data = await fetch('?/logout', { method: 'POST', body: fi });
 		let res = deserialize(await data.text());
 		// console.log(res);
-		if (res.type === 'success') {
+		if (res.data.success) {
 			ensureLogin(null);
 			alert('Logout Successfull');
 			await goto(`/Login`);
