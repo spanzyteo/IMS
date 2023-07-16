@@ -17,7 +17,7 @@
 </script>
 
 <body>
-	<div class="login-container">
+	<div class="login-container md:mx-auto sm:mx-[20px]">
 		<form>
 			<div
 				class="w-[500px] text-center h-[500px] p-[5rem] rounded-3xl shadow-slate-700 shadow-lg bg-gradient-to-b from-[royalblue] to-[green]"

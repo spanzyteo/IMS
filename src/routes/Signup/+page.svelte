@@ -46,7 +46,7 @@
 	<title>Signup</title>
 </svelte:head>
 <body class="paage">
-	<div class="login-container w-2/4">
+	<div class="login-container w-fit md:w-fit lg:w-2/4">
 		<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
 			<h3 class="text-3xl text-[rgb(87,242,135)] font-bold p-3">Create Account</h3>
 			<div class="form__group field mb-3">
