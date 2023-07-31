@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Bags",
+        "quantity": 2000,
+        "price": 2000,
+        "desc": "Women Handbags"
+    },
+    {
+        "name": "Laptops",
+        "quantity": 2000,
+        "price": 2000,
+        "desc": "Computers"
+    }
+]

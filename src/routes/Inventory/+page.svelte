@@ -3,10 +3,12 @@
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
 	import { isLoggedIn } from '../../stores/stores';
-	import { Button } from 'sveltestrap';
+	import { Button, Form } from 'sveltestrap';
 	import Login from '../components/Login.svelte';
 	import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
+	import { deserialize } from '$app/forms';
+	import { goto } from '$app/navigation';
 	let myVariable = 5;
 	let loading = true;
 	let searchTerm = '';
@@ -34,6 +36,26 @@
 			);
 		} else {
 			filtered_inventory = inventory;
+		}
+	}
+	let details = [
+		{
+			name: '',
+			quantity: 0,
+			price: 0,
+			desc: ''
+		}
+	];
+	let fd = new FormData();
+	async function addInv() {
+		fd.append('inv', JSON.stringify(details));
+		let data = await fetch('?/addItem', { method: 'POST', body: fd });
+		let res = deserialize(await data.text());
+		if (res.type === 'success') {
+			alert(`${res.data.message}`);
+			await goto(`${res.data.url}`);
+		} else {
+			alert(`${res.data.message}`);
 		}
 	}
 </script>

@@ -11,7 +11,8 @@
 	import { deserialize, enhance } from '$app/forms';
 	// import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
-	let userId = page.data.userId;
+	export let data;
+	let userId = data.user.userId;
 	//@ts-ignore
 	// export let form;
 	onMount(() => {
@@ -117,6 +118,7 @@
 		// console.log(data);
 		// console.log(`New Data: ${data}`);
 	}
+	console.log(displayed);
 </script>
 
 <svelte:head>

@@ -1,0 +1,18 @@
+[
+    {
+        "lastUpdatedAt": "7/26/2023, 5:59:36 PM",
+        "customer_name": "Wisdom",
+        "id": "14144fc8",
+        "date": "Wed Jul 26 2023",
+        "items": [
+            {
+                "name": "Lipton Tea",
+                "quantity": 5,
+                "price": 600
+            }
+        ],
+        "balance": 1000,
+        "paid": 2000,
+        "total": 3000
+    }
+]
