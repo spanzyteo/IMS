@@ -21,7 +21,10 @@
 </script>
 
 <body>
-	<Button color="danger" on:click={toggle}>Open Modal</Button>
+	<button
+		style="border-radius: 100%; width: 50px; font-size: 2rem; border: 1px solid black;"
+		on:click={toggle}>+</button
+	>
 	<Modal isOpen={open} {toggle}>
 		<ModalHeader isOpen={openScrollable} toggle={toggleScrollable} scrollable
 			>Add New Item</ModalHeader
@@ -52,3 +55,12 @@
 		</ModalFooter>
 	</Modal>
 </body>
+
+<style>
+	button:hover {
+		background-color: greenyellow;
+	}
+	button {
+		background-color: green;
+	}
+</style>
