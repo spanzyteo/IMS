@@ -1,10 +1,8 @@
 import type { Actions } from '@sveltejs/kit';
 import { fail, redirect } from '@sveltejs/kit';
-import { auth, User } from '../../hooks.server';
+import { auth } from '../../hooks.server';
 import type { PageServerLoad } from '../$types';
-import { isLoggedIn } from '../../stores/stores';
 import { LuciaError } from 'lucia-auth';
-import bcrypt from 'bcrypt';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
@@ -18,7 +16,6 @@ export const actions: Actions = {
 	login: async ({ request, locals }) => {
 		const data = await request.formData();
 		const { email, password } = JSON.parse(data.get('info') as any);
-		let saltRounds = 10;
 		// check for empty values
 		if (typeof email !== 'string' || typeof password !== 'string') return fail(400);
 		// console.log('Key: ', key, 'Session: ', session);
