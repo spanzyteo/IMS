@@ -20,7 +20,6 @@
 		let res = deserialize(await data.text());
 		ensureLogin(res.data.success);
 		if (res.data.success) {
-			alert('Login Sucessfull');
 			await goto(res.data.url);
 		} else {
 			alert(`${res.data.message}`);
