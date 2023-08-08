@@ -1,4 +1,3 @@
-import inventory from '$lib/inventory.json';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { redirect } from '@sveltejs/kit';
 

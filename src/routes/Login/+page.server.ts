@@ -3,13 +3,23 @@ import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '../../hooks.server';
 import type { PageServerLoad } from '../$types';
 import { LuciaError } from 'lucia-auth';
+import { initTRPC } from '@trpc/server';
+import { userSession } from '$lib/trpc/router';
+import { createContext, type Context } from '$lib/trpc/context';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	const { user, session } = await locals.auth.validateUser();
-	// console.log(user, session);
-	if (session && session.userId && user && user.userId) {
-		throw redirect(302, '/');
-	}
+const t = initTRPC.context<Context>().create();
+
+export const load: PageServerLoad = async (context) => {
+	// console.log(context);
+	const ctx = await createContext(context);
+	// console.log('ctx in load function:', await ctx.auth.validateUser());
+	// console.log(userSession);
+	// const locals = event.locals.auth;
+	// const { user, session } = await locals.validateUser();
+	// console.log(await locals.validateUser());
+	// if (session && session.userId && user && user.userId) {
+	// 	throw redirect(302, '/');
+	// }
 };
 
 export const actions: Actions = {

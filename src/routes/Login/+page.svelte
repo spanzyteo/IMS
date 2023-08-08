@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
 	import { onMount } from 'svelte';
+	import { trpc } from '$lib/trpc/client';
 
 	let details = {
 		email: '',
@@ -15,14 +16,14 @@
 	//Login Function
 	async function login(e) {
 		e.preventDefault();
-		fi.append('info', JSON.stringify(details));
-		let data = await fetch('?/login', { method: 'POST', body: fi });
-		let res = deserialize(await data.text());
-		ensureLogin(res.data.success);
-		if (res.data.success) {
-			await goto(res.data.url);
+		let { email, password } = details;
+		let r = await trpc($page).login.query({ email, password });
+		ensureLogin(r.success);
+		if (r.success) {
+			console.log(r.url);
+			await goto(`${r.url}`);
 		} else {
-			alert(`${res.data.message}`);
+			alert(`${r.message}`);
 		}
 		// window.location.reload();
 	}

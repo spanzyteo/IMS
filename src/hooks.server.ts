@@ -5,6 +5,10 @@ import adapter from '@lucia-auth/adapter-mongoose';
 import mongoose from 'mongoose';
 import { dev } from '$app/environment';
 import * as dotenv from 'dotenv';
+import { createContext } from '$lib/trpc/context';
+import { router } from '$lib/trpc/router';
+import { createTRPCHandle } from 'trpc-sveltekit';
+import { sequence } from '@sveltejs/kit/hooks';
 dotenv.config();
 async function connectToDB() {
 	if (dev) {
@@ -102,7 +106,9 @@ export const auth = lucia({
 });
 
 export type Auth = typeof auth;
-export const handle: Handle = async ({ event, resolve }) => {
+async function luciaHandle({ event, resolve }: any) {
 	event.locals.auth = auth.handleRequest(event);
 	return await resolve(event);
-};
+}
+
+export const handle: Handle = sequence(luciaHandle, createTRPCHandle({ router, createContext }));

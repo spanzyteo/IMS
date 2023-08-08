@@ -12,7 +12,15 @@
 		ModalFooter,
 		ModalHeader
 	} from 'sveltestrap';
-
+	import { trpc } from '$lib/trpc/client';
+	import { page } from '$app/stores';
+	let greeting = 'press the button to load data';
+	let loading = false;
+	async function loadData() {
+		loading = true;
+		greeting = await trpc($page).greeting.query();
+		loading = false;
+	}
 	let open = false;
 	const toggle = () => (open = !open);
 	let radioGroup;
@@ -54,6 +62,16 @@
 			<Button color="danger" on:click={toggle}>Cancel</Button>
 		</ModalFooter>
 	</Modal>
+	<h6>Loading data in<br /><code>+page.svelte</code></h6>
+
+	<a
+		href="#load"
+		role="button"
+		class="secondary"
+		aria-busy={loading}
+		on:click|preventDefault={loadData}>Load</a
+	>
+	<p>{greeting}</p>
 </body>
 
 <style>

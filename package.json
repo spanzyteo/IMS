@@ -39,6 +39,8 @@
 		"@sveltejs/adapter-node": "^1.2.4",
 		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/adapter-vercel": "^3.0.1",
+		"@trpc/client": "^10.37.1",
+		"@trpc/server": "^10.37.1",
 		"@types/chart.js": "^2.9.37",
 		"bcrypt": "^5.1.0",
 		"bootstrap": "^5.2.3",
@@ -55,6 +57,7 @@
 		"svelte-awesome": "^3.2.0",
 		"sveltestrap": "^5.10.0",
 		"text-to-speech-js": "^1.1.10",
+		"trpc-sveltekit": "^3.5.20",
 		"uuid": "^9.0.0"
 	}
 }

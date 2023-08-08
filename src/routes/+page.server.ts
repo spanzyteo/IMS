@@ -4,10 +4,12 @@ import { auth } from '../hooks.server';
 import type { PageServerLoad } from './$types';
 import { isLoggedIn } from '../stores/stores';
 import { ensureLogin } from '$lib/authorise';
+import { userSession } from '$lib/trpc/router';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const { user, session } = await locals.auth.validateUser();
+	const { user, session } = userSession;
 	// console.log(user, session);
+	// // console.log(user, session);
 	if (session && session.userId) {
 		return {
 			user,
