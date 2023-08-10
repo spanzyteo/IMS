@@ -1,6 +1,9 @@
 import adapter from "@lucia-auth/adapter-mongoose";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
+import { initTRPC } from "@trpc/server";
+import { createTRPCHandle } from "trpc-sveltekit";
+import { f as fail } from "./index2.js";
 const __toString = Object.prototype.toString;
 const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
 const parseCookie = (str, options) => {
@@ -987,11 +990,86 @@ class Auth {
     await this.getKey(providerId, providerUserId);
   };
 }
+async function createContext(event) {
+  console.log("Auth: ", await event.locals.auth.validateUser());
+  return {
+    // context information
+    auth: event.locals.auth
+  };
+}
+const t = initTRPC.context().create();
+let userSession = { user: {}, session: {} };
+const router = t.router({
+  greeting: t.procedure.query(async () => {
+    console.log(`Hello tRPC v10 @ ${(/* @__PURE__ */ new Date()).toLocaleTimeString()}`);
+    return `Hello tRPC v10 @ ${(/* @__PURE__ */ new Date()).toLocaleTimeString()}`;
+  }),
+  login: t.procedure.input((v) => v).output((v) => v).query(async ({ input, ctx }) => {
+    let key;
+    let session;
+    try {
+      key = await auth.useKey("email", input.email, input.password);
+      session = await auth.createSession(key.userId);
+      ctx.auth.setSession(session);
+      userSession = await ctx.auth.validateUser();
+    } catch (e) {
+      if (e instanceof LuciaError) {
+        console.log("Error: ", e.message);
+        let errmessage = "";
+        errmessage = "Email Or Password Incorrect";
+        return fail(400, { message: errmessage });
+      }
+    }
+    if (!key?.userId) {
+      return fail(400, { message: "Invalid user identity specified." });
+    } else {
+      return {
+        url: "/",
+        status: 200,
+        success: true
+      };
+    }
+  })
+});
+function sequence(...handlers) {
+  const length = handlers.length;
+  if (!length)
+    return ({ event, resolve }) => resolve(event);
+  return ({ event, resolve }) => {
+    return apply_handle(0, event, {});
+    function apply_handle(i, event2, parent_options) {
+      const handle2 = handlers[i];
+      return handle2({
+        event: event2,
+        resolve: (event3, options) => {
+          const transformPageChunk = async ({ html, done }) => {
+            if (options?.transformPageChunk) {
+              html = await options.transformPageChunk({ html, done }) ?? "";
+            }
+            if (parent_options?.transformPageChunk) {
+              html = await parent_options.transformPageChunk({ html, done }) ?? "";
+            }
+            return html;
+          };
+          const filterSerializedResponseHeaders = parent_options?.filterSerializedResponseHeaders ?? options?.filterSerializedResponseHeaders;
+          const preload = parent_options?.preload ?? options?.preload;
+          return i < length - 1 ? apply_handle(i + 1, event3, {
+            transformPageChunk,
+            filterSerializedResponseHeaders,
+            preload
+          }) : resolve(event3, { transformPageChunk, filterSerializedResponseHeaders, preload });
+        }
+      });
+    }
+  };
+}
 dotenv.config();
 async function connectToDB() {
-  await mongoose.connect(`${process.env.MONGO_URL}`).then(() => console.log("Connected To Database.")).catch(() => {
-    console.log(`Connection to Database Failed.`);
-  });
+  {
+    await mongoose.connect(`${process.env.DOTENV_KEY}`).then(() => console.log("Connected To Online Database.")).catch((e) => {
+      console.log(`Connection to Online Database Failed: ${e}`);
+    });
+  }
 }
 connectToDB();
 const userSchema = new mongoose.Schema(
@@ -1068,14 +1146,23 @@ const auth = lucia({
     };
   }
 });
-const handle = async ({ event, resolve }) => {
+async function luciaHandle({ event, resolve }) {
   event.locals.auth = auth.handleRequest(event);
   return await resolve(event);
-};
-export {
+}
+const handle = sequence(luciaHandle, createTRPCHandle({ router, createContext }));
+const hooks_server = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
   Key,
   Session,
   User,
   auth,
   handle
+}, Symbol.toStringTag, { value: "Module" }));
+export {
+  LuciaError as L,
+  auth as a,
+  createContext as c,
+  hooks_server as h,
+  userSession as u
 };

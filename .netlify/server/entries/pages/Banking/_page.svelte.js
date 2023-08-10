@@ -3,7 +3,6 @@ import { c as create_ssr_component, a as subscribe, v as validate_component } fr
 import "chart.js/auto";
 /* empty css                                                       */import { p as page } from "../../../chunks/stores.js";
 import { i as isLoggedIn } from "../../../chunks/stores2.js";
-import "../../../chunks/index2.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$unsubscribe_isLoggedIn;
   let $$unsubscribe_page;

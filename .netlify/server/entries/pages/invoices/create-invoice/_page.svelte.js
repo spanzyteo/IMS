@@ -9,11 +9,17 @@ const css = {
   map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { data } = $$props;
+  data.user.userId;
   let d = /* @__PURE__ */ new Date();
   let date = d.toDateString();
   console.log(date);
   v4().slice(0, 8);
+  let displayed = true;
   new FormData();
+  console.log(displayed);
+  if ($$props.data === void 0 && $$bindings.data && data !== void 0)
+    $$bindings.data(data);
   $$result.css.add(css);
   return `${$$result.head += `<!-- HEAD_svelte-hdie13_START -->${$$result.title = `<title>Create Invoice</title>`, ""}<!-- HEAD_svelte-hdie13_END -->`, ""}
 

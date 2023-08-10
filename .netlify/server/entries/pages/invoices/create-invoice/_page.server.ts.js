@@ -1,4 +1,16 @@
+import { r as redirect } from "../../../../chunks/index2.js";
 import fs from "fs";
+const load = async ({ locals }) => {
+  const { user, session } = await locals.auth.validateUser();
+  if (session && user) {
+    return {
+      session,
+      user
+    };
+  } else {
+    throw redirect(302, "/Login");
+  }
+};
 const actions = {
   saveSimple: async ({ request }) => {
     const data = await request.formData();
@@ -49,5 +61,6 @@ const actions = {
   }
 };
 export {
-  actions
+  actions,
+  load
 };

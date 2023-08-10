@@ -3,7 +3,6 @@ import { S as Spinner } from "../../chunks/Spinner.js";
 /* empty css                                                  */import { i as isLoggedIn } from "../../chunks/stores2.js";
 /* empty css                                                    *//* empty css                                                */import { p as page } from "../../chunks/stores.js";
 import "devalue";
-import "../../chunks/index2.js";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: "@media print{#fixed.svelte-1smv3c8{display:none}}",

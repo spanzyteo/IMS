@@ -1,7 +1,6 @@
 import { c as create_ssr_component, a as subscribe, v as validate_component } from "../../../chunks/index3.js";
 import { i as isLoggedIn } from "../../../chunks/stores2.js";
 /* empty css                                                       *//* empty css                                                   *//* empty css                                                     */import { S as Spinner } from "../../../chunks/Spinner.js";
-import "../../../chunks/index2.js";
 import { p as page } from "../../../chunks/stores.js";
 /* empty css                                                     */const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$unsubscribe_isLoggedIn;

@@ -1,8 +1,8 @@
 import { c as create_ssr_component, a as subscribe, v as validate_component } from "../../../chunks/index3.js";
 /* empty css                                                     */import { S as Spinner } from "../../../chunks/Spinner.js";
 import "../../../chunks/stores2.js";
-/* empty css                                                       *//* empty css                                                   */import "../../../chunks/index2.js";
-import { p as page } from "../../../chunks/stores.js";
+/* empty css                                                       *//* empty css                                                   */import { p as page } from "../../../chunks/stores.js";
+import "devalue";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
   code: "tr.svelte-1eo0xjm,td.svelte-1eo0xjm,thead.svelte-1eo0xjm{padding:20px}td.svelte-1eo0xjm,th.svelte-1eo0xjm{padding:20px;border-right:2px solid;border-left:2px solid;border-bottom:2px solid;width:200px}table.svelte-1eo0xjm{border-collapse:collapse}",
@@ -13,6 +13,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_page = subscribe(page, (value) => value);
   let { data } = $$props;
   data.data;
+  new FormData();
   if ($$props.data === void 0 && $$bindings.data && data !== void 0)
     $$bindings.data(data);
   $$result.css.add(css);

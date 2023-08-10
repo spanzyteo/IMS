@@ -1,31 +1,40 @@
 import { f as fail } from "../../../chunks/index2.js";
-import { auth } from "../../../chunks/hooks.server.js";
+import { c as createContext, a as auth, L as LuciaError } from "../../../chunks/hooks.server.js";
+import { initTRPC } from "@trpc/server";
+initTRPC.context().create();
+const load = async (context) => {
+  await createContext(context);
+};
 const actions = {
   login: async ({ request, locals }) => {
     const data = await request.formData();
-    const email = data.get("email");
-    const password = data.get("password");
+    const { email, password } = JSON.parse(data.get("info"));
     if (typeof email !== "string" || typeof password !== "string")
       return fail(400);
-    const key = await auth.useKey("email", email, password);
-    key.userId = "fn4893he9";
-    const session = await auth.createSession(key.userId);
-    locals.auth.setSession(session);
-    if (key.userId) {
-      console.log("User ID: ", key.userId);
+    let key;
+    let session;
+    try {
+      key = await auth.useKey("email", email, password);
+      session = await auth.createSession(key.userId);
+      locals.auth.setSession(session);
+    } catch (e) {
+      if (e instanceof LuciaError) {
+        console.log("Error: ", e.message);
+        let errmessage = "";
+        errmessage = "Email Or Password Incorrect";
+        return fail(400, { message: errmessage });
+      }
+    }
+    if (key?.userId) {
       return {
         url: "/",
         status: 200,
         success: true
       };
-    } else {
-      return {
-        status: 502,
-        url: "/Login"
-      };
     }
   }
 };
 export {
-  actions
+  actions,
+  load
 };

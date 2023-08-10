@@ -1,7 +1,7 @@
 import { r as redirect, f as fail } from "../../chunks/index2.js";
-import { auth } from "../../chunks/hooks.server.js";
+import { a as auth, u as userSession } from "../../chunks/hooks.server.js";
 const load = async ({ locals }) => {
-  const { user, session } = await locals.auth.validateUser();
+  const { user, session } = userSession;
   if (session && session.userId) {
     return {
       user,
@@ -16,13 +16,16 @@ const actions = {
     const { session } = await locals.auth.validateUser();
     if (!session)
       return fail(401);
-    await auth.invalidateSession(session.sessionId);
-    locals.auth.setSession(null);
-    if (session === null) {
+    try {
+      await auth.invalidateSession(session.sessionId);
+      locals.auth.setSession(null);
       return {
         success: true,
         url: "/Login"
       };
+    } catch (e) {
+      console.log(e);
+      return fail(400, { message: "An Error Occured !.", success: false });
     }
   }
 };
