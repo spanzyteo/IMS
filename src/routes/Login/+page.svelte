@@ -16,11 +16,13 @@
 	//Login Function
 	async function login(e) {
 		e.preventDefault();
-		let { email, password } = details;
-		let r = await trpc($page).login.query({ email, password });
-		ensureLogin(r.success);
+		fi.append('info', JSON.stringify(details));
+		let data = await fetch('?/login', { method: 'POST', body: fi });
+		let res = deserialize(await data.text());
+		let r = res.data;
+		console.log(r);
 		if (r.success) {
-			console.log(r.url);
+			ensureLogin(r.success);
 			await goto(`${r.url}`);
 		} else {
 			alert(`${r.message}`);
