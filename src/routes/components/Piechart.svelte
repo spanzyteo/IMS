@@ -10,9 +10,9 @@
 	export let bal;
 	export let total;
 	let chartData = [
-		{ label: 'Debts', value: bal, color: 'red' },
-		{ label: 'Total', value: total, color: 'blue' },
-		{ label: 'Paid', value: paid, color: 'green' }
+		{ label: 'Debts', value: bal, color: '#132A13' },
+		{ label: 'Total', value: total, color: '#EB6424' },
+		{ label: 'Paid', value: paid, color: '#4B2142' }
 	];
 
 	let chart;
@@ -60,7 +60,7 @@
 </script>
 
 <Container>
-	<div class="mt-20 mx-auto items-center h-fit w-fit overflow-hidden">
-		<canvas id="chart" width="500px" height="500px" />
+	<div class="mt-10 items-center h-fit overflow-hidden w-full">
+		<canvas id="chart" />
 	</div>
 </Container>

@@ -43,44 +43,38 @@
 {:else if $isLoggedIn === false}
 	<Login {username} {password} />
 {:else}
-	<div class="flex">
-		<Sidebar active_component={ac} />
-		<div class="mx-auto">
-			<section style="background-color: white;" class="h-fit fixed p-0 w-[1000px]">
-				<h3 class="text-3xl ml-auto font-extrabold text-center p-2">
-					Inventory <br />
-					<br />
-					<input
-						type="text"
-						bind:value={searchTerm}
-						placeholder="Search..."
-						class="w-[500px] rounded-full text-center border-[2px] text-2xl border-slate-500 bg-white"
-					/>
-				</h3>
+	<div class="flex h-screen">
+		<div id="fixed">
+			<Sidebar active_component={ac} />
+		</div>
+		<div class="flex-1 w-screen -ml-[-230px] p-5">
+			<div class="mb-5">
+				<h3 class="mb-3 text-5xl font-bold">Inventory</h3>
+				<input
+					type="text"
+					bind:value={searchTerm}
+					placeholder="Search items here"
+					class="border-2 border-black text-sm text-black w-full rounded-md mr-3 py-2 px-2"
+				/>
+			</div>
 
-				<br />
-			</section>
-			<div class="mt-[11rem] text-center ml-[5rem]">
-				<table>
-					<thead style="border-top: 2px solid black;">
-						<tr>
-							<th>Name</th>
-							<th>Quantity</th>
-							<th>Price</th>
-							<th>Description</th>
+			<div class="text-center">
+				<table class="mx-auto w-full">
+					<thead class="bg-black">
+						<tr class="text-white">
+							<th class="px-20 py-2">Name</th>
+							<th class="px-20 py-2">Quantity</th>
+							<th class="px-20 py-2">Price</th>
+							<th class="px-20 py-2">Description</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="">
 						{#each filtered_inventory as inv, index}
-							<tr>
-								<td>
-									{inv.name}
-								</td>
-								<td>
-									{inv.quantity}
-								</td>
-								<td>{inv.price}</td>
-								<td>{inv.desc}</td>
+							<tr class="border-black border-b hover:bg-slate-200">
+								<td class="py-2">{inv.name}</td>
+								<td class="py-2">{inv.quantity}</td>
+								<td class="py-2">{inv.price}</td>
+								<td class="py-2">{inv.desc}</td>
 							</tr>
 						{/each}
 					</tbody>
@@ -92,20 +86,4 @@
 {/if}
 
 <style>
-	tr,
-	td,
-	thead {
-		padding: 20px;
-	}
-	td,
-	th {
-		padding: 20px;
-		border-right: 2px solid;
-		border-left: 2px solid;
-		border-bottom: 2px solid;
-		width: 200px;
-	}
-	table {
-		border-collapse: collapse;
-	}
 </style>

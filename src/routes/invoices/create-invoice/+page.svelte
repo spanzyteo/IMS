@@ -127,10 +127,8 @@
 	{#if loading === false}
 		<div>
 			{#if displayed === true}
-				<nav
-					class="w-full fixed text-center bg-slate-600 text-white h-fit mt-0 pt-0 mb-14 font-extrabold"
-				>
-					<ul class="p-3 flex justify-evenly">
+				<nav class="w-full fixed text-center bg-black text-white font-bold">
+					<ul class="flex">
 						<a href="/" class="p-3 hover:text-gray-300"><li>Home</li></a>
 						<a href="/Banking" class="p-3 hover:text-gray-300"><li>Banking</li></a>
 						<a href="/invoices" class="p-3 hover:text-gray-300"><li>Invoices</li></a>

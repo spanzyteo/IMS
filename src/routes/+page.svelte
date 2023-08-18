@@ -45,19 +45,16 @@
 	<title>Los Angis - Home</title>
 </svelte:head>
 
-<body>
+<!-- <body>
 	{#if loading === true}
 		<Spinner />
 	{:else}
-		<div class="flex overflow-hidden justify-between">
+		<div class="flex">
 			<div id="fixed">
 				<Sidebar active_component={ac} />
 			</div>
-			<div
-				class="mx-auto bg-no-repeat bg-center h-screen md:ml-[300px] lg:ml-[300px] 2xl:ml-[300px] text-center"
-				style="background-image: url(../../assests/bg.png)"
-			>
-				<div class="text-center mt-[10rem] mx-auto w-full md:ml-[10rem] lg:ml-[10rem]">
+			<div class="">
+				<div class="text-center mx-auto w-full">
 					<ul class="flex">
 						<li class="px-12">
 							<div class="py-6">
@@ -117,6 +114,116 @@
 			</div>
 		</div>
 	{/if}
+</body> -->
+
+<body>
+	{#if loading === true}
+		<Spinner />
+	{:else}
+		<div class="flex h-screen">
+			<div id="fixed">
+				<Sidebar active_component={ac} />
+			</div>
+			<div class="flex-1 w-screen -ml-[-230px] p-5">
+				<div
+					class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 px-10 text-white"
+				>
+					<div
+						class="w-[18rem] sm:w-[18rem] md:w-[100%] border col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 rounded-xl p-3 shadow-md text-center text-black"
+					>
+						<h1 class="mb-3 text-5xl font-bold">Welcome to Logis Anis</h1>
+						<p class="mb-3">
+							Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+							exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi. In deleniti
+							eaque aut repudiandae et a id nisi.
+						</p>
+						<a href="/">
+							<button class="bg-black rounded-[20px] px-3 py-2 text-sm text-white"
+								>Get Started</button
+							>
+						</a>
+					</div>
+					<div
+						class="w-[18rem] sm:w-[18rem] md:w-[100%] bg-[#212121] button2 border rounded-xl p-3 shadow-md"
+					>
+						<div
+							class="flex flex-col sm:flex-col md:flex-col lg:flex-row justify-between mb-3 items-center"
+						>
+							<div class="flex items-center">
+								<img class="mr-2" src="/Icons/cash-outline.svg" alt="logo" width="30" />
+								<h1 class="font-bold">BANKING</h1>
+							</div>
+							<div>
+								<a href="/Banking">
+									<button class=" font-bold bg-white rounded-[20px] px-3 py-2 text-sm text-black"
+										>Launch</button
+									>
+								</a>
+							</div>
+						</div>
+						<h1 class="text-3xl font-extrabold mb-3">#<span class="text-7xl">2</span></h1>
+						<h2 class="text-sm mb-3">
+							Los Angis: The Leading tool for software management. <br /> Increase in your revenue by
+							the end of this month is forecasted
+						</h2>
+					</div>
+					<div
+						class="w-[18rem] sm:w-[18rem] md:w-[100%] bg-[#212121] button2 border rounded-xl p-3 shadow-md"
+					>
+						<div
+							class="flex flex-col sm:flex-col md:flex-col lg:flex-row justify-between mb-3 items-center"
+						>
+							<div class="flex items-center">
+								<img class="mr-2" src="/Icons/receipt-outline.svg" alt="logo" width="30" />
+								<h1 class="font-bold">INVOICES</h1>
+							</div>
+							<div>
+								<a href="/invoices">
+									<button class="bg-white font-bold rounded-[20px] px-3 py-2 text-sm text-black"
+										>Launch</button
+									>
+								</a>
+							</div>
+						</div>
+						<h1 class="text-3xl font-extrabold mb-3">#<span class="text-7xl">3</span></h1>
+						<h2 class="text-sm mb-3">
+							Los Angis: The Leading tool for software management. <br /> Increase in your revenue by
+							the end of this month is forecasted
+						</h2>
+					</div>
+
+					<div
+						class="w-[18rem] sm:w-[18rem] md:w-[100%] border button2 col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 rounded-xl p-3 shadow-md"
+					>
+						<div class="flex justify-between mb-3 items-center">
+							<div class="flex items-center">
+								<img class="mr-2" src="/Icons/clipboard-outline.svg" alt="logo" width="30" />
+								<h1 class="font-bold">INVENTORY</h1>
+							</div>
+							<div>
+								<a href="/Inventory">
+									<button class="bg-white font-bold rounded-[20px] px-3 py-2 text-sm text-black"
+										>Launch</button
+									>
+								</a>
+							</div>
+						</div>
+						<h1 class="text-3xl font-extrabold mb-3">#<span class="text-7xl">4</span></h1>
+						<h2 class="text-sm mb-3">
+							Los Angis: The Leading tool for software management. <br /> Increase in your revenue by
+							the end of this month is forecasted
+						</h2>
+					</div>
+					<div class="">
+						<button
+							class="text-center list-none mb-10 bg-black hover:bg-transparent font-bold rounded-[20px] px-4 py-2 text-sm text-white"
+							on:click={logout}>Logout</button
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 </body>
 
 <style>
@@ -125,12 +232,77 @@
 			display: none;
 		}
 	}
-	body {
-		background-image: url('../assests/bg.png');
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center;
-		height: 100%;
-		width: 100%;
+	/* .bg {
+		background: -webkit-linear-gradient(to top, #1f4037, #99f2c8);
+		background: linear-gradient(to top, #1f4037, #99f2c8);
+	} */
+	.bg:hover {
+		box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
+	}
+	.button2 {
+		display: inline-block;
+		transition: all 0.2s ease-in;
+		position: relative;
+		overflow: hidden;
+		z-index: 1;
+		color: #090909;
+		padding: 0.7em 1.7em;
+		font-size: 18px;
+		border-radius: 0.5em;
+		background: #e8e8e8;
+		border: 1px solid #e8e8e8;
+		box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+	}
+
+	.button2:active {
+		color: #666;
+		box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+	}
+
+	.button2:before {
+		content: '';
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%) scaleY(1) scaleX(1.25);
+		top: 100%;
+		width: 140%;
+		height: 180%;
+		background-color: rgba(0, 0, 0, 0.05);
+		border-radius: 50%;
+		display: block;
+		transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+		z-index: -1;
+	}
+
+	.button2:after {
+		content: '';
+		position: absolute;
+		left: 55%;
+		transform: translateX(-50%) scaleY(1) scaleX(1.45);
+		top: 180%;
+		width: 160%;
+		height: 190%;
+		background-color: #009087;
+		border-radius: 50%;
+		display: block;
+		transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+		z-index: -1;
+	}
+
+	.button2:hover {
+		color: #ffffff;
+		border: 1px solid #009087;
+	}
+
+	.button2:hover:before {
+		top: -35%;
+		background-color: #009087;
+		transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+	}
+
+	.button2:hover:after {
+		top: -45%;
+		background-color: #009087;
+		transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 	}
 </style>
