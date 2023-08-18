@@ -7,26 +7,18 @@
 	import { Button, Icon } from 'sveltestrap';
 	import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
+	import Invoice from '../components/Invoice.svelte';
 	let ac = 'invoices';
 	export let data;
 	let invoices = data.invoice;
 	let searchterm = '';
-	let filtered_invoices = invoices;
+	let filtered_invoices;
 	let loading = true;
 	let username = '';
 	let password = '';
 	let d = new Date();
 	let date = d.toDateString();
 	console.log(date);
-	$: {
-		if (searchterm) {
-			filtered_invoices = invoices.filter((invoice) =>
-				invoice.customer_name?.toLocaleLowerCase().includes(searchterm.toLocaleLowerCase())
-			);
-		} else {
-			filtered_invoices = invoices;
-		}
-	}
 	onMount(() => {
 		ensureLogin($page.data);
 
@@ -40,10 +32,19 @@
 			loading = false;
 		}, 1500);
 	});
+	$: {
+		if (searchterm) {
+			filtered_invoices = invoices.filter((invoice) =>
+				invoice.customer_name?.toLocaleLowerCase().includes(searchterm.toLocaleLowerCase())
+			);
+		} else {
+			filtered_invoices = invoices;
+		}
+	}
 </script>
 
 <svelte:head>
-	<title>Los Angis - Invoices</title>
+	<title>Invoices</title>
 </svelte:head>
 
 <html lang="en">
@@ -72,6 +73,7 @@
 							</div>
 						</div>
 					</div>
+
 					<ul class="mt-[2rem] px-10">
 						{#each filtered_invoices as invoice}
 							<a href="/invoices/{invoice.id}" class="p-[20px] text-black">

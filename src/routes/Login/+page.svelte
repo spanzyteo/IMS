@@ -1,36 +1,33 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { ensureLogin } from '$lib/authorise';
-	import { deserialize } from '$app/forms';
+	import { deserialize, enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	// import { isLoggedIn } from '../../stores/stores';
-	import mail from '../../assests/mail.svg';
-	import lock from '../../assests/lock.svg';
 	import { onMount } from 'svelte';
+	import { trpc } from '$lib/trpc/client';
 
 	let details = {
 		email: '',
 		password: ''
 	};
-	onMount(() => {
-		ensureLogin($page.data);
-	});
-	let fd = new FormData();
+
+	let fi = new FormData();
+	//Login Function
 	async function login(e) {
 		e.preventDefault();
-		fd.append('user', JSON.stringify(details));
-		let data = await fetch('?/login', { method: 'POST', body: fd });
-		let res = await data.text();
-		let fullres = deserialize(res);
-		if (fullres.data.success) {
-			alert('Login Successful, Redirecting...');
-			await goto(`${fullres.data.url}`);
+		fi.append('info', JSON.stringify(details));
+		let data = await fetch('?/login', { method: 'POST', body: fi });
+		let res = deserialize(await data.text());
+		let r = res.data;
+		console.log(r);
+		if (r.success) {
+			ensureLogin(r.success);
+			await goto(`${r.url}`);
+		} else {
+			alert(`${r.message}`);
 		}
-		// if (data.ok) {
-		// 	ensureLogin($page.data);
-		// 	alert(`Logged In`);
-		// 	await goto('/');
-		// }
+		// window.location.reload();
 	}
 </script>
 
@@ -73,6 +70,10 @@
 						{''}
 						Enter Password</label
 					>
+					<br /><br />
+					<p class="font-bold text-xl text-black">
+						Don't have an account? <a href="/Signup" class="text-blue-400">Signup</a>
+					</p>
 				</div>
 				<button class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}
 					>Log In</button
@@ -85,7 +86,7 @@
 <style>
 	.login-card {
 		height: 100vh;
-		background-image: url('../../assests/bg.png');
+		background-image: url('../../../assets/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;

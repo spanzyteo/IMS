@@ -29,7 +29,7 @@
 				</li>
 			{/if}</a
 		>
-		<a href="/Banking"
+		<a href="/Banking" class="text-gray-700"
 			>{#if active_component === 'bills'}<li
 					id="active"
 					class="bg-[#ECEFE3] text-black rounded-md px-3 py-2 mb-3"
@@ -44,7 +44,7 @@
 				</li>
 			{/if}</a
 		>
-		<a href="/Inventory">
+		<a href="/Inventory" class="text-gray-700">
 			{#if active_component === 'inventory'}
 				<li id="active" class=" bg-[#ECEFE3] text-black rounded-md px-3 py-2 mb-3">
 					<span class="icon mr-2"><ion-icon name="clipboard-outline" /></span>
@@ -57,7 +57,7 @@
 				</li>
 			{/if}</a
 		>
-		<a href="/invoices">
+		<a href="/invoices" class="text-gray-700">
 			{#if active_component === 'invoices'}
 				<li id="active" class=" bg-[#ECEFE3] text-black rounded-md px-3 py-2 mb-3">
 					<span class="icon mr-2"><ion-icon name="receipt-outline" /></span>

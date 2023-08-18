@@ -7,7 +7,7 @@
 	import { Icon } from 'sveltestrap';
 	export let data;
 	let invoiceDetails = data.invoice;
-	let username = '';
+	let username = data.name;
 	let password = '';
 	let loading = true;
 	onMount(() => {
@@ -30,7 +30,7 @@
 		{#if loading === true}
 			<Spinner />
 		{:else}
-			<Invoice details={invoiceDetails} />
+			<Invoice details={invoiceDetails} name={username} />
 		{/if}
 	</body>
 </html>

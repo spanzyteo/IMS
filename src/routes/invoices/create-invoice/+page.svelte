@@ -9,14 +9,15 @@
 	import invoices from '$lib/invoices.json';
 	import { goto } from '$app/navigation';
 	import { deserialize, enhance } from '$app/forms';
-	import { ensureLogin } from '$lib/authorise';
+	// import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
-	let userId = $page.data.user.userId;
+	export let data;
+	let userId = data.user.userId;
 	//@ts-ignore
 	// export let form;
 	onMount(() => {
-		ensureLogin($page.data);
-		console.log($page.data.user);
+		// ensureLogin($page.data);
+		// console.log($page.data.user);
 		displayed = true;
 		// @ts-ignore
 		updateTotal();
@@ -117,6 +118,7 @@
 		// console.log(data);
 		// console.log(`New Data: ${data}`);
 	}
+	console.log(displayed);
 </script>
 
 <svelte:head>

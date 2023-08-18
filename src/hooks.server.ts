@@ -5,14 +5,27 @@ import adapter from '@lucia-auth/adapter-mongoose';
 import mongoose from 'mongoose';
 import { dev } from '$app/environment';
 import * as dotenv from 'dotenv';
+import { createContext } from '$lib/trpc/context';
+import { router } from '$lib/trpc/router';
+import { createTRPCHandle } from 'trpc-sveltekit';
+import { sequence } from '@sveltejs/kit/hooks';
 dotenv.config();
 async function connectToDB() {
-	await mongoose
-		.connect(`${process.env.MONGO_URI_ONLINE}`)
-		.then(() => console.log('Connected To Database.'))
-		.catch(() => {
-			console.log(`Connection to Database Failed.`);
-		});
+	if (dev) {
+		await mongoose
+			.connect(`${process.env.MONGO_URL}`)
+			.then(() => console.log('Connected To Local Database.'))
+			.catch((e) => {
+				console.log(`Connection to Local Database Failed: ${e}`);
+			});
+	} else {
+		await mongoose
+			.connect(`${process.env.DOTENV_KEY}`)
+			.then(() => console.log('Connected To Online Database.'))
+			.catch((e) => {
+				console.log(`Connection to Online Database Failed: ${e}`);
+			});
+	}
 }
 connectToDB();
 
@@ -21,6 +34,7 @@ const userSchema = new mongoose.Schema(
 		name: String,
 		password: String,
 		email: String,
+		business_name: String,
 		_id: {
 			type: String
 		}
@@ -85,13 +99,16 @@ export const auth = lucia({
 		return {
 			userId: userData.id,
 			username: userData.name,
-			email: userData.email
+			email: userData.email,
+			business_name: userData.business_name
 		};
 	}
 });
 
 export type Auth = typeof auth;
-export const handle: Handle = async ({ event, resolve }) => {
+async function luciaHandle({ event, resolve }: any) {
 	event.locals.auth = auth.handleRequest(event);
 	return await resolve(event);
-};
+}
+
+export const handle: Handle = sequence(luciaHandle, createTRPCHandle({ router, createContext }));

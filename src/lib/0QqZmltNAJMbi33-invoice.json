@@ -1,0 +1,34 @@
+[
+    {
+        "lastUpdatedAt": "6/22/2023, 11:17:04 AM",
+        "customer_name": "Dandy",
+        "id": "ea5dc656",
+        "date": "Thu Jun 22 2023",
+        "items": [
+            {
+                "name": "Item",
+                "quantity": null,
+                "price": 0
+            }
+        ],
+        "balance": 0,
+        "paid": 0,
+        "total": 0
+    },
+    {
+        "lastUpdatedAt": "6/22/2023, 11:36:01 AM",
+        "customer_name": "Cecilia",
+        "id": "b3b5f14e",
+        "date": "Thu Jun 22 2023",
+        "items": [
+            {
+                "name": "Item",
+                "quantity": 2,
+                "price": 5000
+            }
+        ],
+        "balance": 8000,
+        "paid": 2000,
+        "total": 10000
+    }
+]

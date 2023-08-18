@@ -35,7 +35,7 @@ export const actions = {
 			total: parseFloat(total)
 		};
 		let preInv;
-		let filePath = `./src/lib/${userId}.json`;
+		let filePath = `./src/lib/${userId}-invoice.json`;
 		try {
 			if (fs.existsSync(filePath)) {
 				const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -49,7 +49,7 @@ export const actions = {
 			}
 
 			let inv = [...preInv, invoice];
-			fs.writeFileSync(`./src/lib/${userId}.json`, JSON.stringify(inv), 'utf-8');
+			fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
 			console.log('Invoice saved successfully');
 			message = 'Invoice Saved Successfully';
 			url = `/invoices/${id}`;

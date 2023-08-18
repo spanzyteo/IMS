@@ -1,23 +1,42 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../../stores/stores';
-	import mail from '../../assests/mail.svg';
-	import lock from '../../assests/lock.svg';
-	import user from '../../assests/user.svg';
+	import { page } from '$app/stores';
+	import { deserialize } from '$app/forms';
+	import { ensureLogin } from '$lib/authorise';
+	import { onMount } from 'svelte';
 	let details = {
 		name: '',
 		email: '',
-		password: ''
+		password: '',
+		business: ''
 	};
+
+	onMount(async () => {
+		if ($page.data.message != 'No User Logged In') {
+			let mes = $page.data.message;
+			alert(mes);
+			await goto($page.data.url);
+		}
+	});
+	let c_password = '';
 	let fd = new FormData();
 	async function login() {
-		fd.append('user', JSON.stringify(details));
-		let data = await fetch('?/signup', { method: 'POST', body: fd });
-		if (data.ok) {
-			$isLoggedIn = true;
-			await goto('/');
+		if (c_password.match(details.password)) {
+			fd.append('user', JSON.stringify(details));
+			let data = await fetch('?/signup', { method: 'POST', body: fd });
+			let res = deserialize(await data.text());
+			console.log(res);
+			ensureLogin(res.data);
+			if (res.data.message === 'Registration Successful. Redirecting...') {
+				console.log(res.data.message);
+				alert(res.data.message);
+				await goto(`${res.data.url}`);
+			} else {
+				alert(res.data.message);
+			}
 		} else {
-			alert('Registration Failed');
+			alert('Passwords do not match');
 		}
 		// console.log(`New Data: ${data}`);
 	}
@@ -93,7 +112,7 @@
 <style>
 	.paage {
 		height: 100vh;
-		background-image: url('../../assests/bg.png');
+		background-image: url('../../../assets/bg.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
