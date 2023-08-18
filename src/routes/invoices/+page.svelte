@@ -52,25 +52,24 @@
 		{#if loading === true}
 			<Spinner />
 		{:else}
-			<div class="flex">
-				<div>
+			<div class="flex h-screen">
+				<div id="fixed">
 					<Sidebar active_component={ac} />
 				</div>
-				<div class="ml-[300px] px-0 w-full">
-					<div class="w-full text-center py-6 fixed bg-white mb-[5rem]">
-						<div class="flex justify-evenly mx-auto flex-wrap overflow-hidden">
-							<div class="border-2 rounded-full border-black">
-								<input
-									type="text"
-									bind:value={searchterm}
-									class="border text-center w-[500px] rounded-full p-2 bg-white focus:border-transparent"
-									placeholder="Search Customer..."
-								/>
-							</div>
+				<div class="flex-1 w-screen -ml-[-230px] p-5">
+					<div class="text-center py-6">
+						<div class="flex items-center justify-center">
+							<input
+								type="text"
+								bind:value={searchterm}
+								class="border-2 border-black text-sm text-black w-2/4 rounded-md mr-3 py-2 px-2"
+								placeholder="Search for customers"
+							/>
+
 							<div>
 								<a href="/invoices/create-invoice"
-									><Button block color="success" class="font-bold">Create Invoice</Button></a
-								>
+									><Button class="text-sm font-bold text-white bg-black py-2 px-4">Create</Button>
+								</a>
 							</div>
 						</div>
 					</div>

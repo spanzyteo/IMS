@@ -2,37 +2,122 @@
 </script>
 
 <body>
-	<div class="spinner-container">
-		<div class="flex">
-			<div class="spinner" />
-			<p class="p-2 font-extrabold">Loading...</p>
+	<div class="bb">
+		<div class="loader">
+			<div class="cell d-0" />
+			<div class="cell d-1" />
+			<div class="cell d-2" />
+
+			<div class="cell d-1" />
+			<div class="cell d-2" />
+
+			<div class="cell d-2" />
+			<div class="cell d-3" />
+
+			<div class="cell d-3" />
+			<div class="cell d-4" />
 		</div>
 	</div>
 </body>
 
 <style>
-	body {
-		height: 100%;
-	}
-	.spinner-container {
+	.loader {
 		position: fixed;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+		--cell-size: 52px;
+		--cell-spacing: 1px;
+		--cells: 3;
+		--total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
+		display: flex;
+		flex-wrap: wrap;
+		width: var(--total-size);
+		height: var(--total-size);
 	}
-	.spinner {
-		display: inline-block;
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		border: 4px solid lime;
-		border-top-color: #fff;
-		animation: spinner 0.8s ease-in-out infinite;
+	.bb {
+		background-color: black !important;
+		width: 100vw;
+		height: 100vh;
 	}
 
-	@keyframes spinner {
-		to {
-			transform: rotate(360deg);
+	.cell {
+		flex: 0 0 var(--cell-size);
+		margin: var(--cell-spacing);
+		background-color: transparent;
+		box-sizing: border-box;
+		border-radius: 4px;
+		animation: 1.5s ripple ease infinite;
+	}
+
+	.cell.d-1 {
+		animation-delay: 200ms;
+	}
+
+	.cell.d-2 {
+		animation-delay: 300ms;
+	}
+
+	.cell.d-3 {
+		animation-delay: 400ms;
+	}
+
+	.cell.d-4 {
+		animation-delay: 500ms;
+	}
+
+	.cell:nth-child(1) {
+		--cell-color: #00ff87;
+	}
+
+	.cell:nth-child(2) {
+		--cell-color: #0cfd95;
+	}
+
+	.cell:nth-child(3) {
+		--cell-color: #17fba2;
+	}
+
+	.cell:nth-child(4) {
+		--cell-color: #23f9b2;
+	}
+
+	.cell:nth-child(5) {
+		--cell-color: #30f7c3;
+	}
+
+	.cell:nth-child(6) {
+		--cell-color: #3df5d4;
+	}
+
+	.cell:nth-child(7) {
+		--cell-color: #45f4de;
+	}
+
+	.cell:nth-child(8) {
+		--cell-color: #53f1f0;
+	}
+
+	.cell:nth-child(9) {
+		--cell-color: #60efff;
+	}
+
+	/*Animation*/
+	@keyframes ripple {
+		0% {
+			background-color: transparent;
+		}
+
+		30% {
+			background-color: var(--cell-color);
+		}
+
+		60% {
+			background-color: transparent;
+		}
+
+		100% {
+			background-color: transparent;
 		}
 	}
 </style>

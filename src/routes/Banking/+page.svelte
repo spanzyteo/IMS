@@ -110,28 +110,34 @@
 	<Spinner />
 {:else}
 	<body>
-		<div class="flex justify-evenly">
-			<div>
+		<div class="flex h-screen">
+			<div id="fixed">
 				<Sidebar active_component={ac} />
 			</div>
-			<div class="mx-auto w-full">
-				<div class="text-center mx-auto">
-					<h1 class="pt-3 px-12 mb-6 ml-[10rem] font-comforta font-bold text-3xl text-center">
-						Banking
-					</h1>
+			<div class="flex-1 w-screen -ml-[-230px] p-5">
+				<div class="mb-5">
+					<h1 class="mb-3 text-5xl font-bold">Banking</h1>
 				</div>
-				<div class="text-center mx-auto">
-					<Piechart total={Number(total)} paid={Number(totalPaid)} bal={Number(balance)} />
-				</div>
-				<section
-					class="mt-[10rem] font-comforta w-full mx-auto px-auto font-bold text-lg text-left h-fit"
-				>
-					<div class="pt-3 px-12 mb-6 font-comforta ml-[10rem] font-bold text-lg text-center">
-						<p>Aggregate: &nbsp; {total.toLocaleString()}</p>
-						<p>Debts/Balance: &nbsp; {balance.toLocaleString()}</p>
-						<p>Total Amount Paid: &nbsp; {totalPaid.toLocaleString()}</p>
+				<div class="grid grid-cols-1">
+					<div class="-mt-10 w-[20rem] sm:w-[20rem] md:w-[100%] lg:w-[100%]">
+						<Piechart total={Number(total)} paid={Number(totalPaid)} bal={Number(balance)} />
 					</div>
-				</section>
+					<div class="py-10">
+						<section class="text-center mx-auto">
+							<ul>
+								<li class="font-bold text-black text-left">
+									Total Amount: &nbsp; {total.toLocaleString()}
+								</li>
+								<li class="font-bold text-black text-left">
+									Debts/Balance: &nbsp; {balance.toLocaleString()}
+								</li>
+								<li class="font-bold text-black text-left">
+									Total Amount Paid: &nbsp; {totalPaid.toLocaleString()}
+								</li>
+							</ul>
+						</section>
+					</div>
+				</div>
 				<!-- <Debtors people={cashFlow} /> -->
 			</div>
 		</div>
