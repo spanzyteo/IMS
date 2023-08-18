@@ -16,6 +16,9 @@
 	import { page } from '$app/stores';
 	let greeting = 'press the button to load data';
 	let loading = false;
+	export let data;
+	// let students = data.res;
+	// console.log('Data: ', data.res);
 	async function loadData() {
 		loading = true;
 		greeting = await trpc($page).greeting.query();
@@ -72,6 +75,14 @@
 		on:click|preventDefault={loadData}>Load</a
 	>
 	<p>{greeting}</p>
+
+	<h3>Students</h3>
+	<!-- {#each students as student}
+		<h3>Name: {student.name}</h3>
+		<h3>Year: {student.year}</h3>
+		<h3>Major: {student.major}</h3>
+		<h3>GPA: {student.gpa}</h3>
+	{/each} -->
 </body>
 
 <style>

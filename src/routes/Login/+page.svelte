@@ -20,7 +20,7 @@
 		let data = await fetch('?/login', { method: 'POST', body: fi });
 		let res = deserialize(await data.text());
 		let r = res.data;
-		console.log(r);
+		console.log(res);
 		if (r.success) {
 			ensureLogin(r.success);
 			await goto(`${r.url}`);
@@ -50,7 +50,7 @@
 
 					<label for="email" class="form__label"
 						><img
-							src={mail}
+							src="/assets/mail.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
@@ -66,7 +66,7 @@
 						placeholder="Enter Password"
 					/>
 					<label for="password" class="form__label">
-						<img src={lock} alt="passkey" width="30" class="float-left mr-2 icon" />
+						<img src="/assets/lock.svg" alt="passkey" width="30" class="float-left mr-2 icon" />
 						{''}
 						Enter Password</label
 					>

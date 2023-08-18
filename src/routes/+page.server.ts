@@ -7,9 +7,9 @@ import { ensureLogin } from '$lib/authorise';
 import { userSession } from '$lib/trpc/router';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const { user, session } = userSession;
+	const { user, session } = locals.auth.validateUser();
 	// console.log(user, session);
-	// // console.log(user, session);
+	// console.log(user, session);
 	if (session && session.userId) {
 		return {
 			user,
