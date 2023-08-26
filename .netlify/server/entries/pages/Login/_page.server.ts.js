@@ -1,9 +1,12 @@
-import { f as fail } from "../../../chunks/index2.js";
-import { c as createContext, a as auth, L as LuciaError } from "../../../chunks/hooks.server.js";
+import { r as redirect, f as fail } from "../../../chunks/index2.js";
+import { a as auth, L as LuciaError } from "../../../chunks/hooks.server.js";
 import { initTRPC } from "@trpc/server";
 initTRPC.context().create();
-const load = async (context) => {
-  await createContext(context);
+const load = async ({ locals }) => {
+  const { user, session } = await locals.auth.validateUser();
+  if (session && session.userId && user && user.userId) {
+    throw redirect(302, "/");
+  }
 };
 const actions = {
   login: async ({ request, locals }) => {

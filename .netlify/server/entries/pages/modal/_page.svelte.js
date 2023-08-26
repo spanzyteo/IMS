@@ -420,10 +420,13 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_page = subscribe(page, (value) => value);
   let greeting = "press the button to load data";
   let loading = false;
+  let { data } = $$props;
   let open = false;
   const toggle = () => open = !open;
   let openScrollable = false;
   const toggleScrollable = () => openScrollable = !openScrollable;
+  if ($$props.data === void 0 && $$bindings.data && data !== void 0)
+    $$bindings.data(data);
   $$result.css.add(css);
   $$unsubscribe_page();
   return `<body><button style="border-radius: 100%; width: 50px; font-size: 2rem; border: 1px solid black;" class="svelte-gpnf01">+</button>
@@ -551,6 +554,9 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 	<a href="#load" role="button" class="secondary"${add_attribute("aria-busy", loading, 0)}>Load</a>
 	<p>${escape(greeting)}</p>
+
+	<h3>Students</h3>
+	
 </body>`;
 });
 export {

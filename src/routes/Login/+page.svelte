@@ -21,9 +21,10 @@
 		let res = deserialize(await data.text());
 		let r = res.data;
 		console.log(res);
-		if (r.success) {
+		if (res.type === 'success') {
+			console.log(res.type);
 			ensureLogin(r.success);
-			await goto(`${r.url}`);
+			window.location.href = `${r.url}`;
 		} else {
 			alert(`${r.message}`);
 		}

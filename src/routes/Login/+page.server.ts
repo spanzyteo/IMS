@@ -10,9 +10,14 @@ const t = initTRPC.context<Context>().create();
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
-	if (session && session.userId && user && user.userId) {
+	if (session) {
 		throw redirect(302, '/');
 	}
+
+	return {
+		user,
+		session
+	};
 };
 
 export const actions: Actions = {

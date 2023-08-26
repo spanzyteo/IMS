@@ -1162,7 +1162,5 @@ const hooks_server = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.define
 export {
   LuciaError as L,
   auth as a,
-  createContext as c,
-  hooks_server as h,
-  userSession as u
+  hooks_server as h
 };

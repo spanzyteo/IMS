@@ -28,6 +28,53 @@
 	const toggle = () => (open = !open);
 	let radioGroup;
 	let openScrollable = false;
+	let skills = [
+		{
+			skill: 'Web Development',
+			color: 'red',
+			text: 'black'
+		},
+		{
+			skill: 'Mobile Dev',
+			color: 'green',
+			text: 'white'
+		},
+		{
+			skill: 'Fashion Designer',
+			color: 'orange',
+			text: 'white'
+		},
+		{
+			skill: 'UI/UX Designer',
+			color: 'purple',
+			text: 'black'
+		},
+		{
+			skill: 'Web Dev',
+			color: 'blue',
+			text: 'white'
+		},
+		{
+			skill: 'Web Dev',
+			color: 'yellow',
+			text: 'black'
+		},
+		{
+			skill: 'Web Dev',
+			color: 'pink',
+			text: 'black'
+		},
+		{
+			skill: 'Web Dev',
+			color: 'brown',
+			text: 'black'
+		},
+		{
+			skill: 'Web Dev',
+			color: 'black',
+			text: 'white'
+		}
+	];
 	const toggleScrollable = () => (openScrollable = !openScrollable);
 </script>
 
@@ -65,7 +112,9 @@
 			<Button color="danger" on:click={toggle}>Cancel</Button>
 		</ModalFooter>
 	</Modal>
-	<h6>Loading data in<br /><code>+page.svelte</code></h6>
+	<h6>
+		Loading data in<br /><code style="background-color: gray; padding: 10px;">+page.svelte</code>
+	</h6>
 
 	<a
 		href="#load"
@@ -77,12 +126,14 @@
 	<p>{greeting}</p>
 
 	<h3>Students</h3>
-	<!-- {#each students as student}
-		<h3>Name: {student.name}</h3>
-		<h3>Year: {student.year}</h3>
-		<h3>Major: {student.major}</h3>
-		<h3>GPA: {student.gpa}</h3>
-	{/each} -->
+	<div class="gr">
+		{#each skills as skill}
+			<Button
+				style="background-color: {skill.color}; color: {skill.text}; padding: 15px; border-radius: 10px; gap: 2rem; border: 1px solid black;"
+				>{skill.skill}</Button
+			>
+		{/each}
+	</div>
 </body>
 
 <style>
@@ -91,5 +142,9 @@
 	}
 	button {
 		background-color: green;
+	}
+	.gr {
+		display: flex;
+		justify-content: space-evenly;
 	}
 </style>

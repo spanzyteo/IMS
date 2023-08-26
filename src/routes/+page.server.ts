@@ -2,22 +2,21 @@ import type { Actions } from '@sveltejs/kit';
 import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '../hooks.server';
 import type { PageServerLoad } from './$types';
-import { isLoggedIn } from '../stores/stores';
-import { ensureLogin } from '$lib/authorise';
-import { userSession } from '$lib/trpc/router';
+// import { isLoggedIn } from '../stores/stores';
+// import { ensureLogin } from '$lib/authorise';
+// import { userSession } from '$lib/trpc/router';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = locals.auth.validateUser();
-	// console.log(user, session);
-	// console.log(user, session);
-	if (session && session.userId) {
-		return {
-			user,
-			session
-		};
-	} else {
+	console.log(user, session);
+	if (!session || !session.userId) {
 		throw redirect(302, '/Login');
 	}
+
+	return {
+		user,
+		session
+	};
 };
 
 export const actions: Actions = {
