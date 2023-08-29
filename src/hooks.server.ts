@@ -2,13 +2,15 @@ import type { Handle } from '@sveltejs/kit';
 import lucia from 'lucia-auth';
 import { sveltekit } from 'lucia-auth/middleware';
 import adapter from '@lucia-auth/adapter-mongoose';
-import mongoose from 'mongoose';
+import mongoose, { Query } from 'mongoose';
 import { dev } from '$app/environment';
 import * as dotenv from 'dotenv';
 import { createContext } from '$lib/trpc/context';
 import { router } from '$lib/trpc/router';
 import { createTRPCHandle } from 'trpc-sveltekit';
 import { sequence } from '@sveltejs/kit/hooks';
+// import { ETIMEOUT } from 'mongoo';
+
 dotenv.config();
 async function connectToDB() {
 	if (dev) {
@@ -23,7 +25,9 @@ async function connectToDB() {
 			.connect(`${process.env.DOTENV_KEY}`)
 			.then(() => console.log('Connected To Online Database.'))
 			.catch((e) => {
-				console.log(`Connection to Online Database Failed: ${e}`);
+				if (e instanceof Query) {
+					console.log(`Connection to Online Database Failed: Network Error`);
+				}
 			});
 	}
 }

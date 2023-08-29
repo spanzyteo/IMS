@@ -260,11 +260,11 @@ export {
   escape_attribute_value as i,
   compute_slots as j,
   createEventDispatcher as k,
-  getContext as l,
+  each as l,
   missing_component as m,
   noop as n,
   onDestroy as o,
-  each as p,
+  getContext as p,
   setContext as s,
   validate_component as v
 };

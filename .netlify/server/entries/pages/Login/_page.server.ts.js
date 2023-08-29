@@ -4,9 +4,13 @@ import { initTRPC } from "@trpc/server";
 initTRPC.context().create();
 const load = async ({ locals }) => {
   const { user, session } = await locals.auth.validateUser();
-  if (session && session.userId && user && user.userId) {
+  if (session) {
     throw redirect(302, "/");
   }
+  return {
+    user,
+    session
+  };
 };
 const actions = {
   login: async ({ request, locals }) => {

@@ -23,7 +23,7 @@
 		console.log(res);
 		if (res.type === 'success') {
 			console.log(res.type);
-			ensureLogin(r.success);
+			ensureLogin(true);
 			window.location.href = `${r.url}`;
 		} else {
 			alert(`${r.message}`);

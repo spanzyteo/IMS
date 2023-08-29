@@ -1,4 +1,4 @@
-import { c as create_ssr_component, f as compute_rest_props, g as spread, h as escape_object, i as escape_attribute_value, b as add_attribute, e as escape, j as compute_slots, o as onDestroy, k as createEventDispatcher, v as validate_component, m as missing_component, a as subscribe } from "../../../chunks/index3.js";
+import { c as create_ssr_component, f as compute_rest_props, g as spread, h as escape_object, i as escape_attribute_value, b as add_attribute, e as escape, j as compute_slots, o as onDestroy, k as createEventDispatcher, v as validate_component, m as missing_component, a as subscribe, l as each } from "../../../chunks/index3.js";
 import { c as classnames, i as isObject, g as getColumnSizeClass, u as uuid, I as Input } from "../../../chunks/Input.js";
 /* empty css                                                       */import "trpc-sveltekit";
 import { p as page } from "../../../chunks/stores.js";
@@ -412,7 +412,7 @@ const ModalFooter = create_ssr_component(($$result, $$props, $$bindings, slots) 
 });
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
-  code: "button.svelte-gpnf01:hover{background-color:greenyellow}button.svelte-gpnf01{background-color:green}",
+  code: "button.svelte-12ridwx:hover{background-color:greenyellow}button.svelte-12ridwx{background-color:green}.gr.svelte-12ridwx{display:flex;justify-content:space-evenly}",
   map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -424,12 +424,59 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let open = false;
   const toggle = () => open = !open;
   let openScrollable = false;
+  let skills = [
+    {
+      skill: "Web Development",
+      color: "red",
+      text: "black"
+    },
+    {
+      skill: "Mobile Dev",
+      color: "green",
+      text: "white"
+    },
+    {
+      skill: "Fashion Designer",
+      color: "orange",
+      text: "white"
+    },
+    {
+      skill: "UI/UX Designer",
+      color: "purple",
+      text: "black"
+    },
+    {
+      skill: "Web Dev",
+      color: "blue",
+      text: "white"
+    },
+    {
+      skill: "Web Dev",
+      color: "yellow",
+      text: "black"
+    },
+    {
+      skill: "Web Dev",
+      color: "pink",
+      text: "black"
+    },
+    {
+      skill: "Web Dev",
+      color: "brown",
+      text: "black"
+    },
+    {
+      skill: "Web Dev",
+      color: "black",
+      text: "white"
+    }
+  ];
   const toggleScrollable = () => openScrollable = !openScrollable;
   if ($$props.data === void 0 && $$bindings.data && data !== void 0)
     $$bindings.data(data);
   $$result.css.add(css);
   $$unsubscribe_page();
-  return `<body><button style="border-radius: 100%; width: 50px; font-size: 2rem; border: 1px solid black;" class="svelte-gpnf01">+</button>
+  return `<body><button style="border-radius: 100%; width: 50px; font-size: 2rem; border: 1px solid black;" class="svelte-12ridwx">+</button>
 	${validate_component(Modal, "Modal").$$render($$result, { isOpen: open, toggle }, {}, {
     default: () => {
       return `${validate_component(ModalHeader, "ModalHeader").$$render(
@@ -550,13 +597,26 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       })}`;
     }
   })}
-	<h6>Loading data in<br><code>+page.svelte</code></h6>
+	<h6>Loading data in<br><code style="background-color: gray; padding: 10px;">+page.svelte</code></h6>
 
 	<a href="#load" role="button" class="secondary"${add_attribute("aria-busy", loading, 0)}>Load</a>
 	<p>${escape(greeting)}</p>
 
 	<h3>Students</h3>
-	
+	<div class="gr svelte-12ridwx">${each(skills, (skill) => {
+    return `${validate_component(Button, "Button").$$render(
+      $$result,
+      {
+        style: "background-color: " + skill.color + "; color: " + skill.text + "; padding: 15px; border-radius: 10px; gap: 2rem; border: 1px solid black;"
+      },
+      {},
+      {
+        default: () => {
+          return `${escape(skill.skill)}`;
+        }
+      }
+    )}`;
+  })}</div>
 </body>`;
 });
 export {

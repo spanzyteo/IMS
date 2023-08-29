@@ -5,7 +5,7 @@ import { S as Spinner } from "../../chunks/Spinner.js";
 import "devalue";
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
-  code: "@media print{#fixed.svelte-13d0ff5{display:none}}body.svelte-13d0ff5{background-image:url('../assests/bg.png');background-repeat:no-repeat;background-size:cover;background-position:center;height:100%;width:100%}",
+  code: "@media print{#fixed.svelte-1tvi0k2{display:none}}body.svelte-1tvi0k2{background-image:url('../assets/bg.png');background-repeat:no-repeat;background-size:cover;background-position:center;height:100%;width:100%}",
   map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -21,7 +21,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 
 
 
-<body class="svelte-13d0ff5">${`${validate_component(Spinner, "Spinner").$$render($$result, {}, {}, {})}`}
+<body class="svelte-1tvi0k2">${`${validate_component(Spinner, "Spinner").$$render($$result, {}, {}, {})}`}
 </body>`;
 });
 export {

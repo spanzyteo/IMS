@@ -239,7 +239,7 @@
 		}
 	}
 	body {
-		background-image: url('../assests/bg.png');
+		background-image: url('../assets/bg.png');
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;

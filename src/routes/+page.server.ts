@@ -7,8 +7,9 @@ import type { PageServerLoad } from './$types';
 // import { userSession } from '$lib/trpc/router';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const { user, session } = locals.auth.validateUser();
-	console.log(user, session);
+	const { user, session } = await locals.auth.validateUser();
+
+	// console.log(user, session);
 	if (!session || !session.userId) {
 		throw redirect(302, '/Login');
 	}

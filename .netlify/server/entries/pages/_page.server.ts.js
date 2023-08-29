@@ -1,15 +1,14 @@
 import { r as redirect, f as fail } from "../../chunks/index2.js";
 import { a as auth } from "../../chunks/hooks.server.js";
 const load = async ({ locals }) => {
-  const { user, session } = locals.auth.validateUser();
-  if (session && session.userId) {
-    return {
-      user,
-      session
-    };
-  } else {
+  const { user, session } = await locals.auth.validateUser();
+  if (!session || !session.userId) {
     throw redirect(302, "/Login");
   }
+  return {
+    user,
+    session
+  };
 };
 const actions = {
   logout: async ({ locals }) => {

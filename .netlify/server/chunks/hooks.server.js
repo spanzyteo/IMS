@@ -1,5 +1,5 @@
 import adapter from "@lucia-auth/adapter-mongoose";
-import mongoose from "mongoose";
+import mongoose, { Query } from "mongoose";
 import * as dotenv from "dotenv";
 import { initTRPC } from "@trpc/server";
 import { createTRPCHandle } from "trpc-sveltekit";
@@ -1067,7 +1067,9 @@ dotenv.config();
 async function connectToDB() {
   {
     await mongoose.connect(`${process.env.DOTENV_KEY}`).then(() => console.log("Connected To Online Database.")).catch((e) => {
-      console.log(`Connection to Online Database Failed: ${e}`);
+      if (e instanceof Query) {
+        console.log(`Connection to Online Database Failed: Network Error`);
+      }
     });
   }
 }
