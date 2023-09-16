@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as subscribe, b as add_attribute, e as escape } from "../../../chunks/index3.js";
+import { c as create_ssr_component, s as subscribe, a as add_attribute, e as escape } from "../../../chunks/index.js";
 import "../../../chunks/stores2.js";
 import { p as page } from "../../../chunks/stores.js";
 import "devalue";
@@ -21,13 +21,13 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_page();
   return `<body><div class="paage svelte-18jj8gf"><div class="login-container w-2/4 svelte-18jj8gf"><div class="text-center p-[5rem] rounded-xl shadow-slate-700"><h3 class="text-3xl text-[rgb(87,242,135)] font-bold p-3">Create Account</h3>
 				<div class="form__group field mb-3"><input type="text" name="text" class="form__field mt-2" placeholder="Enter Username"${add_attribute("value", details.name, 0)}>
-					<label for="text" class="form__label"><img${add_attribute("src", user, 0)} alt="email-icon" width="30" class="text-[#57F287] float-left mr-2 icon">${escape("")}
+					<label for="text" class="form__label"><img src="/assets/user.svg" alt="email-icon" width="30" class="text-[#57F287] float-left mr-2 icon">${escape("")}
 						Enter Username</label></div>
 				<div class="form__group field mb-3"><input type="email" name="email" class="form__field mt-2" placeholder="Enter Email Address"${add_attribute("value", details.email, 0)}>
-					<label for="email" class="form__label"><img${add_attribute("src", mail, 0)} alt="email-icon" width="30" class="text-[#57F287] float-left mr-2 icon">${escape("")}
+					<label for="email" class="form__label"><img src="/assets/mail.svg" alt="email-icon" width="30" class="text-[#57F287] float-left mr-2 icon">${escape("")}
 						Enter Email Address</label></div>
 				<div class="form__group field mb-3"><input type="password" name="password" class="form__field mt-2" placeholder="Create password"${add_attribute("value", details.password, 0)}>
-					<label for="password" class="form__label"><img${add_attribute("src", lock, 0)} alt="email-icon" width="30" class="text-[#57F287] float-left mr-2 icon">${escape("")}
+					<label for="password" class="form__label"><img src="/assets/lock.svg" alt="email-icon" width="30" class="text-[#57F287] float-left mr-2 icon">${escape("")}
 						Create Password</label></div>
 				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold">Create Account</button></div></div></div>
 </body>`;

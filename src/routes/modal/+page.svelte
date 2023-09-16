@@ -1,4 +1,6 @@
 <script>
+	import { app } from '$lib/firebase';
+	import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 	import {
 		Form,
 		FormGroup,
@@ -76,6 +78,10 @@
 		}
 	];
 	const toggleScrollable = () => (openScrollable = !openScrollable);
+	const auth = getAuth(app);
+	const signIn = () => {
+		signInWithPopup(auth, new GoogleAuthProvider());
+	};
 </script>
 
 <body>
@@ -134,6 +140,7 @@
 			>
 		{/each}
 	</div>
+	<button on:click={signIn}>Sign In With Google</button>
 </body>
 
 <style>

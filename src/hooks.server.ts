@@ -9,9 +9,9 @@ import { createContext } from '$lib/trpc/context';
 import { router } from '$lib/trpc/router';
 import { createTRPCHandle } from 'trpc-sveltekit';
 import { sequence } from '@sveltejs/kit/hooks';
-// import { ETIMEOUT } from 'mongoo';
 
 dotenv.config();
+
 async function connectToDB() {
 	if (dev) {
 		await mongoose

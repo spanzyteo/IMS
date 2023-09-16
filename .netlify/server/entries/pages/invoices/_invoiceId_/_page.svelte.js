@@ -1,4 +1,4 @@
-import { c as create_ssr_component, e as escape, v as validate_component } from "../../../../chunks/index3.js";
+import { c as create_ssr_component, e as escape, v as validate_component } from "../../../../chunks/index.js";
 import "../../../../chunks/stores2.js";
 /* empty css                                                          *//* empty css                                                        *//* empty css                                                      */import { S as Spinner } from "../../../../chunks/Spinner.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {

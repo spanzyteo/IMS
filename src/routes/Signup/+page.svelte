@@ -5,6 +5,8 @@
 	import { deserialize } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
 	import { onMount } from 'svelte';
+	import user from '../../../static/assets/user.svg';
+
 	let details = {
 		name: '',
 		email: '',
@@ -57,7 +59,7 @@
 					/>
 					<label for="text" class="form__label">
 						<img
-							src={user}
+							src="/assets/user.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
@@ -75,7 +77,7 @@
 					/>
 					<label for="email" class="form__label">
 						<img
-							src={mail}
+							src="/assets/mail.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
@@ -93,7 +95,7 @@
 					/>
 					<label for="password" class="form__label">
 						<img
-							src={lock}
+							src="/assets/lock.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
