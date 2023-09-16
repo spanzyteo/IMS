@@ -24,21 +24,18 @@
 	let c_password = '';
 	let fd = new FormData();
 	async function login() {
-		if (c_password.match(details.password)) {
-			fd.append('user', JSON.stringify(details));
-			let data = await fetch('?/signup', { method: 'POST', body: fd });
-			let res = deserialize(await data.text());
-			console.log(res);
-			ensureLogin(res.data);
-			if (res.data.message === 'Registration Successful. Redirecting...') {
-				console.log(res.data.message);
-				alert(res.data.message);
-				await goto(`${res.data.url}`);
-			} else {
-				alert(res.data.message);
-			}
+		fd.append('user', JSON.stringify(details));
+		let data = await fetch('?/signup', { method: 'POST', body: fd });
+		let res = deserialize(await data.text());
+		console.log(res);
+		ensureLogin(res.data);
+
+		if (res.data.message === 'Registration Successful. Redirecting...') {
+			console.log(res.data.message);
+			alert(res.data.message);
+			await goto(`${res.data.url}`);
 		} else {
-			alert('Passwords do not match');
+			alert(res.data.message);
 		}
 		// console.log(`New Data: ${data}`);
 	}
