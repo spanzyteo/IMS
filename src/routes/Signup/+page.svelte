@@ -24,18 +24,21 @@
 	let c_password = '';
 	let fd = new FormData();
 	async function login() {
-		fd.append('user', JSON.stringify(details));
-		let data = await fetch('?/signup', { method: 'POST', body: fd });
-		let res = deserialize(await data.text());
-		console.log(res);
-		ensureLogin(res.data);
-
-		if (res.data.message === 'Registration Successful. Redirecting...') {
-			console.log(res.data.message);
-			alert(res.data.message);
-			await goto(`${res.data.url}`);
+		if (c_password.match(details.password)) {
+			fd.append('user', JSON.stringify(details));
+			let data = await fetch('?/signup', { method: 'POST', body: fd });
+			let res = deserialize(await data.text());
+			console.log(res);
+			ensureLogin(res.data);
+			if (res.data.message === 'Registration Successful. Redirecting...') {
+				console.log(res.data.message);
+				alert(res.data.message);
+				await goto(`${res.data.url}`);
+			} else {
+				alert(res.data.message);
+			}
 		} else {
-			alert(res.data.message);
+			alert('Passwords do not match');
 		}
 		// console.log(`New Data: ${data}`);
 	}
@@ -98,6 +101,24 @@
 							class="text-[#57F287] float-left mr-2 icon"
 						/>{''}
 						Create Password</label
+					>
+				</div>
+				<div class="form__group field mb-3">
+					<input
+						type="password"
+						name="password"
+						bind:value={c_password}
+						class="form__field mt-2"
+						placeholder="Create password"
+					/>
+					<label for="password" class="form__label">
+						<img
+							src="/assets/lock.svg"
+							alt="email-icon"
+							width="30"
+							class="text-[#57F287] float-left mr-2 icon"
+						/>{''}
+						Confirm Password</label
 					>
 				</div>
 				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}>
