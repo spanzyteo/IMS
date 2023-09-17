@@ -6,6 +6,13 @@
 	import { ensureLogin } from '$lib/authorise';
 	import { onMount } from 'svelte';
 	import user from '../../../static/assets/user.svg';
+	import {
+		signInWithEmailAndPassword,
+		getAuth,
+		createUserWithEmailAndPassword
+	} from 'firebase/auth';
+	import { app } from '$lib/firebase';
+	import { FirebaseError } from 'firebase/app';
 
 	let details = {
 		name: '',
@@ -23,23 +30,39 @@
 	});
 	let c_password = '';
 	let fd = new FormData();
-	async function login() {
+	let auth = getAuth(app);
+	async function loginWithEmail() {
 		if (c_password.match(details.password)) {
-			fd.append('user', JSON.stringify(details));
-			let data = await fetch('?/signup', { method: 'POST', body: fd });
-			let res = deserialize(await data.text());
-			console.log(res);
-			ensureLogin(res.data);
-			if (res.data.message === 'Registration Successful. Redirecting...') {
-				console.log(res.data.message);
-				alert(res.data.message);
-				await goto(`${res.data.url}`);
-			} else {
-				alert(res.data.message);
-			}
-		} else {
-			alert('Passwords do not match');
+			createUserWithEmailAndPassword(auth, details.email, details.password)
+				.then(async (credentials) => {
+					let user = credentials.user;
+					fd.append('user', JSON.stringify(user, details));
+					let data = await fetch('?/signup', { method: 'POST', body: fd });
+					let res = deserialize(await data.text());
+					console.log('User Credentials: ', user);
+					console.log(res);
+				})
+				.catch((e) => {
+					if (e instanceof FirebaseError) {
+						console.log(e.message);
+					}
+				});
 		}
+		// 	fd.append('user', JSON.stringify(details));
+		// 	let data = await fetch('?/signup', { method: 'POST', body: fd });
+		// 	let res = deserialize(await data.text());
+		// 	console.log(res);
+		// 	ensureLogin(res.data);
+		// 	if (res.data.message === 'Registration Successful. Redirecting...') {
+		// 		console.log(res.data.message);
+		// 		alert(res.data.message);
+		// 		await goto(`${res.data.url}`);
+		// 	} else {
+		// 		alert(res.data.message);
+		// 	}
+		// } else {
+		// 	alert('Passwords do not match');
+		// }
 		// console.log(`New Data: ${data}`);
 	}
 </script>
@@ -121,7 +144,7 @@
 						Confirm Password</label
 					>
 				</div>
-				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}>
+				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
 					Create Account</button
 				>
 			</div>
