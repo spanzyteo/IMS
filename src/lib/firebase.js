@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAmi3LjfpwUoiKclf3Dd_nmHyOjSDdp22s",
-  authDomain: "ehubims.netlify.app",
+  authDomain: "project-cartly.firebaseapp.com",
   projectId: "project-cartly",
   storageBucket: "project-cartly.appspot.com",
   messagingSenderId: "665562041301",
