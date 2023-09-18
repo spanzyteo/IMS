@@ -1,10 +1,10 @@
-FROM node:18-alpine
+FROM node:16 as build
 
 
 # install dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm i
+RUN npm install
 # ENV ORIGIN=http://localhost:3000 
 
 # Copy all local files into the image.
@@ -17,10 +17,10 @@ RUN npm run build
 # Only copy over the Node pieces we need
 # ~> Saves 35MB
 ###
-FROM node:18-alpine
+FROM node:16-alpine
 
 WORKDIR /app
-COPY --from=0 /app .
+COPY --from=build /app .
 #COPY . .
 
 EXPOSE 3000
