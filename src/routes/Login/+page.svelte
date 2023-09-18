@@ -26,7 +26,7 @@
 	async function login(e) {
 		e.preventDefault();
 		fi.append('info', JSON.stringify(details));
-		let data = await fetch('?/signup', { method: 'POST', body: fd });
+		let data = await fetch('?/login', { method: 'POST', body: fi });
 		let res = deserialize(await data.text());
 		console.log(res);
 		ensureLogin(res.data);
