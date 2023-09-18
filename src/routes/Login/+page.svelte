@@ -6,14 +6,14 @@
 	// import { isLoggedIn } from '../../stores/stores';
 	import { onMount } from 'svelte';
 	import { trpc } from '$lib/trpc/client';
-	import { onAuthStateChanged, signInWithEmailAndPassword, type User } from 'firebase/auth';
+	import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 	import { auth } from '$lib/firebase';
 
 	let details = {
 		email: '',
 		password: ''
 	};
-	let user: User | null;
+	let user;
 
 	onMount(async () => {
 		onAuthStateChanged(auth, (newUser) => {
