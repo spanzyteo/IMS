@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as subscribe, v as validate_component } from "../../../chunks/index3.js";
+import { c as create_ssr_component, s as subscribe, v as validate_component } from "../../../chunks/index.js";
 /* empty css                                                     */import { S as Spinner } from "../../../chunks/Spinner.js";
 import "../../../chunks/stores2.js";
 /* empty css                                                       *//* empty css                                                   */import { p as page } from "../../../chunks/stores.js";

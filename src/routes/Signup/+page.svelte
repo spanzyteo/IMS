@@ -5,6 +5,15 @@
 	import { deserialize } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
 	import { onMount } from 'svelte';
+	import user from '../../../static/assets/user.svg';
+	import {
+		signInWithEmailAndPassword,
+		getAuth,
+		createUserWithEmailAndPassword
+	} from 'firebase/auth';
+	import { app } from '$lib/firebase';
+	import { FirebaseError } from 'firebase/app';
+
 	let details = {
 		name: '',
 		email: '',
@@ -21,23 +30,39 @@
 	});
 	let c_password = '';
 	let fd = new FormData();
-	async function login() {
+	let auth = getAuth(app);
+	async function loginWithEmail() {
 		if (c_password.match(details.password)) {
-			fd.append('user', JSON.stringify(details));
-			let data = await fetch('?/signup', { method: 'POST', body: fd });
-			let res = deserialize(await data.text());
-			console.log(res);
-			ensureLogin(res.data);
-			if (res.data.message === 'Registration Successful. Redirecting...') {
-				console.log(res.data.message);
-				alert(res.data.message);
-				await goto(`${res.data.url}`);
-			} else {
-				alert(res.data.message);
-			}
-		} else {
-			alert('Passwords do not match');
+			createUserWithEmailAndPassword(auth, details.email, details.password)
+				.then(async (credentials) => {
+					let user = credentials.user;
+					fd.append('user', JSON.stringify(user, details));
+					let data = await fetch('?/signup', { method: 'POST', body: fd });
+					let res = deserialize(await data.text());
+					console.log('User Credentials: ', user);
+					console.log(res);
+				})
+				.catch((e) => {
+					if (e instanceof FirebaseError) {
+						console.log(e.message);
+					}
+				});
 		}
+		// 	fd.append('user', JSON.stringify(details));
+		// 	let data = await fetch('?/signup', { method: 'POST', body: fd });
+		// 	let res = deserialize(await data.text());
+		// 	console.log(res);
+		// 	ensureLogin(res.data);
+		// 	if (res.data.message === 'Registration Successful. Redirecting...') {
+		// 		console.log(res.data.message);
+		// 		alert(res.data.message);
+		// 		await goto(`${res.data.url}`);
+		// 	} else {
+		// 		alert(res.data.message);
+		// 	}
+		// } else {
+		// 	alert('Passwords do not match');
+		// }
 		// console.log(`New Data: ${data}`);
 	}
 </script>
@@ -57,7 +82,7 @@
 					/>
 					<label for="text" class="form__label">
 						<img
-							src={user}
+							src="/assets/user.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
@@ -75,7 +100,7 @@
 					/>
 					<label for="email" class="form__label">
 						<img
-							src={mail}
+							src="/assets/mail.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
@@ -93,7 +118,7 @@
 					/>
 					<label for="password" class="form__label">
 						<img
-							src={lock}
+							src="/assets/lock.svg"
 							alt="email-icon"
 							width="30"
 							class="text-[#57F287] float-left mr-2 icon"
@@ -101,7 +126,25 @@
 						Create Password</label
 					>
 				</div>
-				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}>
+				<div class="form__group field mb-3">
+					<input
+						type="password"
+						name="password"
+						bind:value={c_password}
+						class="form__field mt-2"
+						placeholder="Create password"
+					/>
+					<label for="password" class="form__label">
+						<img
+							src="/assets/lock.svg"
+							alt="email-icon"
+							width="30"
+							class="text-[#57F287] float-left mr-2 icon"
+						/>{''}
+						Confirm Password</label
+					>
+				</div>
+				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
 					Create Account</button
 				>
 			</div>

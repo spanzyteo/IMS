@@ -1,4 +1,4 @@
-import { c as create_ssr_component, b as add_attribute, e as escape } from "../../../chunks/index3.js";
+import { c as create_ssr_component, a as add_attribute, e as escape } from "../../../chunks/index.js";
 import "devalue";
 import "trpc-sveltekit";
 const _page_svelte_svelte_type_style_lang = "";

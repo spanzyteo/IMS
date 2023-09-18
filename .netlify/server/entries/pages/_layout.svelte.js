@@ -1,4 +1,4 @@
-import { c as create_ssr_component } from "../../chunks/index3.js";
+import { c as create_ssr_component } from "../../chunks/index.js";
 const app = "";
 const _layout_svelte_svelte_type_style_lang = "";
 const css = {

@@ -1,4 +1,6 @@
 <script>
+	import { app } from '$lib/firebase';
+	import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 	import {
 		Form,
 		FormGroup,
@@ -75,7 +77,15 @@
 			text: 'white'
 		}
 	];
+	let photo;
 	const toggleScrollable = () => (openScrollable = !openScrollable);
+	const auth = getAuth(app);
+	const signIn = () => {
+		signInWithPopup(auth, new GoogleAuthProvider()).then((user) => {
+			photo = user.user.photoURL;
+			console.log(user);
+		});
+	};
 </script>
 
 <body>
@@ -134,6 +144,11 @@
 			>
 		{/each}
 	</div>
+	<button on:click={signIn}>Sign In With Google</button>
+
+	{#if photo}
+		<img src={photo} alt="User Picture" style="border-radius: 100%;" />
+	{/if}
 </body>
 
 <style>

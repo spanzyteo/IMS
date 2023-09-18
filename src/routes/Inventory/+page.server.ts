@@ -18,7 +18,7 @@ export async function load({ fetch, locals }) {
 		} else {
 			response = [];
 		}
-		if (user && session && response != []) {
+		if (user && session && response != ([] as any)) {
 			return {
 				user,
 				session,
