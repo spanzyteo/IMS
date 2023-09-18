@@ -41,7 +41,10 @@ const userSchema = new mongoose.Schema(
 		business_name: String,
 		_id: {
 			type: String
-		}
+		},
+		uid: String,
+		invoices: Array,
+		inventory: Array
 		// here you can add custom fields for your user
 		// e.g. name, email, username, roles, etc.
 	},
