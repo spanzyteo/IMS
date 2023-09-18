@@ -36,7 +36,7 @@
 			createUserWithEmailAndPassword(auth, details.email, details.password)
 				.then(async (credentials) => {
 					let user = credentials.user;
-					fd.append('user', JSON.stringify(user, details));
+					fd.append('user', JSON.stringify(user));
 					let data = await fetch('?/signup', { method: 'POST', body: fd });
 					let res = deserialize(await data.text());
 					console.log('User Credentials: ', user);
@@ -147,6 +147,9 @@
 				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
 					Create Account</button
 				>
+				<!-- <button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
+					Sign Up With Google</button
+				> -->
 			</div>
 		</div>
 	</div>

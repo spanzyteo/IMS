@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ensureLogin } from '$lib/authorise';
 	import { deserialize, enhance } from '$app/forms';
@@ -6,28 +6,32 @@
 	// import { isLoggedIn } from '../../stores/stores';
 	import { onMount } from 'svelte';
 	import { trpc } from '$lib/trpc/client';
+	import { onAuthStateChanged, signInWithEmailAndPassword, type User } from 'firebase/auth';
+	import { auth } from '$lib/firebase';
 
 	let details = {
 		email: '',
 		password: ''
 	};
+	let user: User | null;
+
+	onMount(async () => {
+		onAuthStateChanged(auth, (newUser) => {
+			user = newUser;
+		});
+	});
 
 	let fi = new FormData();
 	//Login Function
 	async function login(e) {
 		e.preventDefault();
-		fi.append('info', JSON.stringify(details));
-		let data = await fetch('?/login', { method: 'POST', body: fi });
-		let res = deserialize(await data.text());
-		let r = res.data;
-		console.log(res);
-		if (res.type === 'success') {
-			console.log(res.type);
-			ensureLogin(true);
-			window.location.href = `${r.url}`;
-		} else {
-			alert(`${r.message}`);
-		}
+		signInWithEmailAndPassword(auth, details.email, details.password)
+			.then((credentials) => (user = credentials.user))
+			.catch((err) => {
+				const message = err.message;
+				const code = err.code;
+				console.log(code, message);
+			});
 		// window.location.reload();
 	}
 </script>
