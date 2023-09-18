@@ -25,20 +25,21 @@
 	//Login Function
 	async function login(e) {
 		e.preventDefault();
-			fi.append('info', JSON.stringify(details));
-			let data = await fetch('?/signup', { method: 'POST', body: fd });
-			let res = deserialize(await data.text());
-			console.log(res);
-			ensureLogin(res.data);
-			if (res.data.success) {
-				console.log(res.data.message);
-				alert("Login Successful Redirecting...");
-				setTimeout(async () => {
-					await goto(`${res.data.url}`);
-				}, 2000)
-			} else {
-				alert(res.data.message);
-			}
+		fi.append('info', JSON.stringify(details));
+		let data = await fetch('?/signup', { method: 'POST', body: fd });
+		let res = deserialize(await data.text());
+		console.log(res);
+		ensureLogin(res.data);
+		if (res.data.success) {
+			console.log(res.data.message);
+			alert('Login Successful Redirecting...');
+			setTimeout(async () => {
+				await goto(`${res.data.url}`);
+			}, 2000);
+		} else {
+			alert(res.data.message);
+		}
+	}
 </script>
 
 <svelte:head>
