@@ -77,10 +77,14 @@
 			text: 'white'
 		}
 	];
+	let photo;
 	const toggleScrollable = () => (openScrollable = !openScrollable);
 	const auth = getAuth(app);
 	const signIn = () => {
-		signInWithPopup(auth, new GoogleAuthProvider());
+		signInWithPopup(auth, new GoogleAuthProvider()).then((user) => {
+			photo = user.user.photoURL;
+			console.log(user);
+		});
 	};
 </script>
 
@@ -141,6 +145,10 @@
 		{/each}
 	</div>
 	<button on:click={signIn}>Sign In With Google</button>
+
+	{#if photo}
+		<img src={photo} alt="User Picture" style="border-radius: 100%;" />
+	{/if}
 </body>
 
 <style>
