@@ -174,7 +174,7 @@
 						</h2>
 					</div>
 					<div
-						class="w-[18rem] sm:w-[18rem] md:w-[100%] bg-[#212121] button2 border rounded-xl p-3 shadow-md"
+						class="bg-[#212121] w-[18rem] sm:w-[18rem] md:w-[100%] button2 border rounded-xl p-3 shadow-md"
 					>
 						<div
 							class="flex flex-col sm:flex-col md:flex-col lg:flex-row justify-between mb-3 items-center"
@@ -199,7 +199,7 @@
 					</div>
 
 					<div
-						class="w-[18rem] sm:w-[18rem] md:w-[100%] border button2 col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 rounded-xl p-3 shadow-md"
+						class="bg-[#212121] w-[18rem] sm:w-[18rem] md:w-[100%] border button2 col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 rounded-xl p-3 shadow-md"
 					>
 						<div class="flex justify-between mb-3 items-center">
 							<div class="flex items-center">
