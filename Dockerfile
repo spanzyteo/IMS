@@ -3,7 +3,7 @@ FROM node:16 as build
 
 # install dependencies
 WORKDIR /app
-COPY package.json package-lock.json ./
+COPY COPY package*.json ./
 RUN npm install
 # ENV ORIGIN=http://localhost:3000 
 

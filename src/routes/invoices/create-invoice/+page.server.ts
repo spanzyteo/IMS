@@ -2,6 +2,7 @@ import invoices from '$lib/invoices.json';
 import { redirect } from '@sveltejs/kit';
 import fs from 'fs';
 import type { PageServerLoad } from './$types.js';
+import { dev } from '$app/environment';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
@@ -35,7 +36,12 @@ export const actions = {
 			total: parseFloat(total)
 		};
 		let preInv;
-		let filePath = `./src/lib/${userId}-invoice.json`;
+		let filePath;
+		if (dev) {
+			filePath = `./src/lib/${userId}-invoice.json`;
+		} else {
+			filePath = `/app/data/${userId}-invoice.json`;
+		}
 		try {
 			if (fs.existsSync(filePath)) {
 				const fileContent = fs.readFileSync(filePath, 'utf-8');

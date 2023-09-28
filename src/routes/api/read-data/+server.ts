@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 export async function GET() {
+	// Mock Data Source
 	try {
 		let data = readFileSync(`./src/lib/invoices.json`, 'utf-8');
 		let res = JSON.parse(data);

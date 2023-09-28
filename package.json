@@ -73,7 +73,6 @@
 		"mongodb": "^5.6.0",
 		"mongoose": "^7.2.0",
 		"pdf-lib": "^1.17.1",
-		"react-pro-sidebar": "^1.1.0-alpha.1",
 		"svelte-awesome": "^3.2.0",
 		"sveltestrap": "^5.10.0",
 		"text-to-speech-js": "^1.1.10",
