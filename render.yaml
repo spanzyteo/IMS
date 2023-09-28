@@ -1,6 +1,7 @@
 services:
   - type: web
     name: IMS
+    runtime: docker
 
     disk:
       name: app-storage
