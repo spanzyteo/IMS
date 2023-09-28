@@ -1,6 +1,6 @@
 services:
-  - name: IMS
-    type: web
+  - type: web
+    name: IMS
 
     disk:
       - name: app-storage
