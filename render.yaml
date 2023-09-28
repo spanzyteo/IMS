@@ -1,8 +1,7 @@
 services:
   - name: IMS
     type: web
-    # ... other service configuration ...
 
-    volumes:
+    disk:
       - name: app-storage
         mountPath: /app/data

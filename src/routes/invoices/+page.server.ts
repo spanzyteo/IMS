@@ -1,6 +1,7 @@
 import { redirect, type RequestEvent } from '@sveltejs/kit';
 import type { Category } from './[invoiceId]/+page.server';
 import { readFileSync, existsSync } from 'fs';
+import { dev } from '$app/environment';
 
 export async function load({ fetch, params, locals }: RequestEvent) {
 	const { user, session } = await locals.auth.validateUser();
@@ -9,9 +10,18 @@ export async function load({ fetch, params, locals }: RequestEvent) {
 		let inv = '';
 		let invoices = [];
 		let filepath = `./src/lib/${user.userId}-invoice.json`;
+		if (dev) {
+			filepath = `./src/lib/${user.userId}-invoice.json`;
+		} else {
+			filepath = `/app/data/${user.userId}-invoice.json`;
+		}
 		try {
 			if (existsSync(filepath)) {
-				inv = readFileSync(`./src/lib/${user.userId}-invoice.json`, 'utf-8');
+				if (dev) {
+					inv = readFileSync(`./src/lib/${user.userId}-invoice.json`, 'utf-8');
+				} else {
+					inv = readFileSync(`/app/data/${user.userId}-invoice.json`, 'utf-8');
+				}
 				if (inv.trim() === '') {
 					invoices = [];
 				} else {
