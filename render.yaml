@@ -3,5 +3,5 @@ services:
     name: IMS
 
     disk:
-      - name: app-storage
-        mountPath: /app/data
+      name: app-storage
+      mountPath: /app/data
