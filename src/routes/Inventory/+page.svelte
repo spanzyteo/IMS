@@ -57,7 +57,7 @@
 		}
 	}
 
-	let showModal = true;
+	let showModal = false;
 
 	function handleModal() {
 		showModal = !showModal;
@@ -71,7 +71,7 @@
 		const product = e.detail;
 
 		details = [product, ...details];
-		console.log(details);
+		showModal = !showModal;
 	}
 </script>
 
@@ -113,7 +113,9 @@
 					<div class="categories pr-6 border-r-2">
 						<h2 class="categories-heading text-lg font-bold text-[#257af0] mb-2">Categories</h2>
 						<h2 class="categories-number text-base font-bold mb-1">14</h2>
-						<h2 class="categories-time text-sm text-[#7b8392]">Last 7 days</h2>
+						<h2 class="categories-time text-sm text-[#7b8392]" style="white-space: nowrap;">
+							Last 7 days
+						</h2>
 					</div>
 
 					<div class="categories px-6 border-r-2">
@@ -122,12 +124,24 @@
 						<div class="flex gap-x-14">
 							<div>
 								<h2 class="categories-number text-base font-bold mb-1">868</h2>
-								<h2 class="categories-time text-sm text-[#7b8392]">Last 7 days</h2>
+								<h2 class="categories-time text-sm text-[#7b8392]" style="white-space: nowrap;">
+									Last 7 days
+								</h2>
 							</div>
 
 							<div>
-								<h2 class="categories-amount text-base font-bold text-right mb-1">#25,000</h2>
-								<h2 class="categories-time text-sm text-right text-[#7b8392]">Revenue</h2>
+								<h2
+									class="categories-amount text-base font-bold text-right mb-1"
+									style="white-space: nowrap;"
+								>
+									#25,000
+								</h2>
+								<h2
+									class="categories-time text-sm text-right text-[#7b8392]"
+									style="white-space: nowrap;"
+								>
+									Revenue
+								</h2>
 							</div>
 						</div>
 					</div>
@@ -136,14 +150,21 @@
 						<h2 class="categories-heading text-lg font-bold text-[#9574c5] mb-2">Top Selling</h2>
 
 						<div class="flex gap-x-14">
-							<div>
+							<div class="w-full">
 								<h2 class="categories-number text-base font-bold mb-1">5</h2>
-								<h2 class="categories-time text-sm text-[#7b8392]">Last 7 days</h2>
+								<h2 class="categories-time text-sm text-[#7b8392]" style="white-space: nowrap;">
+									Last 7 days
+								</h2>
 							</div>
 
 							<div>
 								<h2 class="categories-amount text-base font-bold text-right mb-1">#2,500</h2>
-								<h2 class="categories-time text-sm text-right text-[#7b8392]">Cost</h2>
+								<h2
+									class="categories-time text-sm text-right text-[#7b8392]"
+									style="white-space: nowrap;"
+								>
+									Cost
+								</h2>
 							</div>
 						</div>
 					</div>
@@ -154,12 +175,19 @@
 						<div class="flex gap-x-14">
 							<div>
 								<h2 class="categories-number text-base font-bold mb-1">12</h2>
-								<h2 class="categories-time text-sm text-[#7b8392]">Ordered</h2>
+								<h2 class="categories-time text-sm text-[#7b8392]" style="white-space: nowrap;">
+									Ordered
+								</h2>
 							</div>
 
 							<div>
 								<h2 class="categories-amount text-base text-right font-bold mb-1">2</h2>
-								<h2 class="categories-time text-sm text-right text-[#7b8392]">Not in Stock</h2>
+								<h2
+									class="categories-time text-sm text-right text-[#7b8392]"
+									style="white-space: nowrap;"
+								>
+									Not in Stock
+								</h2>
 							</div>
 						</div>
 					</div>
@@ -203,9 +231,9 @@
 									<td class="py-2">{product.expiry}</td>
 
 									{#if product.availability === 'In-stock'}
-										<td class="py-2 text-success">{product.availability}</td>
+										<td class="py-2 text-success font-medium">{product.availability}</td>
 									{:else}
-										<td class="py-2 text-danger">{product.availability}</td>
+										<td class="py-2 text-danger font-medium">{product.availability}</td>
 									{/if}
 								</tr>
 							{/each}
