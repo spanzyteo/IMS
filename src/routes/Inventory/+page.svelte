@@ -1,4 +1,7 @@
 <script>
+	import Card from './Utilities/Card.svelte';
+	import Modal from './Utilities/Modal.svelte';
+	import NewProducts from './Utilities/NewProducts.svelte';
 	import { onMount } from 'svelte';
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
@@ -38,14 +41,9 @@
 			filtered_inventory = inventory;
 		}
 	}
-	let details = [
-		{
-			name: '',
-			quantity: 0,
-			price: 0,
-			desc: ''
-		}
-	];
+
+	let details = [];
+
 	let fd = new FormData();
 	async function addInv() {
 		fd.append('inv', JSON.stringify(details));
@@ -58,6 +56,23 @@
 			alert(`${res.data.message}`);
 		}
 	}
+
+	let showModal = true;
+
+	function handleModal() {
+		showModal = !showModal;
+	}
+
+	function modal() {
+		showModal = !showModal;
+	}
+
+	function addProducts(e) {
+		const product = e.detail;
+
+		details = [product, ...details];
+		console.log(details);
+	}
 </script>
 
 <svelte:head>
@@ -69,6 +84,10 @@
 	<meta name="keywords" content="Inventory" />
 </svelte:head>
 
+<Modal {showModal} on:click={handleModal}>
+	<NewProducts on:show={modal} on:addProducts={addProducts} />
+</Modal>
+
 {#if loading === true}
 	<Spinner />
 {:else}
@@ -76,43 +95,153 @@
 		<div id="fixed">
 			<Sidebar active_component={ac} />
 		</div>
-		<div class="flex-1 w-screen -ml-[-230px] p-5">
+
+		<div class="flex-1 w-screen -ml-[-230px] p-5 bg-slate-200">
 			<div class="mb-5">
-				<h3 class="mb-3 text-5xl font-bold">Inventory</h3>
 				<input
 					type="text"
 					bind:value={searchTerm}
-					placeholder="Search items here"
+					placeholder="Search products, supplier, order"
 					class="border-2 border-black text-sm text-black w-full rounded-md mr-3 py-2 px-2"
 				/>
 			</div>
 
-			<div class="text-center">
-				<table class="mx-auto w-full">
-					<thead class="bg-black">
-						<tr class="text-white">
-							<th class="px-20 py-2">Name</th>
-							<th class="px-20 py-2">Quantity</th>
-							<th class="px-20 py-2">Price</th>
-							<th class="px-20 py-2">Description</th>
-						</tr>
-					</thead>
-					<tbody class="">
-						{#each filtered_inventory as inv, index}
-							<tr class="border-black border-b hover:bg-slate-200">
-								<td class="py-2">{inv.name}</td>
-								<td class="py-2">{inv.quantity}</td>
-								<td class="py-2">{inv.price}</td>
-								<td class="py-2">{inv.desc}</td>
+			<Card>
+				<h3 class="mb-4 text-xl font-bold">Overall Inventory</h3>
+
+				<div class="flex justify-around">
+					<div class="categories pr-6 border-r-2">
+						<h2 class="categories-heading text-lg font-bold text-[#257af0] mb-2">Categories</h2>
+						<h2 class="categories-number text-base font-bold mb-1">14</h2>
+						<h2 class="categories-time text-sm text-[#7b8392]">Last 7 days</h2>
+					</div>
+
+					<div class="categories px-6 border-r-2">
+						<h2 class="categories-heading text-lg font-bold text-[#e7a85d] mb-2">Total Products</h2>
+
+						<div class="flex gap-x-14">
+							<div>
+								<h2 class="categories-number text-base font-bold mb-1">868</h2>
+								<h2 class="categories-time text-sm text-[#7b8392]">Last 7 days</h2>
+							</div>
+
+							<div>
+								<h2 class="categories-amount text-base font-bold text-right mb-1">#25,000</h2>
+								<h2 class="categories-time text-sm text-right text-[#7b8392]">Revenue</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="categories px-6 border-r-2">
+						<h2 class="categories-heading text-lg font-bold text-[#9574c5] mb-2">Top Selling</h2>
+
+						<div class="flex gap-x-14">
+							<div>
+								<h2 class="categories-number text-base font-bold mb-1">5</h2>
+								<h2 class="categories-time text-sm text-[#7b8392]">Last 7 days</h2>
+							</div>
+
+							<div>
+								<h2 class="categories-amount text-base font-bold text-right mb-1">#2,500</h2>
+								<h2 class="categories-time text-sm text-right text-[#7b8392]">Cost</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="categories px-6 border-r-0">
+						<h2 class="categories-heading text-lg font-bold text-[#f4736a] mb-2">Low Stocks</h2>
+
+						<div class="flex gap-x-14">
+							<div>
+								<h2 class="categories-number text-base font-bold mb-1">12</h2>
+								<h2 class="categories-time text-sm text-[#7b8392]">Ordered</h2>
+							</div>
+
+							<div>
+								<h2 class="categories-amount text-base text-right font-bold mb-1">2</h2>
+								<h2 class="categories-time text-sm text-right text-[#7b8392]">Not in Stock</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</Card>
+
+			<Card>
+				<div class="text-center">
+					<div class="table-header flex mb-3 justify-between items-center">
+						<div>
+							<h2 class=" font-bold">Products</h2>
+						</div>
+
+						<div>
+							<Button color="primary" class="mr-2 text-sm" on:click={handleModal}
+								>Add Product</Button
+							>
+							<Button outline class="mr-2 text-sm">Filters</Button>
+							<Button outline class="mr-2 text-sm text-gray-700">Download All</Button>
+						</div>
+					</div>
+					<table class="mx-auto w-full">
+						<thead class="">
+							<tr class="text-gray-500 border-b border-slate-200">
+								<th class="px-2 py-2">Products</th>
+								<th class="px-2 py-2">Buying Price</th>
+								<th class="px-2 py-2">Quantity</th>
+								<th class="px-2 py-2">Threshold Value</th>
+								<th class="px-2 py-2">Expiry Date</th>
+								<th class="px-2 py-2">Availability</th>
 							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
-			<div />
-			<div class="bg-black w-full">
-				<Button color="success" outline class="mx-auto bottom-4 fixed font-bold">Add Item</Button>
-			</div>
+						</thead>
+
+						<tbody class="">
+							{#each details as product}
+								<tr class="border-slate-200 border-b hover:bg-slate-200">
+									<td class="py-2">{product.name}</td>
+									<td class="py-2">{product.price}</td>
+									<td class="py-2">{product.quantity}</td>
+									<td class="py-2">{product.threshold}</td>
+									<td class="py-2">{product.expiry}</td>
+
+									{#if product.availability === 'In-stock'}
+										<td class="py-2 text-success">{product.availability}</td>
+									{:else}
+										<td class="py-2 text-danger">{product.availability}</td>
+									{/if}
+								</tr>
+							{/each}
+
+							<tr class="border-slate-200 border-b hover:bg-slate-200">
+								<td class="py-2">Maggi</td>
+								<td class="py-2">#430</td>
+								<td class="py-2">43 Packets</td>
+								<td class="py-2">12 Packets</td>
+								<td class="py-2">11/12/23</td>
+								<td class="py-2 font-medium text-success">In-stock</td>
+							</tr>
+
+							<tr class="border-slate-200 border-b hover:bg-slate-200">
+								<td class="py-2">Red Bull</td>
+								<td class="py-2">#700</td>
+								<td class="py-2">25 Cartons</td>
+								<td class="py-2">9 Cartons</td>
+								<td class="py-2">17/4/24</td>
+								<td class="py-2 font-medium text-danger">Out Of Stock</td>
+							</tr>
+						</tbody>
+
+						<!-- <tbody class="">
+							{#each filtered_inventory as inv, index}
+								<tr class="border-black border-b hover:bg-slate-200">
+									<td class="py-2">{inv.name}</td>
+									<td class="py-2">{inv.quantity}</td>
+									<td class="py-2">{inv.price}</td>
+									<td class="py-2">{inv.desc}</td>
+								</tr>
+							{/each}
+						</tbody> -->
+					</table>
+				</div>
+			</Card>
 		</div>
 	</div>
 {/if}
