@@ -1,21 +1,21 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-
 	let dispatch = createEventDispatcher();
 
+	import AddImage from './AddImage.svelte';
+	import { selectedImage } from './store.js';
 	import Card from './Card.svelte';
-	import addImages from './Images/add-image.png';
 	import { Button, Form } from 'sveltestrap';
 
 	let modal = true;
 
 	function handleModal() {
 		modal = !modal;
-
 		dispatch('show', modal);
 	}
 
 	let name = '';
+	let image = $selectedImage;
 	let id = '';
 	let category = '';
 	let price = '';
@@ -25,9 +25,14 @@
 	let threshold = '';
 	let availability = 'In-stock';
 
+	selectedImage.subscribe((value) => {
+		image = value;
+	});
+
 	function handleSubmit() {
 		const product = {
 			name,
+			image,
 			id,
 			category,
 			price,
@@ -38,9 +43,7 @@
 			availability
 		};
 
-		dispatch('addProducts', product);
-
-		// console.log(product);
+		dispatch('handleSubmit', product);
 	}
 </script>
 
@@ -48,14 +51,7 @@
 	<Card>
 		<div class="font-bold mb-2">New Product</div>
 
-		<div class=" add flex flex-wrap gap-3 justify-center items-center mb-3">
-			<img class="h-20" src={addImages} alt="Add Product" />
-			<div class="text-center text-sm">
-				<p>Drag image here</p>
-				<p>or</p>
-				<p class="text-[#257af0]">Browse image</p>
-			</div>
-		</div>
+		<AddImage />
 
 		<div class="inputs">
 			<div class="w-full flex gap-2 items-center mb-3">
@@ -94,7 +90,7 @@
 			<div class="w-full flex gap-2 items-center mb-3">
 				<label class="w-32 text-sm" for="Price">Buying Price</label>
 				<input
-					type="text"
+					type="number"
 					id="price"
 					bind:value={price}
 					placeholder="Enter buying price"
