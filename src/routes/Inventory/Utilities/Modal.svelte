@@ -24,9 +24,9 @@
 		padding: 10px;
 		border-radius: 10px;
 		max-width: 400px;
-		margin: 10% auto;
-		/* text-align: center; */
-		/* background: white; */
-		/* z-index: 1000; */
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 </style>

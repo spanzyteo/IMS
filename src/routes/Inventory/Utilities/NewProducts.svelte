@@ -49,12 +49,12 @@
 
 <form on:submit|preventDefault={handleSubmit}>
 	<Card>
-		<div class="font-bold mb-2">New Product</div>
+		<div class="font-bold text-base mb-1">New Product</div>
 
 		<AddImage />
 
 		<div class="inputs">
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Product name">Product Name</label>
 				<input
 					type="text"
@@ -65,7 +65,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Product Id">Product ID</label>
 				<input
 					type="text"
@@ -76,7 +76,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Category">Category</label>
 				<input
 					type="text"
@@ -87,7 +87,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Price">Buying Price</label>
 				<input
 					type="number"
@@ -98,7 +98,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Quantity">Quantity</label>
 				<input
 					type="text"
@@ -109,7 +109,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Unit">Unit</label>
 				<input
 					type="text"
@@ -120,7 +120,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="Expiry">Expiry Date</label>
 				<input
 					type="text"
@@ -131,7 +131,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="threshold">Threshold Value</label>
 				<input
 					type="text"
@@ -142,7 +142,7 @@
 				/>
 			</div>
 
-			<div class="w-full flex gap-2 items-center mb-3">
+			<div class="w-full flex gap-2 items-center mb-1">
 				<label class="w-32 text-sm" for="availability">Availability</label>
 				<select
 					id="availability"
@@ -155,9 +155,9 @@
 			</div>
 		</div>
 
-		<div class="flex justify-end my-2">
-			<Button outline class="mr-2 text-sm" on:click={handleModal}>Discard</Button>
-			<Button color="primary" class="mr-2 text-sm">Add Product</Button>
+		<div class="flex items-center justify-end mt-1">
+			<Button outline class="mr-2 text-xs" on:click={handleModal}>Discard</Button>
+			<Button color="primary" class="mr-2 text-xs">Add Product</Button>
 		</div>
 	</Card>
 </form>

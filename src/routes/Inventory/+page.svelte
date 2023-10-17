@@ -19,7 +19,6 @@
 	import { page } from '$app/stores';
 	import { deserialize } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import AddImage from './Utilities/AddImage.svelte';
 	let myVariable = 5;
 	let loading = true;
 	let searchTerm = '';
@@ -64,9 +63,16 @@
 		} else {
 			alert(`${res.data.message}`);
 		}
+
+		// console.log(res);
+		// console.log(data);
+		// console.log(res.data);
 	}
 
+	// addInv();
+
 	let showModal = false;
+	let filterTerm = '';
 
 	function handleModal() {
 		showModal = !showModal;
@@ -84,7 +90,6 @@
 		showModal = !showModal;
 
 		dispatch('addProducts', details);
-		console.log('Updated details:', $details);
 	}
 
 	let itemDetail = {};
@@ -95,7 +100,6 @@
 
 		ProductDetailsContent = !ProductDetailsContent;
 	}
-	console.log(ProductDetailsContent);
 
 	function handleReturn() {
 		ProductDetailsContent = false;
@@ -109,6 +113,12 @@
 		content="Best Inventory Management System For Small And Large Scale Businesses Worldwide"
 	/>
 	<meta name="keywords" content="Inventory" />
+
+	<script
+		type="module"
+		src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+	></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </svelte:head>
 
 <Modal {showModal} on:click={handleModal}>
@@ -118,22 +128,40 @@
 {#if loading === true}
 	<Spinner />
 {:else}
-	<div class="flex h-screen">
+	<div class="flex h-full bg-slate-200">
 		<div id="fixed">
 			<Sidebar active_component={ac} />
 		</div>
 
-		<div class="w-screen min-h-screen -ml-[-230px] p-5 bg-slate-200">
-			<div class="mb-5">
-				<input
-					type="text"
-					bind:value={searchTerm}
-					placeholder="Search products, supplier, order"
-					class="border-2 border-black text-sm text-black w-full rounded-md mr-3 py-2 px-2"
-				/>
+		<div class="w-screen min-h-screen h-full -ml-[-230px] p-4 bg-slate-200">
+			<div class="flex bg-white p-4 justify-between items-center h-15 mb-4">
+				<div
+					class="flex gap-1 items-center border-2 border-slate-300 text-sm text-black w-2/5 rounded-md mr-3 py-1 pl-6 pr-2 bg-white"
+				>
+					<ion-icon name="search-outline" style="font-size: 24px;" class="text-slate-300" />
+					<input
+						type="text"
+						bind:value={filterTerm}
+						placeholder="Search products, supplier, order"
+						class="w-full text-sm text-black py-2 px-2 border-0 outline-0"
+					/>
+				</div>
+
+				<div class="flex gap-2 items-center">
+					<ion-icon name="notifications-outline" style="font-size: 24px;" class="text-slate-500" />
+					<img
+						src="https://randomuser.me/api/portraits/women/30.jpg"
+						alt="Logo"
+						class="h-10 rounded-full"
+					/>
+				</div>
 			</div>
 			{#if ProductDetailsContent === false}
-				<ProductList on:handleModal={handleModal} on:handleDisplayItem={handleDisplayItem} />
+				<ProductList
+					on:handleModal={handleModal}
+					on:handleDisplayItem={handleDisplayItem}
+					{filterTerm}
+				/>
 			{:else}
 				<ProductDetails {itemDetail} on:handleReturn={handleReturn} />
 			{/if}
@@ -142,4 +170,6 @@
 {/if}
 
 <style>
+	.icon {
+	}
 </style>
