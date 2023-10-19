@@ -3,10 +3,10 @@ import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '../../hooks.server';
 import type { PageServerLoad } from '../$types';
 import { LuciaError } from 'lucia-auth';
-import { initTRPC } from '@trpc/server';
-import { userSession } from '$lib/trpc/router';
+// import { initTRPC } from '@trpc/server';
+// import { userSession } from '$lib/trpc/router';
 
-const t = initTRPC.context<Context>().create();
+// const t = initTRPC.context<Context>().create();
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
