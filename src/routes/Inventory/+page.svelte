@@ -16,7 +16,6 @@
 	import {
 		Button,
 		Form,
-		Modal,
 		ModalBody,
 		ModalFooter,
 		ModalBackdrop,
