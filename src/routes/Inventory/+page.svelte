@@ -1,4 +1,14 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+	import { details } from './Utilities/store.js';
+
+	let dispatch = createEventDispatcher();
+
+	import Card from './Utilities/Card.svelte';
+	import ProductList from './Utilities/ProductList.svelte';
+	import Modal from './Utilities/Modal.svelte';
+	import NewProducts from './Utilities/NewProducts.svelte';
+	import ProductDetails from './Utilities/ProductDetails.svelte';
 	import { onMount } from 'svelte';
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
@@ -49,14 +59,10 @@
 			filtered_inventory = inventory;
 		}
 	}
-	let details = [
-		{
-			name: '',
-			quantity: 0,
-			price: 0,
-			desc: ''
-		}
-	];
+	let closeDetail = false;
+
+	let ProductDetailsContent = closeDetail;
+
 	let fd = new FormData();
 	async function addInv() {
 		fd.append('inv', JSON.stringify(details));
@@ -68,6 +74,46 @@
 		} else {
 			alert(`${res.data.message}`);
 		}
+
+		// console.log(res);
+		// console.log(data);
+		// console.log(res.data);
+	}
+
+	// addInv();
+
+	let showModal = false;
+	let filterTerm = '';
+
+	function handleModal() {
+		showModal = !showModal;
+	}
+
+	function modal() {
+		showModal = !showModal;
+	}
+
+	function addProducts(e) {
+		const product = e.detail;
+
+		details.update((totalProducts) => [product, ...totalProducts]);
+
+		showModal = !showModal;
+
+		dispatch('addProducts', details);
+	}
+
+	let itemDetail = {};
+
+	function handleDisplayItem(e) {
+		const itemDetails = e.detail;
+		itemDetail = itemDetails;
+
+		ProductDetailsContent = !ProductDetailsContent;
+	}
+
+	function handleReturn() {
+		ProductDetailsContent = false;
 	}
 	let openScrollable = false;
 	let open = false;
@@ -82,91 +128,63 @@
 		content="Best Inventory Management System For Small And Large Scale Businesses Worldwide"
 	/>
 	<meta name="keywords" content="Inventory" />
+
+	<script
+		type="module"
+		src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+	></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </svelte:head>
+
+<Modal {showModal} on:click={handleModal}>
+	<NewProducts on:show={modal} on:handleSubmit={addProducts} />
+</Modal>
 
 {#if loading === true}
 	<Spinner />
 {:else}
-	<div class="flex h-screen">
+	<div class="flex h-full bg-slate-200">
 		<div id="fixed">
 			<Sidebar active_component={ac} />
 		</div>
-		<div class="flex-1 w-screen -ml-[-230px] p-5">
-			<div class="mb-5">
-				<h3 class="mb-3 text-5xl font-bold">Inventory</h3>
-				<input
-					type="text"
-					bind:value={searchTerm}
-					placeholder="Search items here"
-					class="border-2 border-black text-sm text-black w-full rounded-md mr-3 py-2 px-2"
-				/>
-			</div>
 
-			<div class="text-center">
-				<table class="mx-auto w-full">
-					<thead class="bg-black">
-						<tr class="text-white">
-							<th class="px-20 py-2">Name</th>
-							<th class="px-20 py-2">Quantity</th>
-							<th class="px-20 py-2">Price</th>
-							<th class="px-20 py-2">Description</th>
-						</tr>
-					</thead>
-					<tbody class="">
-						{#each filtered_inventory as inv, index}
-							<tr class="border-black border-b hover:bg-slate-200">
-								<td class="py-2">{inv.name}</td>
-								<td class="py-2">{inv.quantity}</td>
-								<td class="py-2">{inv.price}</td>
-								<td class="py-2">{inv.desc}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
-			<div />
-			<div class="bg-black w-full">
-				<Button color="success" outline class="mx-auto bottom-4 fixed font-bold" on:click={toggle}
-					>Add Item</Button
+		<div class="w-screen min-h-screen h-full -ml-[-230px] p-4 bg-slate-200">
+			<div class="flex bg-white p-4 justify-between items-center h-15 mb-4">
+				<div
+					class="flex gap-1 items-center border-2 border-slate-300 text-sm text-black w-2/5 rounded-md mr-3 py-1 pl-6 pr-2 bg-white"
 				>
+					<ion-icon name="search-outline" style="font-size: 24px;" class="text-slate-300" />
+					<input
+						type="text"
+						bind:value={filterTerm}
+						placeholder="Search products, supplier, order"
+						class="w-full text-sm text-black py-2 px-2 border-0 outline-0"
+					/>
+				</div>
+
+				<div class="flex gap-2 items-center">
+					<ion-icon name="notifications-outline" style="font-size: 24px;" class="text-slate-500" />
+					<img
+						src="https://randomuser.me/api/portraits/women/30.jpg"
+						alt="Logo"
+						class="h-10 rounded-full"
+					/>
+				</div>
 			</div>
-			<Modal isOpen={open} {toggle}>
-				<ModalHeader isOpen={openScrollable} toggle={toggleScrollable} scrollable
-					>Add New Item</ModalHeader
-				>
-				<ModalBody>
-					<Form>
-						<FormGroup>
-							<Label for="item_name">Item Name:</Label>
-							<Input type="text" name="Item_name" id="item_name" placeholder="Item Name" />
-						</FormGroup>
-						<FormGroup>
-							<Label for="item_price">Price:</Label>
-							<Input type="number" name="password" id="item_price" placeholder="Item Price" />
-						</FormGroup>
-						<FormGroup>
-							<Label for="item_quan">Quantity</Label>
-							<Input type="number" name="quantity" id="item_quan" placeholder="Quantity" />
-						</FormGroup>
-						<FormGroup>
-							<Label for="desc">Description:</Label>
-							<Input type="text" name="desc" id="desc" placeholder="Item Description" />
-						</FormGroup>
-						<FormGroup>
-							<select name="" id="">
-								<option value="">--Select Category</option>
-							</select>
-						</FormGroup>
-					</Form>
-				</ModalBody>
-				<ModalFooter>
-					<Button color="success" on:click={toggle}>Save</Button>
-					<Button color="danger" on:click={toggle}>Cancel</Button>
-				</ModalFooter>
-			</Modal>
+			{#if ProductDetailsContent === false}
+				<ProductList
+					on:handleModal={handleModal}
+					on:handleDisplayItem={handleDisplayItem}
+					{filterTerm}
+				/>
+			{:else}
+				<ProductDetails {itemDetail} on:handleReturn={handleReturn} />
+			{/if}
 		</div>
 	</div>
 {/if}
 
 <style>
+	.icon {
+	}
 </style>
