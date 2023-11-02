@@ -115,6 +115,11 @@
 					<Label for="desc">Description:</Label>
 					<Input type="text" name="desc" id="desc" placeholder="Item Description" />
 				</FormGroup>
+				<FormGroup>
+					<select name="" id="">
+						<option value="">--Select Category</option>
+					</select>
+				</FormGroup>
 			</Form>
 		</ModalBody>
 		<ModalFooter>

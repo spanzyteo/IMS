@@ -3,7 +3,18 @@
 	import Sidebar from '../components/Sidebar.svelte';
 	import Spinner from '../components/Spinner.svelte';
 	import { isLoggedIn } from '../../stores/stores';
-	import { Button, Form } from 'sveltestrap';
+	import {
+		Button,
+		Form,
+		Modal,
+		ModalBody,
+		ModalFooter,
+		ModalBackdrop,
+		ModalHeader,
+		FormGroup,
+		Label,
+		Input
+	} from 'sveltestrap';
 	import Login from '../components/Login.svelte';
 	import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
@@ -58,6 +69,10 @@
 			alert(`${res.data.message}`);
 		}
 	}
+	let openScrollable = false;
+	let open = false;
+	const toggle = () => (open = !open);
+	const toggleScrollable = () => (openScrollable = !openScrollable);
 </script>
 
 <svelte:head>
@@ -111,8 +126,44 @@
 			</div>
 			<div />
 			<div class="bg-black w-full">
-				<Button color="success" outline class="mx-auto bottom-4 fixed font-bold">Add Item</Button>
+				<Button color="success" outline class="mx-auto bottom-4 fixed font-bold" on:click={toggle}
+					>Add Item</Button
+				>
 			</div>
+			<Modal isOpen={open} {toggle}>
+				<ModalHeader isOpen={openScrollable} toggle={toggleScrollable} scrollable
+					>Add New Item</ModalHeader
+				>
+				<ModalBody>
+					<Form>
+						<FormGroup>
+							<Label for="item_name">Item Name:</Label>
+							<Input type="text" name="Item_name" id="item_name" placeholder="Item Name" />
+						</FormGroup>
+						<FormGroup>
+							<Label for="item_price">Price:</Label>
+							<Input type="number" name="password" id="item_price" placeholder="Item Price" />
+						</FormGroup>
+						<FormGroup>
+							<Label for="item_quan">Quantity</Label>
+							<Input type="number" name="quantity" id="item_quan" placeholder="Quantity" />
+						</FormGroup>
+						<FormGroup>
+							<Label for="desc">Description:</Label>
+							<Input type="text" name="desc" id="desc" placeholder="Item Description" />
+						</FormGroup>
+						<FormGroup>
+							<select name="" id="">
+								<option value="">--Select Category</option>
+							</select>
+						</FormGroup>
+					</Form>
+				</ModalBody>
+				<ModalFooter>
+					<Button color="success" on:click={toggle}>Save</Button>
+					<Button color="danger" on:click={toggle}>Cancel</Button>
+				</ModalFooter>
+			</Modal>
 		</div>
 	</div>
 {/if}

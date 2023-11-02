@@ -3,7 +3,7 @@
 	// @ts-ignore
 	import { redirect } from '@sveltejs/kit';
 	import { onMount } from 'svelte';
-	import { Button, Container, Form, Icon } from 'sveltestrap';
+	import { Button, Container, Form, Icon, FormGroup, Label, Input } from 'sveltestrap';
 	import { v4 as uuidv4 } from 'uuid';
 	import Spinner from '../../components/Spinner.svelte';
 	import invoices from '$lib/invoices.json';
@@ -12,6 +12,8 @@
 	// import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
 	export let data;
+	let inventory = data.inventory;
+	console.log(data);
 	let userId = data.user.userId;
 	//@ts-ignore
 	// export let form;
@@ -47,11 +49,12 @@
 		userId,
 		id: `${newId}`,
 		date: `${date}`,
-		items: [{ name: 'Item', quantity: 0, price: 0 }],
+		items: [],
 		paid: 0,
 		balance: 0,
 		total: 0
 	};
+
 	let updateTotal = () => {
 		if (details) {
 			total = details.items.reduce((acc, item) => {
@@ -83,7 +86,7 @@
 	 */
 	async function addItem() {
 		console.log('Adding new item...');
-		let newItem = { name: 'New Item', quantity: 0, price: 0 };
+		let newItem = { name: '', quantity: 0, price: 0 };
 		details.items.push(newItem);
 		// @ts-ignore
 		details = details;
@@ -118,7 +121,16 @@
 		// console.log(data);
 		// console.log(`New Data: ${data}`);
 	}
-	console.log(displayed);
+
+	function getPrice(name) {
+		const selectedInventoryItem = inventory.find((item) => item.name === name);
+		return selectedInventoryItem ? selectedInventoryItem.price : 0;
+	}
+	$: {
+		for (let i = 0; i < details.items.length; i++) {
+			console.log(`Current index is ${i}: ${details.items[i].name}`);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -195,15 +207,24 @@
 						<tbody>
 							{#each details.items as item, index}
 								<tr>
-									<td style="border-right: 2px solid; border-left: 2px solid;"
-										><input
-											type="text"
-											class="w-full"
-											name="items[name][]"
-											bind:value={item.name}
-											style="border: none;"
-										/></td
-									>
+									<td style="border-right: 2px solid; border-left: 2px solid;">
+										<FormGroup>
+											<Input
+												type="select"
+												bind:value={details.items[index].name}
+												on:change={() => {
+													details.items[index].quantity = 0; // Reset quantity
+													item.price = getPrice(details.items[index].name); // Get Price
+													updateTotal();
+												}}
+											>
+												{#each inventory as inv}
+													<option value={inv.name}>{inv.name}</option>
+												{/each}
+											</Input>
+										</FormGroup>
+									</td>
+
 									<td style="border-right: 2px solid"
 										><input
 											type="number"
@@ -220,11 +241,14 @@
 											style="border: none"
 											class="w-full"
 											name="items[price][]"
-											bind:value={item.price}
+											value={getPrice(item.name)}
 											on:input={updateTotal}
+											on:change={() => {
+												item.price = getPrice(item.name);
+											}}
 										/></td
 									>
-									<td style="border-right: 2px solid;">{item.quantity * item.price}</td>
+									<td style="border-right: 2px solid;">{item.quantity * getPrice(item.name)}</td>
 									{#if displayed === true}<td>
 											<Button
 												color="danger"

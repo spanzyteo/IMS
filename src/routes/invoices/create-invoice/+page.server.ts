@@ -6,9 +6,14 @@ import { dev } from '$app/environment';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
-
+	let filepath = `./src/lib/${user.userId}-inventory.json`;
+	let inventory;
+	if (fs.existsSync(filepath)) {
+		inventory = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+	}
 	if (session && user) {
 		return {
+			inventory,
 			session,
 			user
 		};
