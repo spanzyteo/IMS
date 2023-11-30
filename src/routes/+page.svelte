@@ -9,12 +9,12 @@
 	import { deserialize } from '$app/forms';
 	import { ensureLogin } from '$lib/authorise';
 	import { goto } from '$app/navigation';
-
 	let loading = true;
 	let ac = 'home';
 
 	onMount(() => {
 		ensureLogin($page.data);
+		console.log($page.data);
 		if ($page.data.session.userId) {
 			$isLoggedIn = true;
 		}
@@ -42,7 +42,7 @@
 </script>
 
 <svelte:head>
-	<title>Los Angis - Home</title>
+	<title>Dashboard</title>
 	<meta
 		name="description"
 		content="Best Inventory Management System For Small And Large Scale Businesses Worldwide"
@@ -239,7 +239,7 @@
 		}
 	}
 	body {
-		background-image: url('../assets/bg.png');
+		/* background: gray; */
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;

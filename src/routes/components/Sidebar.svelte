@@ -10,8 +10,8 @@
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </svelte:head>
 
-<div class="sidebar h-screen fixed w-[230px] px-3">
-	<h1 class="font-bold text-7xl text-white text-center">IMS</h1>
+<div class="sidebar h-screen fixed w-[300px] px-3">
+	<h1 class="font-bold text-7xl text-white text-center p-3">IMS</h1>
 	<!-- <a href="/"><img src="/logo.jpg" alt="Logo" /></a> -->
 	<ul class="text-white mt-10">
 		<a href="/"
@@ -80,7 +80,7 @@
 
 <style>
 	.sidebar {
-		background-image: url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JlZW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60');
+		background: #1c232f;
 	}
 	a {
 		text-decoration: none;
