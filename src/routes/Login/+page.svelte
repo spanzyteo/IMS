@@ -47,15 +47,15 @@
 </svelte:head>
 <body>
 	<div class="login-card">
-		<div class="login-container w-2/4">
-			<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
+		<div class="login-container lg:w-2/4 w-[90%] py-5 px-3">
+			<div class="text-center rounded-xl shadow-slate-700 px-2">
 				<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Login Your Account</h3>
 				<div class="form__group field mb-3">
 					<input
 						type="email"
 						name="email"
 						bind:value={details.email}
-						class="form__field mt-2"
+						class="form__field mt-2 text-sm"
 						placeholder="Enter Email Address"
 					/>
 
@@ -64,8 +64,8 @@
 							src="/assets/mail.svg"
 							alt="email-icon"
 							width="30"
-							class="text-[#57F287] float-left mr-2 icon"
-						/>{''} Enter Email Address
+							class="text-[#57F287] float-left mr-2 icon text-sm"
+						/>{''} Enter Email
 					</label>
 				</div>
 				<div class="form__group field">
@@ -73,20 +73,20 @@
 						type="password"
 						name="password"
 						bind:value={details.password}
-						class="form__field mt-2"
+						class="form__field mt-2 text-sm"
 						placeholder="Enter Password"
 					/>
 					<label for="password" class="form__label">
-						<img src="/assets/lock.svg" alt="passkey" width="30" class="float-left mr-2 icon" />
+						<img src="/assets/lock.svg" alt="passkey" width="30" class="float-left mr-2 icon text-sm" />
 						{''}
 						Enter Password</label
 					>
 					<br /><br />
-					<p class="font-bold text-xl text-black">
-						Don't have an account? <a href="/Signup" class="text-blue-400">Signup</a>
+					<p class="font-bold text-md text-black">
+						Don't have an account? <br /> <a href="/Signup" class="text-[rgb(87,242,135)] hover:text-black">Signup here</a>
 					</p>
 				</div>
-				<button class="button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}
+				<button class=" text-md button w-[10rem] px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={login}
 					>Log In</button
 				>
 			</div>
