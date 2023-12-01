@@ -53,15 +53,15 @@
 
 <body>
 	<div class="paage">
-		<div class="login-container w-2/4">
-			<div class="text-center p-[5rem] rounded-xl shadow-slate-700">
-				<h3 class="text-3xl text-[rgb(87,242,135)] font-bold p-3">Create Account</h3>
+		<div class="login-container lg:w-2/4 w-[90%] py-5 px-3">
+			<div class="text-center px-2 rounded-xl shadow-slate-700">
+				<h3 class="text-3xl text-[rgb(87,242,135)] font-bold pb-3">Create Account</h3>
 				<div class="form__group field mb-3">
 					<input
 						type="text"
 						name="text"
 						bind:value={details.name}
-						class="form__field mt-2"
+						class="form__field mt-2 text-sm"
 						placeholder="Enter Username"
 					/>
 					<label for="text" class="form__label">
@@ -69,7 +69,7 @@
 							src="/assets/user.svg"
 							alt="email-icon"
 							width="30"
-							class="text-[#57F287] float-left mr-2 icon"
+							class="text-[#57F287] float-left mr-2 icon text-sm"
 						/>{''}
 						Enter Username</label
 					>
@@ -79,7 +79,7 @@
 						type="email"
 						name="email"
 						bind:value={details.email}
-						class="form__field mt-2"
+						class="form__field mt-2 text-sm"
 						placeholder="Enter Email Address"
 					/>
 					<label for="email" class="form__label">
@@ -87,7 +87,7 @@
 							src="/assets/mail.svg"
 							alt="email-icon"
 							width="30"
-							class="text-[#57F287] float-left mr-2 icon"
+							class="text-[#57F287] float-left mr-2 icon text-sm"
 						/>{''}
 						Enter Email Address</label
 					>
@@ -97,7 +97,7 @@
 						type="password"
 						name="password"
 						bind:value={details.password}
-						class="form__field mt-2"
+						class="form__field mt-2 text-sm"
 						placeholder="Create password"
 					/>
 					<label for="password" class="form__label">
@@ -105,7 +105,7 @@
 							src="/assets/lock.svg"
 							alt="email-icon"
 							width="30"
-							class="text-[#57F287] float-left mr-2 icon"
+							class="text-[#57F287] float-left mr-2 icon text-sm"
 						/>{''}
 						Create Password</label
 					>
@@ -115,7 +115,7 @@
 						type="password"
 						name="password"
 						bind:value={c_password}
-						class="form__field mt-2"
+						class="form__field mt-2 text-sm"
 						placeholder="Create password"
 					/>
 					<label for="password" class="form__label">
@@ -123,12 +123,12 @@
 							src="/assets/lock.svg"
 							alt="email-icon"
 							width="30"
-							class="text-[#57F287] float-left mr-2 icon"
+							class="text-[#57F287] float-left mr-2 icon text-sm"
 						/>{''}
 						Confirm Password</label
 					>
 				</div>
-				<button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
+				<button class="text-md button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
 					Create Account</button
 				>
 				<!-- <button class="button px-10 py-2 mt-5 border-[#57F287] font-bold" on:click={loginWithEmail}>
