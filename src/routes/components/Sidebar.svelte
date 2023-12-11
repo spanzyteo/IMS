@@ -10,15 +10,13 @@
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </svelte:head>
 
-<div class="sidebar h-screen fixed w-[300px] px-3">
+<div class="sidebar h-screen fixed w-[200px] px-3">
 	<h1 class="font-bold text-7xl text-white text-center p-3">IMS</h1>
 	<!-- <a href="/"><img src="/logo.jpg" alt="Logo" /></a> -->
 	<ul class="text-white mt-10">
 		<a href="/"
-			>{#if active_component === 'home'}<li
-					id="active"
-					class="bg-[#ECEFE3] text-black rounded-md px-3 py-2 mb-3"
-				>
+			>{#if active_component === 'home'}
+				<li id="active" class="bg-[#ECEFE3] text-black rounded-md px-3 py-2 mb-3">
 					<span class="icon mr-2"><ion-icon name="home-outline" /></span>
 					<span class="text">Home</span>
 				</li>
