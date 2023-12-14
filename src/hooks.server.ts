@@ -20,7 +20,7 @@ async function connectToDB() {
 			/* There are two environment variables you can use, if you have mongodb installed on your system, use mongosh on your terminal and create a database called lucia-auth-users, else youd have to use the online version which would require an internet connection but would be easier to use.
 			You can then use either the environment variable MONGO_URL_LOCAL or MONGO_URL_ONLINE in the development stage
 			 */
-			.connect(`${process.env.MONGO_URL}`)
+			.connect(`${process.env.MONGO_URL_ONLINE}`)
 			.then(() => console.log('Connected To Local Database.'))
 			.catch((e) => {
 				console.log(`Connection to Local Database Failed: ${e}`);
