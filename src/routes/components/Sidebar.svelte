@@ -21,7 +21,7 @@
 					<span class="text">Home</span>
 				</li>
 			{:else}
-				<li class="hover:text-black hover:bg-black hover:rounded-md text-white px-3 py-2 mb-3">
+				<li class="hover:text-white hover:bg-black hover:rounded-md text-white px-3 py-2 mb-3">
 					<span class="icon mr-2 mt-2"><ion-icon name="home-outline" /></span>
 					<span class="text">Home</span>
 				</li>
@@ -36,7 +36,7 @@
 					<span class="text">Banking</span>
 				</li>
 			{:else}
-				<li class=" hover:bg-black hover:text-black hover:rounded-md text-white px-3 py-2 mb-3">
+				<li class=" hover:bg-black hover:text-white hover:rounded-md text-white px-3 py-2 mb-3">
 					<span class="icon mr-2"><ion-icon name="cash-outline" /></span>
 					<span class="text">Banking</span>
 				</li>
@@ -49,7 +49,7 @@
 					<span class="text">Inventory</span>
 				</li>
 			{:else}
-				<li class="hover:bg-black hover:rounded-md hover:text-black text-white px-3 py-2 mb-3">
+				<li class="hover:bg-black hover:rounded-md hover:text-white text-white px-3 py-2 mb-3">
 					<span class="icon mr-2"><ion-icon name="clipboard-outline" /></span>
 					<span class="text">Inventory</span>
 				</li>

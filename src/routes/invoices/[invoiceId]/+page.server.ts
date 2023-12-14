@@ -16,13 +16,8 @@ export async function load({
 	const { user, session } = await locals.auth.validateUser();
 	if (user != null) {
 		const invoiceId = params.invoiceId as string; // get the invoice id from the URL parameter
-		let id;
-		if (dev) {
-			id = readFileSync(`./src/lib/${user.userId}-invoice.json`, 'utf-8');
-		} else {
-			id = readFileSync(`/app/data/${user.userId}-invoice.json`, 'utf-8');
-		}
-		const invoices = JSON.parse(id);
+		let id = user.findOne;
+		// const invoices = JSON.parse(id);
 		const invoice = invoices.find((inv: Category) => inv.id === invoiceId); // find the invoice in the JSON file by id
 		if (user && session) {
 			return {

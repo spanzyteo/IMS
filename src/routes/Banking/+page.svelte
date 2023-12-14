@@ -92,6 +92,9 @@
 		updateBal();
 	}
 	$: {
+		/**
+		 * @param {any} i
+		 */
 		if (searchTerm) {
 			filtered_debts = cashFlow.filter((i) =>
 				i.customer_name?.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())

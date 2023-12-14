@@ -9,7 +9,7 @@ export async function PUT({ request }) {
 	const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
 	// Find the index of the object with the matching ID in the array
-	const itemIndex = jsonData.findIndex((item) => item.id === newId);
+	const itemIndex = jsonData.findIndex((item: any) => item.id === newId);
 
 	// Update the balance value
 	if (itemIndex !== -1) {

@@ -17,14 +17,17 @@ let uuidv4 = uuid();
 async function connectToDB() {
 	if (dev) {
 		await mongoose
-			.connect(`${process.env.MONGO_URL_OFFLINE}`)
+			/* There are two environment variables you can use, if you have mongodb installed on your system, use mongosh on your terminal and create a database called lucia-auth-users, else youd have to use the online version which would require an internet connection but would be easier to use.
+			You can then use either the environment variable MONGO_URL_LOCAL or MONGO_URL_ONLINE in the development stage
+			 */
+			.connect(`${process.env.MONGO_URL}`)
 			.then(() => console.log('Connected To Local Database.'))
 			.catch((e) => {
 				console.log(`Connection to Local Database Failed: ${e}`);
 			});
 	} else {
 		await mongoose
-			.connect(`${process.env.MONGO_URL_ONLINE}`)
+			.connect(`${process.env.MONGO_URL}`)
 			.then(() => console.log('Connected To Online Database.'))
 			.catch((e) => {
 				if (e instanceof Query) {
@@ -33,17 +36,29 @@ async function connectToDB() {
 			});
 	}
 }
-// async function connectToDB() {
-// 	await mongoose
-// 		.connect(`${process.env.DOTENV_KEY}`)
-// 		.then(() => console.log('Connected To Online Database.'))
-// 		.catch((e) => {
-// 			if (e instanceof Query) {
-// 				console.log(`Connection to Online Database Failed: Network Error`);
-// 			}
-// 		});
-// }
 connectToDB();
+
+interface Invoice {
+	id: string;
+	customer_name: string;
+	items: { name: string; quantity: number; price: number }[];
+}
+
+interface Inventory {
+	name: string;
+	quantity: number;
+	price: number;
+	desc: string;
+}
+interface UserData {
+	id: string;
+	name: string;
+	email: string;
+	business_name: string;
+	invoices: Invoice[];
+	inventory: Inventory[];
+	// Add other properties and their types as needed
+}
 
 const userSchema = new mongoose.Schema(
 	{
@@ -118,7 +133,9 @@ export const auth = lucia({
 			userId: userData.id,
 			username: userData.name,
 			email: userData.email,
-			business_name: userData.business_name
+			business_name: userData.business_name,
+			invoices: userData.invoices,
+			inventory: userData.inventory
 		};
 	}
 });
