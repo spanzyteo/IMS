@@ -17,10 +17,7 @@ let uuidv4 = uuid();
 async function connectToDB() {
 	if (dev) {
 		await mongoose
-			/* There are two environment variables you can use, if you have mongodb installed on your system, use mongosh on your terminal and create a database called lucia-auth-users, else youd have to use the online version which would require an internet connection but would be easier to use.
-			You can then use either the environment variable MONGO_URL_LOCAL or MONGO_URL_ONLINE in the development stage
-			 */
-			.connect(`${process.env.MONGO_URL_ONLINE}`)
+			.connect(`${process.env.MONGO_URL_LOCAL}`)
 			.then(() => console.log('Connected To Local Database.'))
 			.catch((e) => {
 				console.log(`Connection to Local Database Failed: ${e}`);
@@ -36,6 +33,13 @@ async function connectToDB() {
 			});
 	}
 }
+//Use This Function If You Cannot Setup Mongodb Locally on your system (Note: It Requires An Internet Connection):
+
+// async function connectToDB() {
+// 	(await mongoose.connect(`${process.env.MONGO_URL}`))
+// 		.isObjectIdOrHexString(() => console.log('Connected To Online Database'))
+// 		.catch((e) => console.log(`Connection To Database Failed: ${e}`));
+// }
 connectToDB();
 
 interface Invoice {
@@ -68,6 +72,10 @@ const userSchema = new mongoose.Schema(
 		business_name: String,
 		inventory: Array,
 		invoices: Array,
+		dateCreated: {
+			type: String,
+			default: new Date()
+		},
 		_id: {
 			type: String
 		}
@@ -135,7 +143,8 @@ export const auth = lucia({
 			email: userData.email,
 			business_name: userData.business_name,
 			invoices: userData.invoices,
-			inventory: userData.inventory
+			inventory: userData.inventory,
+			date: userData.dateCreated
 		};
 	}
 });

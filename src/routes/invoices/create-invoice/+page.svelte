@@ -122,10 +122,6 @@
 		// console.log(`New Data: ${data}`);
 	}
 
-	function getPrice(name) {
-		const selectedInventoryItem = inventory.find((item) => item.name === name);
-		return selectedInventoryItem ? selectedInventoryItem.price : 0;
-	}
 	$: {
 		for (let i = 0; i < details.items.length; i++) {
 			console.log(`Current index is ${i}: ${details.items[i].name}`);
@@ -209,19 +205,7 @@
 								<tr>
 									<td style="border-right: 2px solid; border-left: 2px solid;">
 										<FormGroup>
-											<Input
-												type="select"
-												bind:value={details.items[index].name}
-												on:change={() => {
-													details.items[index].quantity = 0; // Reset quantity
-													item.price = getPrice(details.items[index].name); // Get Price
-													updateTotal();
-												}}
-											>
-												{#each inventory as inv}
-													<option value={inv.name}>{inv.name}</option>
-												{/each}
-											</Input>
+											<Input type="text" bind:value={item.name} />
 										</FormGroup>
 									</td>
 
@@ -241,14 +225,11 @@
 											style="border: none"
 											class="w-full"
 											name="items[price][]"
-											value={getPrice(item.name)}
+											bind:value={item.price}
 											on:input={updateTotal}
-											on:change={() => {
-												item.price = getPrice(item.name);
-											}}
 										/></td
 									>
-									<td style="border-right: 2px solid;">{item.quantity * getPrice(item.name)}</td>
+									<td style="border-right: 2px solid;">{item.quantity * item.price}</td>
 									{#if displayed === true}<td>
 											<Button
 												color="danger"

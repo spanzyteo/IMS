@@ -1,6 +1,4 @@
 import { redirect, type RequestEvent } from '@sveltejs/kit';
-import { dev } from '$app/environment';
-import { readFileSync } from 'fs';
 
 export interface Category {
 	id?: string;
@@ -14,11 +12,10 @@ export async function load({
 	locals
 }: RequestEvent): Promise<{ invoice: Category | null }> {
 	const { user, session } = await locals.auth.validateUser();
+	console.log(user);
+	const details = await fetch(`/api/v1/read-invoice-data?inv=${params.invoiceId}`);
 	if (user != null) {
-		const invoiceId = params.invoiceId as string; // get the invoice id from the URL parameter
-		let id = user.findOne;
-		// const invoices = JSON.parse(id);
-		const invoice = invoices.find((inv: Category) => inv.id === invoiceId); // find the invoice in the JSON file by id
+		const invoice = await details.json();
 		if (user && session) {
 			return {
 				invoice: invoice || null, // return the invoice if found, or null if not found

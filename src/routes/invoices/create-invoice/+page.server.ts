@@ -3,14 +3,11 @@ import { redirect } from '@sveltejs/kit';
 import fs from 'fs';
 import type { PageServerLoad } from './$types.js';
 import { dev } from '$app/environment';
+import { User } from '../../../hooks.server.js';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user, session } = await locals.auth.validateUser();
-	let filepath = `./src/lib/${user.userId}-inventory.json`;
 	let inventory;
-	if (fs.existsSync(filepath)) {
-		inventory = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
-	}
 	if (session && user) {
 		return {
 			inventory,
@@ -23,8 +20,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions = {
-	saveSimple: async ({ request }) => {
+	saveSimple: async ({ request, locals }) => {
 		const data = await request.formData();
+		const { user, session } = await locals.auth.validateUser();
 		const { id, customer_name, date, balance, paid, total, items, userId } = JSON.parse(
 			data.get('invoice') as any
 		);
@@ -40,27 +38,28 @@ export const actions = {
 			paid: parseFloat(paid),
 			total: parseFloat(total)
 		};
-		let preInv;
-		let filePath;
-		if (dev) {
-			filePath = `./src/lib/${userId}-invoice.json`;
-		} else {
-			filePath = `/app/data/${userId}-invoice.json`;
-		}
+		// let preInv;
+		// let filePath;
+		// if (dev) {
+		// 	filePath = `./src/lib/${userId}-invoice.json`;
+		// } else {
+		// 	filePath = `/app/data/${userId}-invoice.json`;
+		// }
 		try {
-			if (fs.existsSync(filePath)) {
-				const fileContent = fs.readFileSync(filePath, 'utf-8');
-				if (fileContent.trim() === '') {
-					preInv = [];
-				} else {
-					preInv = JSON.parse(fileContent);
-				}
-			} else {
-				preInv = [];
-			}
+			// if (fs.existsSync(filePath)) {
+			// 	const fileContent = fs.readFileSync(filePath, 'utf-8');
+			// 	if (fileContent.trim() === '') {
+			// 		preInv = [];
+			// 	} else {
+			// 		preInv = JSON.parse(fileContent);
+			// 	}
+			// } else {
+			// 	preInv = [];
+			// }
 
-			let inv = [...preInv, invoice];
-			fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
+			// let inv = [...preInv, invoice];
+			// fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
+			await User.findById(user.userId).updateMany({}, { $push: { invoices: invoice } });
 			console.log('Invoice saved successfully');
 			message = 'Invoice Saved Successfully';
 			url = `/invoices/${id}`;
@@ -72,7 +71,6 @@ export const actions = {
 		} catch (error) {
 			console.log('Error: ', error);
 			message = 'Invoice Not Saved';
-			preInv = [];
 			return { message };
 		}
 	}

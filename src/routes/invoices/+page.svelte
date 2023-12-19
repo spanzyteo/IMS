@@ -8,6 +8,7 @@
 	import { ensureLogin } from '$lib/authorise';
 	import { page } from '$app/stores';
 	import Invoice from '../components/Invoice.svelte';
+	//@ts-ignore
 	let ac = 'invoices';
 	export let data;
 	let invoices = data.invoice;
