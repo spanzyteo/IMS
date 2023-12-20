@@ -94,7 +94,8 @@
 
 	function addProducts(e) {
 		const product = e.detail;
-
+		console.log(product);
+		console.log(details);
 		details.update((totalProducts) => [product, ...totalProducts]);
 
 		showModal = !showModal;
