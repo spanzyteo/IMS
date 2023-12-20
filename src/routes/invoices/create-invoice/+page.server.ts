@@ -46,6 +46,7 @@ export const actions = {
 		// 	filePath = `/app/data/${userId}-invoice.json`;
 		// }
 		try {
+			//if (dev) {
 			// if (fs.existsSync(filePath)) {
 			// 	const fileContent = fs.readFileSync(filePath, 'utf-8');
 			// 	if (fileContent.trim() === '') {
@@ -59,8 +60,11 @@ export const actions = {
 
 			// let inv = [...preInv, invoice];
 			// fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
+			// console.log('Invoice saved successfully');
+			// } else {
 			await User.findById(user.userId).updateMany({}, { $push: { invoices: invoice } });
 			console.log('Invoice saved successfully');
+			// }
 			message = 'Invoice Saved Successfully';
 			url = `/invoices/${id}`;
 			return {
