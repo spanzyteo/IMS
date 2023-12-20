@@ -38,13 +38,6 @@ export const actions = {
 			paid: parseFloat(paid),
 			total: parseFloat(total)
 		};
-		// let preInv;
-		// let filePath;
-		// if (dev) {
-		// 	filePath = `./src/lib/${userId}-invoice.json`;
-		// } else {
-		// 	filePath = `/app/data/${userId}-invoice.json`;
-		// }
 		try {
 			//if (dev) {
 			// if (fs.existsSync(filePath)) {
