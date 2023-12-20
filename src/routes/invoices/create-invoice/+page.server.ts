@@ -39,25 +39,8 @@ export const actions = {
 			total: parseFloat(total)
 		};
 		try {
-			//if (dev) {
-			// if (fs.existsSync(filePath)) {
-			// 	const fileContent = fs.readFileSync(filePath, 'utf-8');
-			// 	if (fileContent.trim() === '') {
-			// 		preInv = [];
-			// 	} else {
-			// 		preInv = JSON.parse(fileContent);
-			// 	}
-			// } else {
-			// 	preInv = [];
-			// }
-
-			// let inv = [...preInv, invoice];
-			// fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
-			// console.log('Invoice saved successfully');
-			// } else {
 			await User.findById(user.userId).updateMany({}, { $push: { invoices: invoice } });
 			console.log('Invoice saved successfully');
-			// }
 			message = 'Invoice Saved Successfully';
 			url = `/invoices/${id}`;
 			return {
