@@ -38,8 +38,6 @@ export const actions = {
 			paid: parseFloat(paid),
 			total: parseFloat(total)
 		};
-		let preInv;
-		let filePath = `./src/lib/${userId}-invoice.json`;
 		try {
 			await User.findById(user.userId).updateMany({}, { $push: { invoices: invoice } });
 			console.log('Invoice saved successfully');
