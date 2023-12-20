@@ -38,29 +38,28 @@ export const actions = {
 			paid: parseFloat(paid),
 			total: parseFloat(total)
 		};
-		// let preInv;
-		// let filePath;
-		// if (dev) {
-		// 	filePath = `./src/lib/${userId}-invoice.json`;
-		// } else {
-		// 	filePath = `/app/data/${userId}-invoice.json`;
-		// }
+		let preInv;
+		let filePath = `./src/lib/${userId}-invoice.json`;
 		try {
-			// if (fs.existsSync(filePath)) {
-			// 	const fileContent = fs.readFileSync(filePath, 'utf-8');
-			// 	if (fileContent.trim() === '') {
-			// 		preInv = [];
+			// if (dev) {
+			// 	if (fs.existsSync(filePath)) {
+			// 		const fileContent = fs.readFileSync(filePath, 'utf-8');
+			// 		if (fileContent.trim() === '') {
+			// 			preInv = [];
+			// 		} else {
+			// 			preInv = JSON.parse(fileContent);
+			// 		}
 			// 	} else {
-			// 		preInv = JSON.parse(fileContent);
+			// 		preInv = [];
 			// 	}
-			// } else {
-			// 	preInv = [];
-			// }
 
-			// let inv = [...preInv, invoice];
-			// fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
+			// 	let inv = [...preInv, invoice];
+			// 	fs.writeFileSync(`./src/lib/${userId}-invoice.json`, JSON.stringify(inv), 'utf-8');
+			// 	console.log('Invoice saved successfully');
+			// } else {
 			await User.findById(user.userId).updateMany({}, { $push: { invoices: invoice } });
 			console.log('Invoice saved successfully');
+			// }
 			message = 'Invoice Saved Successfully';
 			url = `/invoices/${id}`;
 			return {
