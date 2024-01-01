@@ -14,32 +14,35 @@ import { v4 as uuid } from 'uuid';
 dotenv.config();
 let uuidv4 = uuid();
 
-async function connectToDB() {
-	if (dev) {
-		await mongoose
-			.connect(`${process.env.MONGO_URL_LOCAL}`)
-			.then(() => console.log('Connected To Local Database.'))
-			.catch((e) => {
-				console.log(`Connection to Local Database Failed: ${e}`);
-			});
-	} else {
-		await mongoose
-			.connect(`${process.env.MONGO_URL}`)
-			.then(() => console.log('Connected To Online Database.'))
-			.catch((e) => {
-				if (e instanceof Query) {
-					console.log(`Connection to Online Database Failed: Network Error`);
-				}
-			});
-	}
-}
+// async function connectToDB() {
+// if (dev) {
+// await mongoose
+// .connect(`${process.env.MONGO_URL_LOCAL}`)
+// .then(() => console.log('Connected To Local Database.'))
+// .catch((e) => {
+// console.log(`Connection to Local Database Failed: ${e}`);
+// });
+// } else {
+// await mongoose
+// .connect(`${process.env.MONGO_URL}`)
+// .then(() => console.log('Connected To Online Database.'))
+// .catch((e) => {
+// if (e instanceof Query) {
+// console.log(`Connection to Online Database Failed: Network Error`);
+// }
+// });
+// }
+// }
+
 //Use This Function If You Cannot Setup Mongodb Locally on your system (Note: It Requires An Internet Connection):
 
-// async function connectToDB() {
-// 	(await mongoose.connect(`${process.env.MONGO_URL}`))
-// 		.isObjectIdOrHexString(() => console.log('Connected To Online Database'))
-// 		.catch((e) => console.log(`Connection To Database Failed: ${e}`));
-// }
+async function connectToDB() {
+	console.log(process.env.MONGO_URL);
+	await mongoose
+		.connect(`${process.env.MONGO_URL}`)
+		.then(() => console.log('Connected To Online Database'))
+		.catch((e) => console.log(`Connection To Database Failed: ${e}`));
+}
 connectToDB();
 
 interface Invoice {
